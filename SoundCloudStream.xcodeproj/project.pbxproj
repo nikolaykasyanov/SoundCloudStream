@@ -131,14 +131,14 @@
 		1FE51D9D182BFEB900C920C5 /* SoundCloudStream */ = {
 			isa = PBXGroup;
 			children = (
+				1FD6CD1A182E315800CDA7DD /* constants.h */,
+				1FD6CD1B182E315800CDA7DD /* constants.m */,
 				1FE51DA6182BFEB900C920C5 /* CRTAppDelegate.h */,
 				1FE51DA7182BFEB900C920C5 /* CRTAppDelegate.m */,
 				1FE51DA9182BFEB900C920C5 /* Images.xcassets */,
-				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
-				E4E8760A7059DD3DE5775529 /* ViewModel */,
-				1FD6CD1A182E315800CDA7DD /* constants.h */,
-				1FD6CD1B182E315800CDA7DD /* constants.m */,
 				E4E87B080AB4A4A2A61F4850 /* Model */,
+				E4E8760A7059DD3DE5775529 /* ViewModel */,
+				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
 			);
 			path = SoundCloudStream;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */,
-				1FE51DB7182BFEBA00C920C5 /* Supporting Files */,
 				E4E87AD40288C76E10684A64 /* Fixtures */,
+				1FE51DB7182BFEBA00C920C5 /* Supporting Files */,
 			);
 			path = SoundCloudStreamTests;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 				ORGANIZATIONNAME = "Nikolay Kasyanov";
 				TargetAttributes = {
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
+						TestTargetID = 1FE51D93182BFEB900C920C5;
 					};
 				};
 			};
