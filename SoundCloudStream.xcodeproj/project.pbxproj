@@ -129,7 +129,7 @@
 				1FE51DA7182BFEB900C920C5 /* CRTAppDelegate.m */,
 				1FE51DA9182BFEB900C920C5 /* Images.xcassets */,
 				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
-				E4E8760A7059DD3DE5775529 /* ViewModels */,
+				E4E8760A7059DD3DE5775529 /* ViewModel */,
 				1FD6CD1A182E315800CDA7DD /* constants.h */,
 				1FD6CD1B182E315800CDA7DD /* constants.m */,
 			);
@@ -165,13 +165,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E4E8760A7059DD3DE5775529 /* ViewModels */ = {
+		E4E8760A7059DD3DE5775529 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */,
 				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
 			);
-			path = ViewModels;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
