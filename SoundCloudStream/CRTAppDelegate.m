@@ -7,7 +7,19 @@
 //
 
 #import "CRTAppDelegate.h"
+#import <GROAuth2SessionManager/GROAuth2SessionManager.h>
+
+
 #import "CRTLoginViewModel.h"
+
+
+@interface CRTAppDelegate ()
+
+@property (nonatomic, strong) GROAuth2SessionManager *client;
+@property (nonatomic, strong) CRTLoginViewModel *loginViewModel;
+
+@end
+
 
 @implementation CRTAppDelegate {
     CRTLoginViewModel *_loginViewModel;
@@ -20,16 +32,22 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
+    NSURL *endpointURL = [NSURL URLWithString:CRTSoundcloudEndpointURLString];
+
+    self.client = [GROAuth2SessionManager managerWithBaseURL:endpointURL
+                                                    clientID:CRTSoundcloudClientID
+                                                      secret:CRTSoundcloudSecret];
+
+    self.loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client];
+
+    [RACObserve(self.loginViewModel, authToken) subscribeNext:^(NSString *authToken) {
+        NSLog(@"OAuth2 token received: %@", authToken);
+    }];
+
     double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        _loginViewModel = [[CRTLoginViewModel alloc] init];
-
-        [RACObserve(_loginViewModel, authToken) subscribeNext:^(NSString *authToken) {
-            NSLog(@"OAuth2 token received: %@", authToken);
-        }];
-
-        [_loginViewModel.startLogin execute:nil];
+    dispatch_after(popTime, dispatch_get_main_queue(), ^{
+        [self.loginViewModel.startLogin execute:nil];
     });
 
     return YES;

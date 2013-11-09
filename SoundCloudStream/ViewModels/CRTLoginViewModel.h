@@ -9,11 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @class RACCommand;
+@class GROAuth2SessionManager;
+
 
 @interface CRTLoginViewModel : NSObject
 
-@property (nonatomic, strong, readonly) RACCommand *startLogin;
+- (instancetype)init __attribute__((unavailable("Use -initWithClient: instead")));
 
+- (instancetype)initWithClient:(GROAuth2SessionManager *)client;
+
+
+@property (nonatomic, strong, readonly) RACCommand *startLogin;
 @property (nonatomic, copy, readonly) NSString *authToken;
 
 @end

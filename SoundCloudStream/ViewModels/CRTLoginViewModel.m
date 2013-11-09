@@ -52,16 +52,14 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
 @implementation CRTLoginViewModel
 
-- (instancetype)init
+- (instancetype)initWithClient:(GROAuth2SessionManager *)client
 {
+    NSCParameterAssert(client != nil);
+
     self = [super init];
 
     if (self != nil) {
         NSURL *endpointURL = [NSURL URLWithString:CRTSoundcloudEndpointURLString];
-
-        GROAuth2SessionManager *client = [GROAuth2SessionManager managerWithBaseURL:endpointURL
-                                                                           clientID:CRTSoundcloudClientID
-                                                                             secret:CRTSoundcloudSecret];
 
         _startLogin = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id _) {
 
@@ -118,8 +116,6 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
     NSCParameterAssert(code != nil);
 
     return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-
-        NSURL *backURL = [NSURL URLWithString:CRTSoundcloudBackURLString];
 
         [client authenticateUsingOAuthWithPath:@"/oauth2/token"
                                           code:code
