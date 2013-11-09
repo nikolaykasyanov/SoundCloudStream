@@ -1,0 +1,11 @@
+//
+//  SoundCloudStreamTests-Prefix.pch
+//  SoundCloudStream
+//
+//  Created by Nikolay Kasyanov on 09.11.13.
+//  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
+//
+
+#ifdef __OBJC__
+
+#endif
