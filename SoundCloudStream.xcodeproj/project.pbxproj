@@ -10,6 +10,7 @@
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1FD6CD1C182E315800CDA7DD /* constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD1B182E315800CDA7DD /* constants.m */; };
 		1FD6CD22182E678000CDA7DD /* CRTSoundcloudTrackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */; };
+		1FD6CD25182E705A00CDA7DD /* CRTSoundcloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */; };
 		1FE51D98182BFEB900C920C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D97182BFEB900C920C5 /* Foundation.framework */; };
 		1FE51D9A182BFEB900C920C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */; };
 		1FE51D9C182BFEB900C920C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D9B182BFEB900C920C5 /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 		1FD6CD1B182E315800CDA7DD /* constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constants.m; sourceTree = "<group>"; };
 		1FD6CD20182E665900CDA7DD /* SoundCloudStreamTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SoundCloudStreamTests-Prefix.pch"; sourceTree = "<group>"; };
 		1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrackTests.m; sourceTree = "<group>"; };
+		1FD6CD23182E705A00CDA7DD /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
+		1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudClient.m; sourceTree = "<group>"; };
 		1FE51D94182BFEB900C920C5 /* SoundCloudStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCloudStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE51D97182BFEB900C920C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -135,6 +138,8 @@
 				1FD6CD1B182E315800CDA7DD /* constants.m */,
 				1FE51DA6182BFEB900C920C5 /* CRTAppDelegate.h */,
 				1FE51DA7182BFEB900C920C5 /* CRTAppDelegate.m */,
+				1FD6CD23182E705A00CDA7DD /* CRTSoundcloudClient.h */,
+				1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */,
 				1FE51DA9182BFEB900C920C5 /* Images.xcassets */,
 				E4E87B080AB4A4A2A61F4850 /* Model */,
 				E4E8760A7059DD3DE5775529 /* ViewModel */,
@@ -253,7 +258,7 @@
 				ORGANIZATIONNAME = "Nikolay Kasyanov";
 				TargetAttributes = {
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5;
+						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
 					};
 				};
 			};
@@ -368,6 +373,7 @@
 				1FE51DA4182BFEB900C920C5 /* main.m in Sources */,
 				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
+				1FD6CD25182E705A00CDA7DD /* CRTSoundcloudClient.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
