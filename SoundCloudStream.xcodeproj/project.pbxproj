@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
+		1FD6CD1C182E315800CDA7DD /* constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD1B182E315800CDA7DD /* constants.m */; };
 		1FE51D98182BFEB900C920C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D97182BFEB900C920C5 /* Foundation.framework */; };
 		1FE51D9A182BFEB900C920C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */; };
 		1FE51D9C182BFEB900C920C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D9B182BFEB900C920C5 /* UIKit.framework */; };
@@ -34,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTLoginViewModel.h; sourceTree = "<group>"; };
+		1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTLoginViewModel.m; sourceTree = "<group>"; };
+		1FD6CD1A182E315800CDA7DD /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		1FD6CD1B182E315800CDA7DD /* constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constants.m; sourceTree = "<group>"; };
 		1FE51D94182BFEB900C920C5 /* SoundCloudStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCloudStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE51D97182BFEB900C920C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +129,9 @@
 				1FE51DA7182BFEB900C920C5 /* CRTAppDelegate.m */,
 				1FE51DA9182BFEB900C920C5 /* Images.xcassets */,
 				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
+				E4E8760A7059DD3DE5775529 /* ViewModels */,
+				1FD6CD1A182E315800CDA7DD /* constants.h */,
+				1FD6CD1B182E315800CDA7DD /* constants.m */,
 			);
 			path = SoundCloudStream;
 			sourceTree = "<group>";
@@ -154,6 +163,15 @@
 				1FE51DB9182BFEBA00C920C5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4E8760A7059DD3DE5775529 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */,
+				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +339,8 @@
 			files = (
 				1FE51DA8182BFEB900C920C5 /* CRTAppDelegate.m in Sources */,
 				1FE51DA4182BFEB900C920C5 /* main.m in Sources */,
+				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
+				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
