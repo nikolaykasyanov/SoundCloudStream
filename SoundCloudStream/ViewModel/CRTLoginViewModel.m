@@ -59,8 +59,6 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
     self = [super init];
 
     if (self != nil) {
-        NSURL *endpointURL = [NSURL URLWithString:CRTSoundcloudEndpointURLString];
-
         _startLogin = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id _) {
 
             AFHTTPRequestSerializer *serializer = [[AFHTTPRequestSerializer alloc] init];
@@ -87,9 +85,6 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         RACSignal *authCode = [[[notification map:^NSString *(NSNotification *note) {
             return note.userInfo[CRTOpenURLNotificationURLKey];
         }] map:^NSString *(NSURL *redirectURL) {
-
-            NSString *query = redirectURL.query;
-
             NSDictionary *parameters = ParametersFromQueryString(redirectURL.query);
             return parameters[@"code"];
         }] filter:^BOOL(NSString *code) {
