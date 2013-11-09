@@ -11,9 +11,41 @@
 #import <GROAuth2SessionManager/GROAuth2SessionManager.h>
 
 
+static NSDictionary *ParametersFromQueryString(NSString *queryString)
+{
+    if (queryString.length == 0) {
+        return @{};
+    }
+
+    NSArray *rawParams = [queryString componentsSeparatedByString:@"&"];
+
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithCapacity:rawParams.count];
+
+    for (NSString *rawParam in rawParams) {
+        NSArray *keyAndValue = [rawParam componentsSeparatedByString:@"="];
+
+        NSString *key = keyAndValue[0];
+
+        id value;
+        if (keyAndValue.count >= 2) {
+            value = keyAndValue[1];
+        }
+        else {
+            value = [NSNull null];
+        }
+
+        parameters[key] = value;
+    }
+
+    return [parameters copy];
+}
+
+
 @interface CRTLoginViewModel ()
 
 @property (nonatomic, copy) NSString *authToken;
+
+@property (nonatomic, strong, readonly) RACCommand *obtainToken;
 
 @end
 
@@ -50,9 +82,58 @@
 
             return [RACSignal empty];
         }];
+
+        RACSignal *notification = [[NSNotificationCenter defaultCenter] rac_addObserverForName:CRTOpenURLNotification
+                                                                                        object:nil];
+
+        RACSignal *authCode = [[[notification map:^NSString *(NSNotification *note) {
+            return note.userInfo[CRTOpenURLNotificationURLKey];
+        }] map:^NSString *(NSURL *redirectURL) {
+
+            NSString *query = redirectURL.query;
+
+            NSDictionary *parameters = ParametersFromQueryString(redirectURL.query);
+            return parameters[@"code"];
+        }] filter:^BOOL(NSString *code) {
+            return code != nil;
+        }];
+
+        @weakify(self);
+        _obtainToken = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *code) {
+            @strongify(self);
+            return [self authenticateUsingClient:client code:code];
+        }];
+
+        [_obtainToken rac_liftSelector:@selector(execute:) withSignals:authCode, nil];
+
+        RAC(self, authToken) = [_obtainToken.executionSignals switchToLatest];
     }
 
     return self;
+}
+
+- (RACSignal *)authenticateUsingClient:(GROAuth2SessionManager *)client code:(NSString *)code
+{
+    NSCParameterAssert(client != nil);
+    NSCParameterAssert(code != nil);
+
+    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+
+        NSURL *backURL = [NSURL URLWithString:CRTSoundcloudBackURLString];
+
+        [client authenticateUsingOAuthWithPath:@"/oauth2/token"
+                                          code:code
+                                   redirectURI:CRTSoundcloudBackURLString
+                                       success:^(AFOAuthCredential *credential) {
+                                           [subscriber sendNext:credential.accessToken];
+                                           [subscriber sendCompleted];
+                                       }
+                                       failure:^(NSError *error) {
+                                           [subscriber sendError:error];
+                                       }];
+
+        return nil;
+    }] replayLazily];
 }
 
 @end

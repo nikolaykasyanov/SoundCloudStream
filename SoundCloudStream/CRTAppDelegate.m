@@ -7,8 +7,11 @@
 //
 
 #import "CRTAppDelegate.h"
+#import "CRTLoginViewModel.h"
 
-@implementation CRTAppDelegate
+@implementation CRTAppDelegate {
+    CRTLoginViewModel *_loginViewModel;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -16,6 +19,19 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _loginViewModel = [[CRTLoginViewModel alloc] init];
+
+        [RACObserve(_loginViewModel, authToken) subscribeNext:^(NSString *authToken) {
+            NSLog(@"OAuth2 token received: %@", authToken);
+        }];
+
+        [_loginViewModel.startLogin execute:nil];
+    });
+
     return YES;
 }
 
@@ -27,7 +43,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
