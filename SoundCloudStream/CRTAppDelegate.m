@@ -85,11 +85,17 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
+    BOOL canHandle = [url.scheme isEqualToString:CRTSoundcloudURLScheme];
+
+    if (!canHandle) {
+        return NO;
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:CRTOpenURLNotification
                                                         object:nil
                                                       userInfo:@{CRTOpenURLNotificationURLKey: url}];
 
-    return [url.scheme isEqualToString:CRTSoundcloudURLScheme];
+    return YES;
 }
 
 @end
