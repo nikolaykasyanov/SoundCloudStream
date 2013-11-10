@@ -8,7 +8,7 @@
 
 #import "constants.h"
 
-NSString *const CRTSoundcloudURLScheme = @"ru.corrristo.SoundCloudStream";
+NSString *const CRTSoundcloudURLScheme = @"ru.corristo.soundcloudstream";
 
 NSString *const CRTSoundcloudConnectURLString = @"http://soundcloud.com/connect";
 NSString *const CRTSoundcloudEndpointURLString = @"http://api.soundcloud.com/";
@@ -16,7 +16,7 @@ NSString *const CRTSoundcloudEndpointURLString = @"http://api.soundcloud.com/";
 NSString *const CRTSoundcloudClientID = @"d2ca18cb9684ed9303a2117d58c9c8cb";
 NSString *const CRTSoundcloudSecret = @"30234e3342c525804f93cc96ab0758a4";
 
-NSString *const CRTSoundcloudBackURLString = @"ru.corrristo.SoundCloudStream://authCallback";
+NSString *const CRTSoundcloudBackURLString = @"ru.corristo.soundcloudstream://authCallback";
 
 #pragma mark - Notifications
 
