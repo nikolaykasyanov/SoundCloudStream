@@ -1,0 +1,51 @@
+{
+    "type": "playlist",
+    "created_at": "2013/10/01 12:40:17 +0000",
+    "origin": {
+        "kind": "playlist",
+        "id": 4108212,
+        "created_at": "2013/03/15 21:31:20 +0000",
+        "user_id": 22985336,
+        "duration": 651788,
+        "sharing": "public",
+        "tag_list": "\"Giana Sisters\" SID",
+        "permalink": "giana-dlc",
+        "track_count": 4,
+        "streamable": true,
+        "downloadable": false,
+        "embeddable_by": "all",
+        "purchase_url": null,
+        "label_id": null,
+        "type": "album",
+        "playlist_type": "album",
+        "ean": "",
+        "description": "These are the new songs for the Giana Sisters: Twisted Dreams DLC the \"Rise of The Owlverlord\" from Black Forest Games.\r\n\r\nOut now on Steam: http://store.steampowered.com/app/246960/",
+        "genre": "Video Game Music",
+        "release": "",
+        "purchase_title": null,
+        "label_name": "Black Forest Games",
+        "title": "Giana Sisters Twisted Dreams DLC",
+        "release_year": null,
+        "release_month": null,
+        "release_day": null,
+        "license": "all-rights-reserved",
+        "uri": "https://api.soundcloud.com/playlists/4108212",
+        "permalink_url": "http://soundcloud.com/machinaesupremacy/sets/giana-dlc",
+        "artwork_url": "https://i1.sndcdn.com/artworks-000043041685-c042ev-large.jpg?3eddc42",
+        "user": {
+            "id": 22985336,
+            "kind": "user",
+            "permalink": "machinaesupremacy",
+            "username": "Machinae Supremacy",
+            "uri": "https://api.soundcloud.com/users/22985336",
+            "permalink_url": "http://soundcloud.com/machinaesupremacy",
+            "avatar_url": "https://i1.sndcdn.com/avatars-000021370330-de7w98-large.jpg?3eddc42"
+        },
+        "tracks_uri": "https://api.soundcloud.com/playlists/4108212/tracks",
+        "sharing_note": {
+            "text": "",
+            "created_at": "2013/10/01 12:40:18 +0000"
+        }
+    },
+    "tags": "affiliated"
+}
