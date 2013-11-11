@@ -18,6 +18,10 @@ NSString *const CRTSoundcloudSecret = @"30234e3342c525804f93cc96ab0758a4";
 
 NSString *const CRTSoundcloudBackURLString = @"ru.corristo.soundcloudstream://authCallback";
 
+#pragma mark - Keychain keys
+
+NSString *const CRTSoundcloudCredentialsKey = @"CRTSoundcloudCredentialsKey";
+
 #pragma mark - Notifications
 
 NSString *const CRTOpenURLNotification = @"CRTOpenURLNotification";

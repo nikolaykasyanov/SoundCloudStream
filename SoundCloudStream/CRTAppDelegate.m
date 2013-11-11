@@ -39,15 +39,23 @@
 
     self.loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client];
 
-    [RACObserve(self.loginViewModel, authToken) subscribeNext:^(NSString *authToken) {
-        NSLog(@"OAuth2 token received: %@", authToken);
-    }];
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
 
-    double delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^{
-        [self.loginViewModel.startLogin execute:nil];
-    });
+    if (credential != nil) {
+//        [AFOAuthCredential deleteCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+        [self.client setAuthorizationHeaderWithCredential:credential];
+
+        [[self.client affiliatedTracksWithLimit:5] subscribeNext:^(id x) {
+            NSLog(@"Response received: %@", x);
+        }];
+    }
+    else {
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^{
+            [self.loginViewModel.startLogin execute:nil];
+        });
+    }
 
     return YES;
 }

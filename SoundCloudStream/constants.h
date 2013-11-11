@@ -18,6 +18,10 @@ extern NSString *const CRTSoundcloudSecret;
 
 extern NSString *const CRTSoundcloudBackURLString;
 
+#pragma mark - Keychain keys
+
+extern NSString *const CRTSoundcloudCredentialsKey;
+
 #pragma mark - Notifications
 
 extern NSString *const CRTOpenURLNotification;

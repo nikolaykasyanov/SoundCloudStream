@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class RACCommand;
 @class GROAuth2SessionManager;
+@class AFOAuthCredential;
+@class RACCommand;
 
 
 @interface CRTLoginViewModel : NSObject
@@ -20,6 +21,6 @@
 
 
 @property (nonatomic, strong, readonly) RACCommand *startLogin;
-@property (nonatomic, copy, readonly) NSString *authToken;
+@property (nonatomic, strong, readonly) AFOAuthCredential *OAuthCredential;
 
 @end

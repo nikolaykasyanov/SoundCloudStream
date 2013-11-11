@@ -43,7 +43,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
 @interface CRTLoginViewModel ()
 
-@property (nonatomic, copy) NSString *authToken;
+@property (nonatomic, strong) AFOAuthCredential *OAuthCredential;
 
 @property (nonatomic, strong, readonly) RACCommand *obtainToken;
 
@@ -95,12 +95,14 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         @weakify(self);
         _obtainToken = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *code) {
             @strongify(self);
-            return [self authenticateUsingClient:client code:code];
+            return [[self authenticateUsingClient:client code:code] doNext:^(AFOAuthCredential *credential) {
+                [AFOAuthCredential storeCredential:credential withIdentifier:CRTSoundcloudCredentialsKey];
+            }];
         }];
 
         [_obtainToken rac_liftSelector:@selector(execute:) withSignals:authCode, nil];
 
-        RAC(self, authToken) = [_obtainToken.executionSignals switchToLatest];
+        RAC(self, OAuthCredential) = [_obtainToken.executionSignals switchToLatest];
     }
 
     return self;
@@ -117,7 +119,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
                                           code:code
                                    redirectURI:CRTSoundcloudBackURLString
                                        success:^(AFOAuthCredential *credential) {
-                                           [subscriber sendNext:credential.accessToken];
+                                           [subscriber sendNext:credential];
                                            [subscriber sendCompleted];
                                        }
                                        failure:^(NSError *error) {

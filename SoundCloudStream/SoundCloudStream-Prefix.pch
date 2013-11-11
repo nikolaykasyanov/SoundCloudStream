@@ -10,6 +10,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <Security/Security.h>
 
     #import <ReactiveCocoa/ReactiveCocoa.h>
     #import <ReactiveCocoa/RACEXTScope.h>
