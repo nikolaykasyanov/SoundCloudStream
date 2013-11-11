@@ -1,6 +1,6 @@
 target "SoundCloudStream" do
     pod 'AFNetworking', '~> 2.0.0'
-    pod 'GROAuth2SessionManager', '~> 0.1.0'
+    pod 'GROAuth2SessionManager', :podspec => 'GROAuth2SessionManager.podspec'
     pod 'Mantle', '~> 1.0'
     pod 'ReactiveCocoa', '~> 2.1'
 end
