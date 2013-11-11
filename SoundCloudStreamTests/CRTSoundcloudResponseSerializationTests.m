@@ -24,8 +24,8 @@
     [super setUp];
 
     NSDictionary *mapping = @{
-                              @"/me/activities" : [CRTSoundcloudActivitiesResponse class],
-                              };
+            @"/me/activities" : [CRTSoundcloudActivitiesResponse class],
+    };
 
     self.serializer = [[CRTSoundcloudResponseSerialization alloc] initWithPathMapping:mapping];
 }
@@ -44,7 +44,8 @@
                                                               statusCode:200
                                                              HTTPVersion:@"HTTP/1.1"
                                                             headerFields:@{
-                                                                           @"Content-Type": @"application/json"}];
+                                                                    @"Content-Type" : @"application/json"
+                                                            }];
 
     NSData *jsonData = [self crt_dataFromResourse:@"activities" extension:@"json"];
 
@@ -58,7 +59,9 @@
 
 - (void)testUnknownPathDeserialization
 {
-    NSDictionary *testData = @{ @"someKey" : @"Some value" };
+    NSDictionary *testData = @{
+            @"someKey" : @"Some value"
+    };
 
     NSError *jsonError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:testData options:0 error:&jsonError];
@@ -68,7 +71,8 @@
                                                               statusCode:200
                                                              HTTPVersion:@"HTTP/1.1"
                                                             headerFields:@{
-                                                                           @"Content-Type": @"application/json"}];
+                                                                    @"Content-Type" : @"application/json"
+                                                            }];
 
     NSError *responseError = nil;
     id responseObject = [self.serializer responseObjectForResponse:response
