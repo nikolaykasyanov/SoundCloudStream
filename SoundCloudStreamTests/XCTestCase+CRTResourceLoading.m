@@ -15,19 +15,26 @@
     return [NSBundle bundleForClass:self.class];
 }
 
-- (NSDictionary *)crt_jsonFromResourse:(NSString *)resource
+- (NSData *)crt_dataFromResourse:(NSString *)resource extension:(NSString *)extension
 {
     XCTAssertNotNil(resource, @"Resource name should not be nil");
 
     NSBundle *testBundle = self.crt_testBundle;
 
-    NSURL *fixtureURL = [testBundle URLForResource:resource withExtension:@"json"];
+    NSURL *fixtureURL = [testBundle URLForResource:resource withExtension:extension];
 
     XCTAssertNotNil(fixtureURL, @"No resource named '%@' in bundle '%@'", resource, testBundle);
 
     NSData *jsonData = [NSData dataWithContentsOfURL:fixtureURL];
 
     XCTAssertNotNil(jsonData, @"Cannot load fixture");
+
+    return jsonData;
+}
+
+- (NSDictionary *)crt_jsonFromResourse:(NSString *)resource
+{
+    NSData *jsonData = [self crt_dataFromResourse:resource extension:@"json"];
 
     NSError *jsonError = nil;
     NSDictionary *rawActivity = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];

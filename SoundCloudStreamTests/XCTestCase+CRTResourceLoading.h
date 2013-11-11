@@ -12,6 +12,8 @@
 
 - (NSBundle *)crt_testBundle;
 
+- (NSData *)crt_dataFromResourse:(NSString *)resource extension:(NSString *)extension;
+
 - (NSDictionary *)crt_jsonFromResourse:(NSString *)resource;
 
 @end
