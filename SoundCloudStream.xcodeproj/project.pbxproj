@@ -16,7 +16,6 @@
 		1F976BC818312E6000998EC2 /* XCTestCase+CRTResourceLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC718312E6000998EC2 /* XCTestCase+CRTResourceLoading.m */; };
 		1FD6CD1C182E315800CDA7DD /* constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD1B182E315800CDA7DD /* constants.m */; };
 		1FD6CD22182E678000CDA7DD /* CRTSoundcloudTrackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */; };
-		1FD6CD25182E705A00CDA7DD /* CRTSoundcloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */; };
 		1FE51D98182BFEB900C920C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D97182BFEB900C920C5 /* Foundation.framework */; };
 		1FE51D9A182BFEB900C920C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */; };
 		1FE51D9C182BFEB900C920C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE51D9B182BFEB900C920C5 /* UIKit.framework */; };
@@ -35,6 +34,7 @@
 		E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */; };
 		E4E87979E6087E9EB01E9D96 /* track_activity.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87330BB58E8E1159898B7 /* track_activity.json */; };
 		E4E87D2E6BD05A13B07FAEEA /* activities.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87299ED027FD33F456C97 /* activities.json */; };
+		E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +64,6 @@
 		1FD6CD1B182E315800CDA7DD /* constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = constants.m; sourceTree = "<group>"; };
 		1FD6CD20182E665900CDA7DD /* SoundCloudStreamTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SoundCloudStreamTests-Prefix.pch"; sourceTree = "<group>"; };
 		1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrackTests.m; sourceTree = "<group>"; };
-		1FD6CD23182E705A00CDA7DD /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
-		1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudClient.m; sourceTree = "<group>"; };
 		1FE51D94182BFEB900C920C5 /* SoundCloudStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundCloudStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE51D97182BFEB900C920C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FE51D99182BFEB900C920C5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -90,7 +88,9 @@
 		E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrack.m; sourceTree = "<group>"; };
 		E4E87330BB58E8E1159898B7 /* track_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track_activity.json; sourceTree = "<group>"; };
 		E4E87457DFFE700E426EBA5C /* playlist_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = playlist_activity.json; sourceTree = "<group>"; };
+		E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
 		E4E87E6634287EBE92154247 /* track.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track.json; sourceTree = "<group>"; };
+		E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,13 +160,12 @@
 				1FD6CD1B182E315800CDA7DD /* constants.m */,
 				1FE51DA6182BFEB900C920C5 /* CRTAppDelegate.h */,
 				1FE51DA7182BFEB900C920C5 /* CRTAppDelegate.m */,
-				1FD6CD23182E705A00CDA7DD /* CRTSoundcloudClient.h */,
-				1FD6CD24182E705A00CDA7DD /* CRTSoundcloudClient.m */,
 				1FE51DA9182BFEB900C920C5 /* Images.xcassets */,
 				E4E87B080AB4A4A2A61F4850 /* Model */,
 				E4E8760A7059DD3DE5775529 /* ViewModel */,
 				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
 				E4E87764A400B01D49EE4C0E /* Utils */,
+				E4E87710683BC5ED8C1D1DFE /* API */,
 			);
 			path = SoundCloudStream;
 			sourceTree = "<group>";
@@ -213,6 +212,15 @@
 				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E4E87710683BC5ED8C1D1DFE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */,
+				E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		E4E87764A400B01D49EE4C0E /* Utils */ = {
@@ -421,9 +429,9 @@
 				1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */,
 				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
-				1FD6CD25182E705A00CDA7DD /* CRTSoundcloudClient.m in Sources */,
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
+				E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
