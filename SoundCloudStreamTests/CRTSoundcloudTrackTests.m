@@ -16,34 +16,9 @@
 
 @implementation CRTSoundcloudTrackTests
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here; it will be run once, before the first test case.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here; it will be run once, after the last test case.
-    [super tearDown];
-}
-
 - (void)testDeserialization
 {
-    NSBundle *testBundle = [NSBundle bundleForClass:self.class];
-
-    NSURL *fixtureURL = [testBundle URLForResource:@"track" withExtension:@"json"];
-
-    NSData *jsonData = [NSData dataWithContentsOfURL:fixtureURL];
-
-    XCTAssertNotNil(jsonData, @"Cannot load fixture");
-
-    NSError *jsonError = nil;
-    NSDictionary *rawTrack = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                             options:0
-                                                               error:&jsonError];
-
-    XCTAssertNotNil(rawTrack, @"JSON deserialization error: %@", jsonError);
+    NSDictionary *rawTrack = [self crt_jsonFromResourse:@"track"];
 
     NSError *mantleError = nil;
     CRTSoundcloudTrack *track = [MTLJSONAdapter modelOfClass:[CRTSoundcloudTrack class]
