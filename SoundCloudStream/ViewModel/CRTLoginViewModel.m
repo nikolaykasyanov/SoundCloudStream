@@ -70,6 +70,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
                                                                @"client_id" : CRTSoundcloudClientID,
                                                                @"consumer_Key" : CRTSoundcloudSecret,
                                                                @"response_type" : @"code",
+                                                               @"scope" : @"non-expiring",
                                                        }];
 
             NSURL *url = request.URL;
