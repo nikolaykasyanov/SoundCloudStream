@@ -9,5 +9,6 @@
 #ifdef __OBJC__
 
 #import <XCTest/XCTest.h>
+#import "XCTestCase+CRTResourceLoading.h"
 
 #endif
