@@ -216,8 +216,8 @@
 		E4E87B080AB4A4A2A61F4850 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */,
 				E4E8710B72A5AFE548248F25 /* CRTSoundcloudTrack.h */,
+				E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */,
 				1F976BC11830168E00998EC2 /* CRTSoundcloudActivity.h */,
 				1F976BC21830168E00998EC2 /* CRTSoundcloudActivity.m */,
 			);
