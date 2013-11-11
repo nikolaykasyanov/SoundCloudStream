@@ -11,6 +11,8 @@
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
 		1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */; };
+		1F802A0018314E0600B9A662 /* CRTSoundcloudResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029FF18314E0600B9A662 /* CRTSoundcloudResponseSerialization.m */; };
+		1F802A02183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F802A01183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m */; };
 		1F976BC31830168E00998EC2 /* CRTSoundcloudActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC21830168E00998EC2 /* CRTSoundcloudActivity.m */; };
 		1F976BC518312B7E00998EC2 /* CRTSoundcloudActivityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */; };
 		1F976BC818312E6000998EC2 /* XCTestCase+CRTResourceLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC718312E6000998EC2 /* XCTestCase+CRTResourceLoading.m */; };
@@ -55,6 +57,9 @@
 		1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesResponseTests.m; sourceTree = "<group>"; };
 		1F8029FB183146DF00B9A662 /* NSURL+CRTURLComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CRTURLComparison.h"; sourceTree = "<group>"; };
 		1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CRTURLComparison.m"; sourceTree = "<group>"; };
+		1F8029FE18314E0600B9A662 /* CRTSoundcloudResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudResponseSerialization.h; sourceTree = "<group>"; };
+		1F8029FF18314E0600B9A662 /* CRTSoundcloudResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudResponseSerialization.m; sourceTree = "<group>"; };
+		1F802A01183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudResponseSerializationTests.m; sourceTree = "<group>"; };
 		1F976BC11830168E00998EC2 /* CRTSoundcloudActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivity.h; sourceTree = "<group>"; };
 		1F976BC21830168E00998EC2 /* CRTSoundcloudActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivity.m; sourceTree = "<group>"; };
 		1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivityTests.m; sourceTree = "<group>"; };
@@ -187,6 +192,7 @@
 				1FD6CD21182E678000CDA7DD /* CRTSoundcloudTrackTests.m */,
 				1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */,
 				1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */,
+				1F802A01183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m */,
 				E4E87AD40288C76E10684A64 /* Fixtures */,
 				1FE51DB7182BFEBA00C920C5 /* Supporting Files */,
 			);
@@ -219,6 +225,8 @@
 			children = (
 				E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */,
 				E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */,
+				1F8029FE18314E0600B9A662 /* CRTSoundcloudResponseSerialization.h */,
+				1F8029FF18314E0600B9A662 /* CRTSoundcloudResponseSerialization.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -424,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FE51DA8182BFEB900C920C5 /* CRTAppDelegate.m in Sources */,
+				1F802A0018314E0600B9A662 /* CRTSoundcloudResponseSerialization.m in Sources */,
 				1F976BC31830168E00998EC2 /* CRTSoundcloudActivity.m in Sources */,
 				1FE51DA4182BFEB900C920C5 /* main.m in Sources */,
 				1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */,
@@ -439,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F802A02183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m in Sources */,
 				1F976BC518312B7E00998EC2 /* CRTSoundcloudActivityTests.m in Sources */,
 				1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */,
 				1F976BC818312E6000998EC2 /* XCTestCase+CRTResourceLoading.m in Sources */,
