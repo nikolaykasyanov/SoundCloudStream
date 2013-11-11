@@ -9,9 +9,30 @@
 #import "CRTSoundcloudClient.h"
 
 #import "NSURL+CRTURLComparison.h"
+#import "CRTSoundcloudActivitiesResponse.h"
+#import "CRTSoundcloudResponseSerialization.h"
 
 
 @implementation CRTSoundcloudClient
+
+- (instancetype)initWithBaseURL:(NSURL *)url oAuthURL:(NSURL *)oAuthURL clientID:(NSString *)clientID secret:(NSString *)secret
+{
+    self = [super initWithBaseURL:url
+                         oAuthURL:oAuthURL
+                         clientID:clientID
+                           secret:secret];
+
+    if (self != nil) {
+        NSDictionary *mapping = @{
+                @"/me/activities" : [CRTSoundcloudActivitiesResponse class],
+        };
+
+        self.responseSerializer = [[CRTSoundcloudResponseSerialization alloc] initWithPathMapping:mapping];
+        [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    }
+
+    return self;
+}
 
 - (RACSignal *)affiliatedTracksWithLimit:(NSUInteger)limit
 {
@@ -23,7 +44,7 @@
 
         NSDictionary *parameters = @{@"limit" : @(limit)};
 
-        NSURLSessionDataTask *task = [self GET:@"/me/activities/tracks/affiliated.json"
+        NSURLSessionDataTask *task = [self GET:@"/me/activities/tracks/affiliated"
                                     parameters:parameters
                                        success:^(NSURLSessionDataTask *task, id responseObject) {
                                            [subscriber sendNext:responseObject];
