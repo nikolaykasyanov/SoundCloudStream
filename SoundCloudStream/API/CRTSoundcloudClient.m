@@ -15,12 +15,9 @@
 
 @implementation CRTSoundcloudClient
 
-- (instancetype)initWithBaseURL:(NSURL *)url oAuthURL:(NSURL *)oAuthURL clientID:(NSString *)clientID secret:(NSString *)secret
+- (instancetype)initWithBaseURL:(NSURL *)url
 {
-    self = [super initWithBaseURL:url
-                         oAuthURL:oAuthURL
-                         clientID:clientID
-                           secret:secret];
+    self = [super initWithBaseURL:url];
 
     if (self != nil) {
         NSDictionary *mapping = @{
