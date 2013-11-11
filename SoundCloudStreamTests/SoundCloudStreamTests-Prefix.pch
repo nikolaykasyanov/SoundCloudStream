@@ -8,4 +8,6 @@
 
 #ifdef __OBJC__
 
+#import <XCTest/XCTest.h>
+
 #endif

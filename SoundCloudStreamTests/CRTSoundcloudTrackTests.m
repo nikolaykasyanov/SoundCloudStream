@@ -6,9 +6,6 @@
 //  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import <Mantle/Mantle.h>
-
 #import "CRTSoundcloudTrack.h"
 
 
