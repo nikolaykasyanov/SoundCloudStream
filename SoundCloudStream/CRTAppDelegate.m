@@ -7,7 +7,10 @@
 //
 
 #import "CRTAppDelegate.h"
-#import <GROAuth2SessionManager/GROAuth2SessionManager.h>
+
+#import "CRTSoundcloudClient.h"
+#import "CRTSoundcloudResponseSerialization.h"
+#import "CRTSoundcloudActivitiesResponse.h"
 
 
 #import "CRTLoginViewModel.h"
@@ -34,9 +37,15 @@
 
     NSURL *endpointURL = [NSURL URLWithString:CRTSoundcloudEndpointURLString];
 
-    self.client = [GROAuth2SessionManager managerWithBaseURL:endpointURL
-                                                    clientID:CRTSoundcloudClientID
-                                                      secret:CRTSoundcloudSecret];
+    self.client = [CRTSoundcloudClient managerWithBaseURL:endpointURL
+                                                 clientID:CRTSoundcloudClientID
+                                                   secret:CRTSoundcloudSecret];
+
+    NSDictionary *mapping = @{
+            @"/me/activities" : [CRTSoundcloudActivitiesResponse class],
+    };
+
+    self.client.responseSerializer = [[CRTSoundcloudResponseSerialization alloc] initWithPathMapping:mapping];
 
     self.loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client];
 
