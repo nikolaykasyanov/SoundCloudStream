@@ -94,6 +94,7 @@
 		E4E87330BB58E8E1159898B7 /* track_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track_activity.json; sourceTree = "<group>"; };
 		E4E87457DFFE700E426EBA5C /* playlist_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = playlist_activity.json; sourceTree = "<group>"; };
 		E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
+		E4E87AF89317ABFB81762A6C /* SoundCloudStream.entitlements */ = {isa = PBXFileReference; lastKnownFileType = file.entitlements; path = SoundCloudStream.entitlements; sourceTree = "<group>"; };
 		E4E87E6634287EBE92154247 /* track.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track.json; sourceTree = "<group>"; };
 		E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +183,7 @@
 				1FE51DA0182BFEB900C920C5 /* InfoPlist.strings */,
 				1FE51DA3182BFEB900C920C5 /* main.m */,
 				1FE51DA5182BFEB900C920C5 /* SoundCloudStream-Prefix.pch */,
+				E4E87AF89317ABFB81762A6C /* SoundCloudStream.entitlements */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -316,6 +318,13 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Nikolay Kasyanov";
 				TargetAttributes = {
+					1FE51D93182BFEB900C920C5 = {
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
 					1FE51DAE182BFEB900C920C5 = {
 						TestTargetID = 1FE51D93182BFEB900C920C5;
 					};
@@ -567,6 +576,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
@@ -583,6 +593,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
 				INFOPLIST_FILE = "SoundCloudStream/SoundCloudStream-Info.plist";
