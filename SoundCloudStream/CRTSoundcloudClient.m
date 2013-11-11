@@ -8,30 +8,44 @@
 
 #import "CRTSoundcloudClient.h"
 
-
-@implementation CRTSoundcloudCursor
-- (instancetype)initWithLimit:(NSUInteger)limit uuid:(NSUUID *)uuid
-{
-    NSCParameterAssert(uuid != nil);
-
-    self = [super init];
-
-    if (self) {
-        _limit = limit;
-        _uuid = uuid;
-    }
-
-    return self;
-}
-
-+ (instancetype)cursorWithLimit:(NSUInteger)limit uuid:(NSUUID *)uuid
-{
-    return [[self alloc] initWithLimit:limit uuid:uuid];
-}
-
-@end
+#import "NSURL+CRTURLComparison.h"
 
 
 @implementation CRTSoundcloudClient
+
+- (RACSignal *)affiliatedTracksWithLimit:(NSUInteger)limit
+{
+    if (limit == 0) {
+        return [RACSignal empty];
+    }
+
+    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+
+        NSDictionary *parameters = @{@"limit" : @(limit)};
+
+        NSURLSessionDataTask *task = [self GET:@"/me/activities/tracks/affiliated.json"
+                                    parameters:parameters
+                                       success:^(NSURLSessionDataTask *task, id responseObject) {
+                                           [subscriber sendNext:responseObject];
+                                           [subscriber sendCompleted];
+                                       }
+                                       failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                           [subscriber sendError:error];
+                                       }];
+
+        return [RACDisposable disposableWithBlock:^{
+            [task cancel];
+        }];
+    }] replayLazily];
+}
+
+- (RACSignal *)collectionFromURL:(NSURL *)cursorURL itemsOfClass:(Class)itemClass
+{
+    NSCParameterAssert(cursorURL != nil && [self.baseURL crt_areSchemeAndHostMatchWithURL:cursorURL]);
+    NSCParameterAssert(itemClass != Nil);
+
+    return [RACSignal empty];
+}
+
 
 @end

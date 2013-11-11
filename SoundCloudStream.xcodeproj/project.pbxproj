@@ -10,6 +10,7 @@
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
+		1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */; };
 		1F976BC31830168E00998EC2 /* CRTSoundcloudActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC21830168E00998EC2 /* CRTSoundcloudActivity.m */; };
 		1F976BC518312B7E00998EC2 /* CRTSoundcloudActivityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */; };
 		1F976BC818312E6000998EC2 /* XCTestCase+CRTResourceLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F976BC718312E6000998EC2 /* XCTestCase+CRTResourceLoading.m */; };
@@ -52,6 +53,8 @@
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
 		1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesResponse.m; sourceTree = "<group>"; };
 		1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesResponseTests.m; sourceTree = "<group>"; };
+		1F8029FB183146DF00B9A662 /* NSURL+CRTURLComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+CRTURLComparison.h"; sourceTree = "<group>"; };
+		1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+CRTURLComparison.m"; sourceTree = "<group>"; };
 		1F976BC11830168E00998EC2 /* CRTSoundcloudActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivity.h; sourceTree = "<group>"; };
 		1F976BC21830168E00998EC2 /* CRTSoundcloudActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivity.m; sourceTree = "<group>"; };
 		1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivityTests.m; sourceTree = "<group>"; };
@@ -163,6 +166,7 @@
 				E4E87B080AB4A4A2A61F4850 /* Model */,
 				E4E8760A7059DD3DE5775529 /* ViewModel */,
 				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
+				E4E87764A400B01D49EE4C0E /* Utils */,
 			);
 			path = SoundCloudStream;
 			sourceTree = "<group>";
@@ -209,6 +213,15 @@
 				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E4E87764A400B01D49EE4C0E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1F8029FB183146DF00B9A662 /* NSURL+CRTURLComparison.h */,
+				1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		E4E87AD40288C76E10684A64 /* Fixtures */ = {
@@ -288,7 +301,7 @@
 				ORGANIZATIONNAME = "Nikolay Kasyanov";
 				TargetAttributes = {
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
+						TestTargetID = 1FE51D93182BFEB900C920C5;
 					};
 				};
 			};
@@ -409,6 +422,7 @@
 				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
 				1FD6CD25182E705A00CDA7DD /* CRTSoundcloudClient.m in Sources */,
+				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

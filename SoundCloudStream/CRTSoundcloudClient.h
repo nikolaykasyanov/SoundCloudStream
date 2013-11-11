@@ -9,20 +9,10 @@
 #import <GROAuth2SessionManager/GROAuth2SessionManager.h>
 
 
-@interface CRTSoundcloudCursor : NSObject
-
-- (instancetype)initWithLimit:(NSUInteger)limit uuid:(NSUUID *)uuid;
-+ (instancetype)cursorWithLimit:(NSUInteger)limit uuid:(NSUUID *)uuid;
-
-@property (nonatomic, readonly) NSUInteger limit;
-@property (nonatomic, strong, readonly) NSUUID *uuid;
-
-@end
-
-
 @interface CRTSoundcloudClient : GROAuth2SessionManager
 
-- (RACSignal *)activitiesWithLimit:(NSUInteger)limit cursor:(CRTSoundcloudCursor *)cursor;
-- (RACSignal *)futuresActivitiesWithLimit:(NSUInteger)limit udid:(CRTSoundcloudCursor *)udid;
+- (RACSignal *)affiliatedTracksWithLimit:(NSUInteger)limit;
+
+- (RACSignal *)collectionFromURL:(NSURL *)cursorURL itemsOfClass:(Class)itemClass;
 
 @end
