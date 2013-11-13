@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F02C9961833FBE8001B728D /* CRTSoundcloudActivityIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */; };
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivityIDTests.m; sourceTree = "<group>"; };
 		1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTLoginViewModel.h; sourceTree = "<group>"; };
 		1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTLoginViewModel.m; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				1F976BC418312B7E00998EC2 /* CRTSoundcloudActivityTests.m */,
 				1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */,
 				1F802A01183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m */,
+				1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */,
 				E4E87AD40288C76E10684A64 /* Fixtures */,
 				1FE51DB7182BFEBA00C920C5 /* Supporting Files */,
 			);
@@ -460,6 +463,7 @@
 				1F802A02183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m in Sources */,
 				1F976BC518312B7E00998EC2 /* CRTSoundcloudActivityTests.m in Sources */,
 				1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */,
+				1F02C9961833FBE8001B728D /* CRTSoundcloudActivityIDTests.m in Sources */,
 				1F976BC818312E6000998EC2 /* XCTestCase+CRTResourceLoading.m in Sources */,
 				1FD6CD22182E678000CDA7DD /* CRTSoundcloudTrackTests.m in Sources */,
 			);

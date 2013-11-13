@@ -6,9 +6,10 @@
 
 #import <Foundation/Foundation.h>
 #import <Mantle/Mantle.h>
+#import "CRTSoundcloudActivity.h"
 
 
-@interface CRTSoundcloudTrack : MTLModel <MTLJSONSerializing>
+@interface CRTSoundcloudTrack : MTLModel <MTLJSONSerializing, CRTSoundcloudActivityOrigin>
 
 @property (nonatomic, readonly) uint64_t identifier;
 

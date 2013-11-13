@@ -15,10 +15,31 @@ typedef enum : NSUInteger {
 } CRTSoundcloudActivityType;
 
 
+@interface CRTSoundcloudActivityID : NSObject <NSCopying>
+
+- (instancetype)initWithOriginIdentifier:(uint64_t)originIdentifier
+                            activityType:(CRTSoundcloudActivityType)activityType;
+
++ (instancetype)identifierWithOriginIdentifier:(uint64_t)originIdentifier
+                                  activityType:(CRTSoundcloudActivityType)activityType;
+
+
+@end
+
+
+@protocol CRTSoundcloudActivityOrigin <NSObject>
+
+- (uint64_t)identifier;
+
+@end
+
+
 @interface CRTSoundcloudActivity : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, readonly) CRTSoundcloudActivityType activityType;
 
-@property (nonatomic, strong, readonly) id origin;
+@property (nonatomic, strong, readonly) id <CRTSoundcloudActivityOrigin> origin;
+
+- (CRTSoundcloudActivityID *)uniqueIdentifier;
 
 @end
