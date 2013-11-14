@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F02C9941833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */; };
 		1F02C9961833FBE8001B728D /* CRTSoundcloudActivityIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */; };
+		1F02C99818340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */; };
+		1F02C99B18341011001B728D /* second.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99918341011001B728D /* second.json */; };
+		1F02C99C18341011001B728D /* first.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99A18341011001B728D /* first.json */; };
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
@@ -51,7 +55,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F02C9921833E44F001B728D /* CRTSoundcloudActivitiesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesViewModel.h; sourceTree = "<group>"; };
+		1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesViewModel.m; sourceTree = "<group>"; };
 		1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivityIDTests.m; sourceTree = "<group>"; };
+		1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesViewModelTests.m; sourceTree = "<group>"; };
+		1F02C99918341011001B728D /* second.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = second.json; sourceTree = "<group>"; };
+		1F02C99A18341011001B728D /* first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = first.json; sourceTree = "<group>"; };
 		1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTLoginViewModel.h; sourceTree = "<group>"; };
 		1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTLoginViewModel.m; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
@@ -198,6 +207,7 @@
 				1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */,
 				1F802A01183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m */,
 				1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */,
+				1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */,
 				E4E87AD40288C76E10684A64 /* Fixtures */,
 				1FE51DB7182BFEBA00C920C5 /* Supporting Files */,
 			);
@@ -221,6 +231,8 @@
 			children = (
 				1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */,
 				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
+				1F02C9921833E44F001B728D /* CRTSoundcloudActivitiesViewModel.h */,
+				1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -245,6 +257,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		E4E87A416FFB0D87866B9F9E /* Pagination */ = {
+			isa = PBXGroup;
+			children = (
+				1F02C99A18341011001B728D /* first.json */,
+				1F02C99918341011001B728D /* second.json */,
+			);
+			name = Pagination;
+			path = Pagination;
+			sourceTree = "<group>";
+		};
 		E4E87AD40288C76E10684A64 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +274,7 @@
 				E4E87330BB58E8E1159898B7 /* track_activity.json */,
 				E4E87457DFFE700E426EBA5C /* playlist_activity.json */,
 				E4E87299ED027FD33F456C97 /* activities.json */,
+				E4E87A416FFB0D87866B9F9E /* Pagination */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -329,7 +352,7 @@
 						};
 					};
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5;
+						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
 					};
 				};
 			};
@@ -368,6 +391,8 @@
 				1FE51DBB182BFEBA00C920C5 /* InfoPlist.strings in Resources */,
 				E4E871021D0C61DD0FE55980 /* track.json in Resources */,
 				E4E87979E6087E9EB01E9D96 /* track_activity.json in Resources */,
+				1F02C99C18341011001B728D /* first.json in Resources */,
+				1F02C99B18341011001B728D /* second.json in Resources */,
 				E4E8724FB37801B976DBA209 /* playlist_activity.json in Resources */,
 				E4E87D2E6BD05A13B07FAEEA /* activities.json in Resources */,
 			);
@@ -453,6 +478,7 @@
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 				E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */,
+				1F02C9941833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F02C99818340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m in Sources */,
 				1F802A02183151E100B9A662 /* CRTSoundcloudResponseSerializationTests.m in Sources */,
 				1F976BC518312B7E00998EC2 /* CRTSoundcloudActivityTests.m in Sources */,
 				1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */,
@@ -586,6 +613,7 @@
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
 				INFOPLIST_FILE = "SoundCloudStream/SoundCloudStream-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -602,6 +630,7 @@
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
 				INFOPLIST_FILE = "SoundCloudStream/SoundCloudStream-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
