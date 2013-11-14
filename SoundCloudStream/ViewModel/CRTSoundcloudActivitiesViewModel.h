@@ -16,10 +16,14 @@
 
 @interface CRTSoundcloudActivitiesViewModel : NSObject
 
-- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client pageSize:(NSUInteger)pageSize;
+- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
+                         pageSize:(NSUInteger)pageSize
+                minInvisibleItems:(NSUInteger)minInvisibleItems;
 
 - (CRTSoundcloudActivity *)activityAtIndex:(NSUInteger)index;
 - (NSUInteger)numberOfActivities;
+
+- (BOOL)updateVisibleRange:(NSRange)newVisibleRange;
 
 @property (nonatomic, strong, readonly) RACCommand *loadNextPage;
 @property (nonatomic, strong, readonly) RACCommand *refresh;
@@ -30,7 +34,7 @@
 /** RACSignal[NSError] */
 @property (nonatomic, strong, readonly) RACSignal *errors;
 
-@property (nonatomic) NSRange visibleRange;
+@property (nonatomic, readonly) NSRange visibleRange;
 
 @property (nonatomic, strong, readonly) NSURL *nextCursor;
 @property (nonatomic, strong, readonly) NSURL *futureCursor;

@@ -25,19 +25,29 @@
 
 @property (nonatomic, readonly) BOOL endOfFeedReached;
 
+@property (nonatomic, readonly) NSUInteger pageSize;
+@property (nonatomic, readonly) NSUInteger minInvisibleItems;
+
+@property (nonatomic) BOOL lastPageLoadingFailed;
+
 @end
 
 
 @implementation CRTSoundcloudActivitiesViewModel
 
-- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client pageSize:(NSUInteger)pageSize
+- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
+                         pageSize:(NSUInteger)pageSize
+                minInvisibleItems:(NSUInteger)minInvisibleItems
 {
     NSCParameterAssert(client != nil);
     NSCParameterAssert(pageSize > 0);
+    NSCParameterAssert(minInvisibleItems <= pageSize);
 
     self = [super init];
 
     if (self != nil) {
+        _pageSize = pageSize;
+        _minInvisibleItems = minInvisibleItems;
         _items = [NSMutableArray array];
         _itemIdToItemMap = [NSMutableDictionary dictionary];
 
@@ -59,7 +69,7 @@
             return [RACSignal empty];
         }];
 
-        _errors = [RACSignal combineLatest:@[ _loadNextPage.errors, _refresh.errors ]];
+        _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
 
         _pages = [self rac_liftSelector:@selector(clientDidLoadResponse:)
                             withSignals:[_loadNextPage.executionSignals flatten], nil];
@@ -67,6 +77,11 @@
         RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
             return @(cursor == nil);
         }] startWith:@NO].logAll;
+
+        RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
+                [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
+                [_loadNextPage.errors mapReplace:@YES],
+        ]];
     }
 
     return self;
@@ -111,6 +126,29 @@
     }
 
     return [newItems copy];
+}
+
+- (BOOL)updateVisibleRange:(NSRange)visibleRange
+{
+    NSCParameterAssert(visibleRange.location + visibleRange.length <= self.items.count);
+
+    NSUInteger olderItemsRemaining = self.items.count - (visibleRange.location + visibleRange.length);
+
+    if (olderItemsRemaining >= self.minInvisibleItems) {
+        return NO;
+    }
+
+    if (self.endOfFeedReached || self.lastPageLoadingFailed) {
+        return NO;
+    }
+
+    [self.loadNextPage execute:nil];
+
+    [self willChangeValueForKey:@keypath(self.visibleRange)];
+    _visibleRange = visibleRange;
+    [self didChangeValueForKey:@keypath(self.visibleRange)];
+
+    return YES;
 }
 
 @end
