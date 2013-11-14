@@ -364,7 +364,7 @@
 						};
 					};
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
+						TestTargetID = 1FE51D93182BFEB900C920C5;
 					};
 				};
 			};
@@ -543,7 +543,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -583,7 +582,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -617,7 +615,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60109F0B4E9B47079838027E /* Pods-SoundCloudStream.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
@@ -635,7 +632,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 60109F0B4E9B47079838027E /* Pods-SoundCloudStream.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
@@ -652,7 +648,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D8373B0BF0D4BC4BD2B3B48 /* Pods-SoundCloudStreamTests.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundCloudStream.app/SoundCloudStream";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -677,7 +672,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D8373B0BF0D4BC4BD2B3B48 /* Pods-SoundCloudStreamTests.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SoundCloudStream.app/SoundCloudStream";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
