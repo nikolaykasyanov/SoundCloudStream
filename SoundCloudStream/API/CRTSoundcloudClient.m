@@ -62,7 +62,35 @@
     NSCParameterAssert(cursorURL != nil && [self.baseURL crt_areSchemeAndHostMatchWithURL:cursorURL]);
     NSCParameterAssert(itemClass != Nil);
 
-    return [RACSignal empty];
+    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+
+        NSError *requestError = nil;
+        NSURLRequest *request = [self.requestSerializer requestBySerializingRequest:[NSURLRequest requestWithURL:cursorURL]
+                                                                     withParameters:nil
+                                                                              error:&requestError];
+
+        if (request == nil) {
+            [subscriber sendError:requestError];
+            return nil;
+        }
+
+        NSURLSessionDataTask *task = [self dataTaskWithRequest:request
+                                             completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                                                 if (error) {
+                                                     [subscriber sendError:error];
+                                                 }
+                                                 else {
+                                                     [subscriber sendNext:responseObject];
+                                                     [subscriber sendCompleted];
+                                                 }
+                                             }];
+
+        [task resume];
+
+        return [RACDisposable disposableWithBlock:^{
+            [task cancel];
+        }];
+    }] replayLazily];
 }
 
 
