@@ -12,6 +12,18 @@
 #import "CRTLoginViewModel.h"
 
 
+#ifdef DEBUG
+/// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
+static inline BOOL IsUnitTesting() __attribute__((const));
+static inline BOOL IsUnitTesting()
+{
+    NSDictionary *environment = [NSProcessInfo processInfo].environment;
+    NSString *injectBundlePath = environment[@"XCInjectBundle"];
+    return [injectBundlePath.pathExtension isEqualToString:@"xctest"];
+}
+#endif
+
+
 @interface CRTAppDelegate ()
 
 @property (nonatomic, strong) CRTSoundcloudClient *client;
@@ -26,6 +38,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG
+    if (IsUnitTesting()) {
+        return YES;
+    }
+#endif
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
