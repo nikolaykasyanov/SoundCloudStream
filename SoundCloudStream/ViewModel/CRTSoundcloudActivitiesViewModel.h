@@ -12,6 +12,7 @@
 
 @class CRTSoundcloudClient;
 @class CRTSoundcloudActivity;
+@class CRTLoginViewModel;
 
 
 @interface CRTSoundcloudActivitiesViewModel : NSObject
@@ -24,6 +25,8 @@
 - (NSUInteger)numberOfActivities;
 
 - (BOOL)updateVisibleRange:(NSRange)newVisibleRange;
+
+@property (nonatomic, strong, readonly) CRTLoginViewModel *loginViewModel;
 
 @property (nonatomic, strong, readonly) RACCommand *loadNextPage;
 @property (nonatomic, strong, readonly) RACCommand *refresh;

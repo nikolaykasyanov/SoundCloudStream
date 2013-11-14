@@ -10,6 +10,7 @@
 #import "CRTSoundcloudClient.h"
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudActivitiesResponse.h"
+#import "CRTLoginViewModel.h"
 
 
 @interface CRTSoundcloudActivitiesViewModel ()
@@ -46,6 +47,19 @@
     self = [super init];
 
     if (self != nil) {
+        AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+        if (credential == nil) {
+            _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
+
+            RACSignal *futureCredential = [RACObserve(_loginViewModel, OAuthCredential) skip:1];
+
+            RAC(self, loginViewModel) = [futureCredential mapReplace:nil];
+            [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:) withSignals:futureCredential, nil];
+        }
+        else {
+            [client setAuthorizationHeaderWithCredential:credential];
+        }
+
         _pageSize = pageSize;
         _minInvisibleItems = minInvisibleItems;
         _items = [NSMutableArray array];
