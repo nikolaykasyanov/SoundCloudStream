@@ -27,7 +27,7 @@
                                                                        error:&mantleError];
 
     XCTAssertNotNil(response, @"Mantle cannot instantiate a model: %@", mantleError);
-    XCTAssertEqual(response.collection.count, 5u, @"Invalid collection count");
+    XCTAssertEqual(response.collection.count, (NSUInteger) 5, @"Invalid collection count");
 
     for (id item in response.collection) {
         XCTAssertTrue([item isKindOfClass:[CRTSoundcloudActivity class]], @"Item of unexpected class in response collection");
