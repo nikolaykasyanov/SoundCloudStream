@@ -15,9 +15,9 @@
 
 @implementation CRTSoundcloudClient
 
-- (instancetype)initWithBaseURL:(NSURL *)url
+- (instancetype)initWithBaseURL:(NSURL *)url sessionConfiguration:(NSURLSessionConfiguration *)sessionConfiguration
 {
-    self = [super initWithBaseURL:url];
+    self = [super initWithBaseURL:url sessionConfiguration:sessionConfiguration];
 
     if (self != nil) {
         NSDictionary *mapping = @{
