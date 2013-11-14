@@ -12,6 +12,7 @@
 		1F02C99818340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */; };
 		1F02C99B18341011001B728D /* second.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99918341011001B728D /* second.json */; };
 		1F02C99C18341011001B728D /* first.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99A18341011001B728D /* first.json */; };
+		1F02C99F18354EC9001B728D /* CRTActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C99E18354EC9001B728D /* CRTActivitiesViewController.m */; };
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
@@ -61,6 +62,8 @@
 		1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesViewModelTests.m; sourceTree = "<group>"; };
 		1F02C99918341011001B728D /* second.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = second.json; sourceTree = "<group>"; };
 		1F02C99A18341011001B728D /* first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = first.json; sourceTree = "<group>"; };
+		1F02C99D18354EC9001B728D /* CRTActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTActivitiesViewController.h; sourceTree = "<group>"; };
+		1F02C99E18354EC9001B728D /* CRTActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTActivitiesViewController.m; sourceTree = "<group>"; };
 		1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTLoginViewModel.h; sourceTree = "<group>"; };
 		1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTLoginViewModel.m; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 				1FE51D9E182BFEB900C920C5 /* Supporting Files */,
 				E4E87764A400B01D49EE4C0E /* Utils */,
 				E4E87710683BC5ED8C1D1DFE /* API */,
+				E4E871464E994B038756ED69 /* Views */,
 			);
 			path = SoundCloudStream;
 			sourceTree = "<group>";
@@ -226,6 +230,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E4E871464E994B038756ED69 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F02C99D18354EC9001B728D /* CRTActivitiesViewController.h */,
+				1F02C99E18354EC9001B728D /* CRTActivitiesViewController.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E4E8760A7059DD3DE5775529 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +276,6 @@
 				1F02C99A18341011001B728D /* first.json */,
 				1F02C99918341011001B728D /* second.json */,
 			);
-			name = Pagination;
 			path = Pagination;
 			sourceTree = "<group>";
 		};
@@ -473,6 +485,7 @@
 				1F976BC31830168E00998EC2 /* CRTSoundcloudActivity.m in Sources */,
 				1FE51DA4182BFEB900C920C5 /* main.m in Sources */,
 				1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */,
+				1F02C99F18354EC9001B728D /* CRTActivitiesViewController.m in Sources */,
 				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,

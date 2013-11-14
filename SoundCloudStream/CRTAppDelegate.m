@@ -9,7 +9,7 @@
 #import "CRTAppDelegate.h"
 
 #import "CRTSoundcloudClient.h"
-#import "CRTLoginViewModel.h"
+#import "CRTActivitiesViewController.h"
 
 
 #ifdef DEBUG
@@ -27,14 +27,11 @@ static inline BOOL IsUnitTesting()
 @interface CRTAppDelegate ()
 
 @property (nonatomic, strong) CRTSoundcloudClient *client;
-@property (nonatomic, strong) CRTLoginViewModel *loginViewModel;
 
 @end
 
 
-@implementation CRTAppDelegate {
-    CRTLoginViewModel *_loginViewModel;
-}
+@implementation CRTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -55,25 +52,11 @@ static inline BOOL IsUnitTesting()
                                                  clientID:CRTSoundcloudClientID
                                                    secret:CRTSoundcloudSecret];
 
-    self.loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client];
+    CRTActivitiesViewController *viewController = [[CRTActivitiesViewController alloc] initWithAPIClient:self.client];
 
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
-    if (credential != nil) {
-//        [AFOAuthCredential deleteCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
-        [self.client setAuthorizationHeaderWithCredential:credential];
-
-        [[self.client affiliatedTracksWithLimit:5] subscribeNext:^(id x) {
-            NSLog(@"Response received: %@", x);
-        }];
-    }
-    else {
-        double delayInSeconds = 2.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^{
-            [self.loginViewModel.startLogin execute:nil];
-        });
-    }
+    self.window.rootViewController = navigationController;
 
     return YES;
 }
