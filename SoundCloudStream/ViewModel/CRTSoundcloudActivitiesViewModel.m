@@ -13,6 +13,28 @@
 #import "CRTLoginViewModel.h"
 
 
+static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary *existingItemsMap)
+{
+    NSMutableArray *actuallyNewItems = [newItems mutableCopy];
+
+    NSUInteger currentIndex = 0;
+
+    for (CRTSoundcloudActivity *activity in newItems) {
+
+        id <NSCopying> key = activity.uniqueIdentifier;
+
+        if (key == nil || existingItemsMap[key] != nil) {
+            [actuallyNewItems removeObjectAtIndex:currentIndex];
+        }
+        else {
+            currentIndex++;
+        }
+    }
+
+    return actuallyNewItems;
+}
+
+
 @interface CRTSoundcloudActivitiesViewModel ()
 
 /** NSArray[CRTSoundcloudActivity] */
@@ -122,26 +144,17 @@
     self.nextCursor = response.nextURL;
 
     NSArray *items = response.collection;
+    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
 
-    NSMutableArray *newItems = [items mutableCopy];
+    [self.items addObjectsFromArray:actuallyNewItems];
 
-    NSUInteger currentIndex = 0;
-
-    for (CRTSoundcloudActivity *activity in items) {
-
+    for (CRTSoundcloudActivity *activity in actuallyNewItems) {
         id <NSCopying> key = activity.uniqueIdentifier;
-
-        if (key == nil || self.itemIdToItemMap[key] != nil) {
-            [newItems removeObjectAtIndex:currentIndex];
-        }
-        else {
-            [self.items addObject:activity];
-            self.itemIdToItemMap[key] = activity;
-            currentIndex++;
-        }
+        NSCAssert(key != nil, @"Key should not be nil");
+        self.itemIdToItemMap[key] = activity;
     }
 
-    return [newItems copy];
+    return actuallyNewItems;
 }
 
 - (BOOL)updateVisibleRange:(NSRange)visibleRange
