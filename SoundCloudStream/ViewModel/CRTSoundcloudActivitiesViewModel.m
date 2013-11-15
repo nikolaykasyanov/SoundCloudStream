@@ -125,6 +125,8 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     return self;
 }
 
+#pragma mark - API
+
 - (CRTSoundcloudActivity *)activityAtIndex:(NSUInteger)index
 {
     NSCParameterAssert(index < self.items.count);
@@ -135,26 +137,6 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 - (NSUInteger)numberOfActivities
 {
     return self.items.count;
-}
-
-- (NSArray *)clientDidLoadPage:(CRTSoundcloudActivitiesResponse *)response
-{
-    NSCParameterAssert(response != nil);
-
-    self.nextCursor = response.nextURL;
-
-    NSArray *items = response.collection;
-    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
-
-    [self.items addObjectsFromArray:actuallyNewItems];
-
-    for (CRTSoundcloudActivity *activity in actuallyNewItems) {
-        id <NSCopying> key = activity.uniqueIdentifier;
-        NSCAssert(key != nil, @"Key should not be nil");
-        self.itemIdToItemMap[key] = activity;
-    }
-
-    return actuallyNewItems;
 }
 
 - (BOOL)updateVisibleRange:(NSRange)visibleRange
@@ -178,6 +160,28 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     [self didChangeValueForKey:@keypath(self.visibleRange)];
 
     return YES;
+}
+
+#pragma mark - Private methods
+
+- (NSArray *)clientDidLoadPage:(CRTSoundcloudActivitiesResponse *)response
+{
+    NSCParameterAssert(response != nil);
+
+    self.nextCursor = response.nextURL;
+
+    NSArray *items = response.collection;
+    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
+
+    [self.items addObjectsFromArray:actuallyNewItems];
+
+    for (CRTSoundcloudActivity *activity in actuallyNewItems) {
+        id <NSCopying> key = activity.uniqueIdentifier;
+        NSCAssert(key != nil, @"Key should not be nil");
+        self.itemIdToItemMap[key] = activity;
+    }
+
+    return actuallyNewItems;
 }
 
 @end
