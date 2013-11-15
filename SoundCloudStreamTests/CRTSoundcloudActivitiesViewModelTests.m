@@ -60,24 +60,24 @@ static OHHTTPStubsResponse *JSONResponseWithError()
         }];
 }
 
-- (id <OHHTTPStubsDescriptor>)stubNextPage
+- (id <OHHTTPStubsDescriptor>)stubNextPageFromURL:(NSURL *)url resource:(NSString *)resource
 {
     return
         [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
             return [request.allHTTPHeaderFields[MarkHeader] isEqualToString:self.markHeaderValue] &&
-                    [request.URL.absoluteString isEqualToString:self.viewModel.nextCursor.absoluteString];
+                    [request.URL.absoluteString isEqualToString:url.absoluteString];
         }
         withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
-            return JSONResponseFromResource(self.crt_testBundle, @"second.json");
+            return JSONResponseFromResource(self.crt_testBundle, resource);
         }];
 }
 
-- (id <OHHTTPStubsDescriptor>)stubNextPageWithError
+- (id <OHHTTPStubsDescriptor>)stubNextPageWithErrorFromURL:(NSURL *)url
 {
     return
         [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
             return [request.allHTTPHeaderFields[MarkHeader] isEqualToString:self.markHeaderValue] &&
-                    [request.URL.absoluteString isEqualToString:self.viewModel.nextCursor.absoluteString];
+                    [request.URL.absoluteString isEqualToString:url.absoluteString];
         }
         withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
             return JSONResponseWithError();
@@ -171,7 +171,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertTrue(completed);
 
 
-    [self stubNextPage];
+    [self stubNextPageFromURL:self.viewModel.nextCursor resource:@"second.json"];
 
     NSRange initialRange =  NSMakeRange(0, self.viewModel.numberOfActivities - MinInvisibleItems);
     XCTAssertFalse([self.viewModel updateVisibleRange:initialRange], @"Next page should not start loading with given visible range");
@@ -190,7 +190,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
     XCTAssertTrue(completed);
 
-    [self stubNextPageWithError];
+    [self stubNextPageWithErrorFromURL:self.viewModel.nextCursor];
 
     NSRange range = NSMakeRange(0, self.viewModel.numberOfActivities - MinInvisibleItems + 1);
 
