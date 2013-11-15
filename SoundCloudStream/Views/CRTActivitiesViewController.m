@@ -57,7 +57,30 @@
 {
     [super viewDidLoad];
 
+    self.tableView.rowHeight = 100;
+
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+
+    RACSignal *visibleCellChanges = [[RACSignal merge:@[
+            [self rac_signalForSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)],
+            [self rac_signalForSelector:@selector(tableView:didEndDisplayingCell:forRowAtIndexPath:)]
+    ]] mapReplace:[RACUnit defaultUnit]];
+
+    self.tableView.delegate = nil;
+    self.tableView.delegate = self;
+
+    RACSignal *visibleRange = [[[visibleCellChanges mapReplace:self.tableView] map:^NSValue *(UITableView *tableView) {
+
+        NSArray *visibleIndexPaths = [tableView.indexPathsForVisibleRows sortedArrayUsingSelector:@selector(compare:)];
+
+        NSRange range;
+        range.location = (NSUInteger) [visibleIndexPaths.firstObject row];
+        range.length = (NSUInteger) [visibleIndexPaths.lastObject row] - range.location;
+
+        return [NSValue valueWithRange:range];
+    }] distinctUntilChanged];
+
+    [self.viewModel rac_liftSelector:@selector(updateVisibleRange:) withSignals:visibleRange, nil];
 }
 
 - (void)loginRequested:(CRTLoginViewModel *)loginViewModel
@@ -83,7 +106,7 @@
         }
 
         [self.tableView insertRowsAtIndexPaths:indexPaths
-                              withRowAnimation:UITableViewRowAnimationAutomatic];
+                              withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
