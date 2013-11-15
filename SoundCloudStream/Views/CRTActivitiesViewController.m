@@ -110,6 +110,38 @@
     }
 }
 
+#pragma mark - Table view delegate
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CRTSoundcloudActivity *activity = [self.viewModel activityAtIndex:indexPath.row];
+
+    if (activity.activityType == CRTSoundcloudTrackActivity) {
+        CRTSoundcloudTrack *track = (CRTSoundcloudTrack *) activity.origin;
+        NSURL *appURL = [NSURL URLWithString:[NSString stringWithFormat:@"soundcloud:sounds:%llu", track.identifier]];
+        UIApplication *application = [UIApplication sharedApplication];
+        if ([application canOpenURL:appURL]) {
+            [application openURL:appURL];
+        }
+        else {
+            if (![application openURL:track.permalinkURL]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                message:@"Cannot open this track :("
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+
+                [alert show];
+            }
+        }
+    }
+    else {
+        NSLog(@"Trying to open unsupported activity type");
+    }
+
+    return nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -135,7 +167,7 @@
         cell.textLabel.text = track.title;
     }
     else {
-        cell.textLabel.text = @"Unexpected activity";
+        cell.textLabel.text = @"Unsupported activity";
     }
 
     return cell;
