@@ -12,12 +12,16 @@
 #import "CRTSoundcloudClient.h"
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
+#import "CRTPageLoadingView.h"
+
 
 @interface CRTActivitiesViewController ()
 
 @property (nonatomic, strong, readonly) CRTSoundcloudActivitiesViewModel *viewModel;
+@property (nonatomic, strong) CRTPageLoadingView *pageLoadingView;
 
 @end
+
 
 @implementation CRTActivitiesViewController
 
@@ -56,6 +60,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.pageLoadingView = [[CRTPageLoadingView alloc] init];
+    self.tableView.tableFooterView = self.pageLoadingView;
+
+    RACSignal *showLoadingView = [[[RACSignal combineLatest:@[
+            self.viewModel.loadNextPage.executing,
+            RACObserve(self.viewModel, lastPageLoadingFailed),
+    ]] or] distinctUntilChanged];
+
+    RACSignal *pageLoadingViewHeight =
+        [showLoadingView map:^(NSNumber *flag) {
+            if (flag.boolValue) {
+                return @50;
+            }
+            else {
+                return @0;
+            }
+        }];
+
+    [self rac_liftSelector:@selector(updatePageLoadingViewHeight:) withSignals:pageLoadingViewHeight, nil];
+
+    RAC(self.pageLoadingView, animating) = self.viewModel.loadNextPage.executing;
+
 
     self.tableView.rowHeight = 100;
 
@@ -108,6 +135,14 @@
         [self.tableView insertRowsAtIndexPaths:indexPaths
                               withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+- (void)updatePageLoadingViewHeight:(CGFloat)newHeight
+{
+    self.pageLoadingView.frame = CGRectMake(0, 0, 0, newHeight);
+
+    self.tableView.tableFooterView = nil;
+    self.tableView.tableFooterView = self.pageLoadingView;
 }
 
 #pragma mark - Table view delegate

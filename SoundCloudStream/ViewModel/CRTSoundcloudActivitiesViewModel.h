@@ -37,6 +37,8 @@
 /** RACSignal[NSError] */
 @property (nonatomic, strong, readonly) RACSignal *errors;
 
+@property (nonatomic, readonly) BOOL lastPageLoadingFailed;
+
 @property (nonatomic, readonly) NSRange visibleRange;
 
 @property (nonatomic, strong, readonly) NSURL *nextCursor;
