@@ -13,6 +13,7 @@
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"
+#import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
 
 @interface CRTActivitiesViewController ()
@@ -60,6 +61,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.rac_command = self.viewModel.refresh;
 
     self.pageLoadingView = [[CRTPageLoadingView alloc] init];
     self.tableView.tableFooterView = self.pageLoadingView;
