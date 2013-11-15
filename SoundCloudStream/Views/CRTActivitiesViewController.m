@@ -88,7 +88,10 @@
     [self rac_liftSelector:@selector(updatePageLoadingViewHeight:) withSignals:pageLoadingViewHeight, nil];
 
     RAC(self.pageLoadingView, animating) = self.viewModel.loadNextPage.executing;
-    RAC(self.pageLoadingView, displayButton) = RACObserve(self.viewModel, lastPageLoadingFailed);
+    RAC(self.pageLoadingView, displayButton) = [[RACSignal combineLatest:@[
+            RACObserve(self.viewModel, lastPageLoadingFailed),
+            [self.viewModel.loadNextPage.executing not]
+    ]] and];
 
 
     self.tableView.rowHeight = 100;
