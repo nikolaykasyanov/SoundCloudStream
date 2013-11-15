@@ -88,7 +88,7 @@
 
     _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
 
-    _pages = [self rac_liftSelector:@selector(clientDidLoadResponse:)
+    _pages = [self rac_liftSelector:@selector(clientDidLoadPage:)
                         withSignals:[_loadNextPage.executionSignals flatten], nil];
 
     RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
@@ -115,7 +115,7 @@
     return self.items.count;
 }
 
-- (NSArray *)clientDidLoadResponse:(CRTSoundcloudActivitiesResponse *)response
+- (NSArray *)clientDidLoadPage:(CRTSoundcloudActivitiesResponse *)response
 {
     NSCParameterAssert(response != nil);
 
