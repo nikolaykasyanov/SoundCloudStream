@@ -28,6 +28,7 @@
     XCTAssertEqual(track.identifier, 113344484ull, @"Unexpected track id");
     XCTAssertEqualObjects(track.title, @"Giana Sisters Twisted Dreams - Main Theme", @"Unexpected track title");
     XCTAssertEqualObjects(track.waveformURL.absoluteString, @"https://w1.sndcdn.com/Vp8KRJBSzt1i_m.png", @"Unexpected waveform URL");
+    XCTAssertEqualObjects(track.permalinkURL.absoluteString, @"http://soundcloud.com/machinaesupremacy/giana-sisters-twisted-dreams-7", @"Unexpected permalink URL");
 }
 
 @end
