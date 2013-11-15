@@ -31,8 +31,11 @@
 @property (nonatomic, strong, readonly) RACCommand *loadNextPage;
 @property (nonatomic, strong, readonly) RACCommand *refresh;
 
-/** RACSignal[NSArray[CRTSoundcloudActivity] */
+/** RACSignal[NSArray[CRTSoundcloudActivity]] */
 @property (nonatomic, strong, readonly) RACSignal *pages;
+
+/** RACSignal[NSArray[CRTSoundcloudActivity]] */
+@property (nonatomic, strong, readonly) RACSignal *freshBatches;
 
 /** RACSignal[NSError] */
 @property (nonatomic, strong, readonly) RACSignal *errors;

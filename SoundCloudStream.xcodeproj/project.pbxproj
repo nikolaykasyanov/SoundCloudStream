@@ -13,6 +13,7 @@
 		1F02C99B18341011001B728D /* second.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99918341011001B728D /* second.json */; };
 		1F02C99C18341011001B728D /* first.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99A18341011001B728D /* first.json */; };
 		1F02C99F18354EC9001B728D /* CRTActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C99E18354EC9001B728D /* CRTActivitiesViewController.m */; };
+		1F02C9A11836D41C001B728D /* new.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C9A01836D41C001B728D /* new.json */; };
 		1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
@@ -65,6 +66,7 @@
 		1F02C99A18341011001B728D /* first.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = first.json; sourceTree = "<group>"; };
 		1F02C99D18354EC9001B728D /* CRTActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTActivitiesViewController.h; sourceTree = "<group>"; };
 		1F02C99E18354EC9001B728D /* CRTActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTActivitiesViewController.m; sourceTree = "<group>"; };
+		1F02C9A01836D41C001B728D /* new.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = new.json; sourceTree = "<group>"; };
 		1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTLoginViewModel.h; sourceTree = "<group>"; };
 		1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTLoginViewModel.m; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			children = (
 				1F02C99A18341011001B728D /* first.json */,
 				1F02C99918341011001B728D /* second.json */,
+				1F02C9A01836D41C001B728D /* new.json */,
 			);
 			path = Pagination;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 			files = (
 				1FE51DBB182BFEBA00C920C5 /* InfoPlist.strings in Resources */,
 				E4E871021D0C61DD0FE55980 /* track.json in Resources */,
+				1F02C9A11836D41C001B728D /* new.json in Resources */,
 				E4E87979E6087E9EB01E9D96 /* track_activity.json in Resources */,
 				1F02C99C18341011001B728D /* first.json in Resources */,
 				1F02C99B18341011001B728D /* second.json in Resources */,

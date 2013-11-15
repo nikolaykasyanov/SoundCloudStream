@@ -209,4 +209,36 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertFalse([self.viewModel updateVisibleRange:nextRange], @"Next page should start loading after updaring range visible range");
 }
 
+- (void)testRefresh
+{
+    NSNumber *canRefreshWhenEmpty = self.viewModel.refresh.enabled.first;
+    XCTAssertFalse(canRefreshWhenEmpty.boolValue);
+
+    id firstStub = [self stubFirstPage];
+
+    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
+    [OHHTTPStubs removeStub:firstStub];
+
+    XCTAssertTrue(completed);
+
+    NSNumber *canRefresh = self.viewModel.refresh.enabled.first;
+    XCTAssertTrue(canRefresh.boolValue);
+
+    [self stubNextPageFromURL:self.viewModel.futureCursor resource:@"new.json"];
+
+    __block NSArray *newItems = nil;
+    [self.viewModel.freshBatches subscribeNext:^(NSArray *items) {
+        newItems = items;
+    }];
+
+    completed = [[self.viewModel.refresh execute:nil] asynchronouslyWaitUntilCompleted:NULL];
+
+    XCTAssertTrue(completed);
+    XCTAssertNotNil(newItems);
+
+    for (NSUInteger index = 0; index < newItems.count; index++) {
+        XCTAssertEqualObjects([self.viewModel activityAtIndex:index], newItems[index], @"Current view model activities array should start with new items");
+    }
+}
+
 @end

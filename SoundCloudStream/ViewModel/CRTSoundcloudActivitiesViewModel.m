@@ -104,14 +104,25 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
                                                 }
                                             }];
 
-    _refresh = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        return [RACSignal empty];
-    }];
-
-    _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
-
     _pages = [self rac_liftSelector:@selector(clientDidLoadPage:)
                         withSignals:[_loadNextPage.executionSignals flatten], nil];
+
+    RACSignal *canRefresh = [RACObserve(self, futureCursor) map:^NSNumber *(id value) {
+        return @(value != nil);
+    }];
+
+    _refresh = [[RACCommand alloc] initWithEnabled:canRefresh
+                                       signalBlock:^RACSignal *(id _) {
+                                           @strongify(self);
+
+                                           return [client collectionFromURL:self.futureCursor
+                                                               itemsOfClass:[CRTSoundcloudActivity class]];
+                                       }];
+
+    _freshBatches = [self rac_liftSelector:@selector(clientDidLoadNewItems:)
+                               withSignals:[_refresh.executionSignals flatten], nil];
+
+    _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
 
     RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
         return @(cursor == nil);
@@ -169,11 +180,33 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     NSCParameterAssert(response != nil);
 
     self.nextCursor = response.nextURL;
+    self.futureCursor = response.futureURL;
 
     NSArray *items = response.collection;
     NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
 
     [self.items addObjectsFromArray:actuallyNewItems];
+
+    for (CRTSoundcloudActivity *activity in actuallyNewItems) {
+        id <NSCopying> key = activity.uniqueIdentifier;
+        NSCAssert(key != nil, @"Key should not be nil");
+        self.itemIdToItemMap[key] = activity;
+    }
+
+    return actuallyNewItems;
+}
+
+- (NSArray *)clientDidLoadNewItems:(CRTSoundcloudActivitiesResponse *)response
+{
+    NSCParameterAssert(response != nil);
+
+    self.futureCursor = response.futureURL;
+
+    NSArray *items = response.collection;
+    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
+
+    [self.items insertObjects:actuallyNewItems
+                    atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, actuallyNewItems.count)]];
 
     for (CRTSoundcloudActivity *activity in actuallyNewItems) {
         id <NSCopying> key = activity.uniqueIdentifier;
