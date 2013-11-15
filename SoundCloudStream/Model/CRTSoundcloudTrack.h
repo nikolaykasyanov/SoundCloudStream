@@ -16,5 +16,6 @@
 @property (nonatomic, copy, readonly) NSString *title;
 
 @property (nonatomic, strong, readonly) NSURL *waveformURL;
+@property (nonatomic, strong, readonly) NSURL *permalinkURL;
 
 @end

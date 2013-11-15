@@ -16,17 +16,18 @@
             @"identifier" : @"id",
             @"title" : @"title",
             @"waveformURL" : @"waveform_url",
+            @"permalinkURL" : @"permalink_url",
     };
 }
 
 + (NSValueTransformer *)waveformURLJSONTransformer
 {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^NSURL *(NSString *urlString) {
-        return [NSURL URLWithString:urlString];
-    }
-    reverseBlock:^id(NSURL *url) {
-        return url.absoluteString;
-    }];
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)permalinkURLJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
 
