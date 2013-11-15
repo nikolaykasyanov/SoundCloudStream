@@ -12,4 +12,8 @@
 
 @property (nonatomic, getter = isAnimating) BOOL animating;
 
+@property (nonatomic) BOOL displayButton;
+
+@property (nonatomic, strong, readonly) UIButton *button;
+
 @end

@@ -66,6 +66,8 @@
     self.refreshControl.rac_command = self.viewModel.refresh;
 
     self.pageLoadingView = [[CRTPageLoadingView alloc] init];
+    [self.pageLoadingView.button setTitle:@"Try again" forState:UIControlStateNormal];
+    self.pageLoadingView.button.rac_command = self.viewModel.loadNextPage;
     self.tableView.tableFooterView = self.pageLoadingView;
 
     RACSignal *showLoadingView = [[[RACSignal combineLatest:@[
@@ -86,6 +88,7 @@
     [self rac_liftSelector:@selector(updatePageLoadingViewHeight:) withSignals:pageLoadingViewHeight, nil];
 
     RAC(self.pageLoadingView, animating) = self.viewModel.loadNextPage.executing;
+    RAC(self.pageLoadingView, displayButton) = RACObserve(self.viewModel, lastPageLoadingFailed);
 
 
     self.tableView.rowHeight = 100;

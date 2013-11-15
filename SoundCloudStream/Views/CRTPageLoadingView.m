@@ -23,10 +23,16 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-
         _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicator.hidesWhenStopped = YES;
         [self addSubview:_indicator];
+
+        _button = [UIButton buttonWithType:UIButtonTypeSystem];
+        _button.frame = self.frame;
+        _button.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:_button];
+
+        RAC(_button, hidden) = [RACObserve(self, displayButton) not];
     }
     return self;
 }
