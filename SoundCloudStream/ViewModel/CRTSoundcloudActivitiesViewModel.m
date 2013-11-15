@@ -93,7 +93,7 @@
 
     RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
         return @(cursor == nil);
-    }] startWith:@NO].logAll;
+    }] startWith:@NO];
 
     RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
             [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
