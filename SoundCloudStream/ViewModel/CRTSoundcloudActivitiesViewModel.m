@@ -46,57 +46,59 @@
 
     self = [super init];
 
-    if (self != nil) {
-        AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
-        if (credential == nil) {
-            _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
-
-            RACSignal *futureCredential = [RACObserve(_loginViewModel, OAuthCredential) skip:1];
-
-            RAC(self, loginViewModel) = [futureCredential mapReplace:nil];
-            [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:) withSignals:futureCredential, nil];
-        }
-        else {
-            [client setAuthorizationHeaderWithCredential:credential];
-        }
-
-        _pageSize = pageSize;
-        _minInvisibleItems = minInvisibleItems;
-        _items = [NSMutableArray array];
-        _itemIdToItemMap = [NSMutableDictionary dictionary];
-
-        @weakify(self);
-        _loadNextPage = [[RACCommand alloc] initWithEnabled:[RACObserve(self, endOfFeedReached) not]
-                                                signalBlock:^RACSignal *(id _) {
-                                                    @strongify(self);
-
-                                                    if (self.nextCursor == nil) {
-                                                        return [client affiliatedTracksWithLimit:pageSize];
-                                                    }
-                                                    else {
-                                                        return [client collectionFromURL:self.nextCursor
-                                                                            itemsOfClass:[CRTSoundcloudActivity class]];
-                                                    }
-                                                }];
-
-        _refresh = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-            return [RACSignal empty];
-        }];
-
-        _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
-
-        _pages = [self rac_liftSelector:@selector(clientDidLoadResponse:)
-                            withSignals:[_loadNextPage.executionSignals flatten], nil];
-
-        RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
-            return @(cursor == nil);
-        }] startWith:@NO].logAll;
-
-        RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
-                [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
-                [_loadNextPage.errors mapReplace:@YES],
-        ]];
+    if (self == nil) {
+        return nil;
     }
+
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+    if (credential == nil) {
+        _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
+
+        RACSignal *futureCredential = [RACObserve(_loginViewModel, OAuthCredential) skip:1];
+
+        RAC(self, loginViewModel) = [futureCredential mapReplace:nil];
+        [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:) withSignals:futureCredential, nil];
+    }
+    else {
+        [client setAuthorizationHeaderWithCredential:credential];
+    }
+
+    _pageSize = pageSize;
+    _minInvisibleItems = minInvisibleItems;
+    _items = [NSMutableArray array];
+    _itemIdToItemMap = [NSMutableDictionary dictionary];
+
+    @weakify(self);
+    _loadNextPage = [[RACCommand alloc] initWithEnabled:[RACObserve(self, endOfFeedReached) not]
+                                            signalBlock:^RACSignal *(id _) {
+                                                @strongify(self);
+
+                                                if (self.nextCursor == nil) {
+                                                    return [client affiliatedTracksWithLimit:pageSize];
+                                                }
+                                                else {
+                                                    return [client collectionFromURL:self.nextCursor
+                                                                        itemsOfClass:[CRTSoundcloudActivity class]];
+                                                }
+                                            }];
+
+    _refresh = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal empty];
+    }];
+
+    _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
+
+    _pages = [self rac_liftSelector:@selector(clientDidLoadResponse:)
+                        withSignals:[_loadNextPage.executionSignals flatten], nil];
+
+    RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
+        return @(cursor == nil);
+    }] startWith:@NO].logAll;
+
+    RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
+            [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
+            [_loadNextPage.errors mapReplace:@YES],
+    ]];
 
     return self;
 }
