@@ -40,6 +40,11 @@
 /** RACSignal[NSArray[CRTSoundcloudActivity]] */
 @property (nonatomic, strong, readonly) RACSignal *freshBatches;
 
+/**
+ * Sends `[RACUnit defaultUnit]` every time view needs to be reloaded
+ */
+@property (nonatomic, strong, readonly) RACSignal *reloads;
+
 /** RACSignal[NSError] */
 @property (nonatomic, strong, readonly) RACSignal *errors;
 

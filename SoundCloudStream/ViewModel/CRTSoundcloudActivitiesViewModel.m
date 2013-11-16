@@ -72,9 +72,17 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
         return nil;
     }
 
+    _reloads = [[self rac_signalForSelector:@selector(resetContents)] mapReplace:[RACUnit defaultUnit]];
+
     _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
 
     RACSignal *hasNoCredential = [[RACObserve(_loginViewModel, hasCredential) distinctUntilChanged] ignore:@YES];
+
+    @weakify(self);
+    [[hasNoCredential skip:1] subscribeNext:^(id _) {
+        @strongify(self);
+        [self resetContents];
+    }];
 
     _authenticationRequests = [hasNoCredential mapReplace:_loginViewModel];
 
@@ -83,18 +91,21 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     _items = [NSMutableArray array];
     _itemIdToItemMap = [NSMutableDictionary dictionary];
 
-    @weakify(self);
+
     _loadNextPage = [[RACCommand alloc] initWithEnabled:[RACObserve(self, endOfFeedReached) not]
                                             signalBlock:^RACSignal *(id _) {
                                                 @strongify(self);
 
+                                                RACSignal *signal;
                                                 if (self.nextCursor == nil) {
-                                                    return [client affiliatedTracksWithLimit:pageSize];
+                                                    signal = [client affiliatedTracksWithLimit:pageSize];
                                                 }
                                                 else {
-                                                    return [client collectionFromURL:self.nextCursor
+                                                    signal = [client collectionFromURL:self.nextCursor
                                                                         itemsOfClass:[CRTSoundcloudActivity class]];
                                                 }
+
+                                                return [signal takeUntil:hasNoCredential];
                                             }];
 
     _pages = [self rac_liftSelector:@selector(clientDidLoadPage:)
@@ -116,6 +127,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
                                withSignals:[_refresh.executionSignals flatten], nil];
 
     _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
+
 
     RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
         return @(cursor == nil);
@@ -208,6 +220,12 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     }
 
     return actuallyNewItems;
+}
+
+- (void)resetContents
+{
+    [self.items removeAllObjects];
+    [self.itemIdToItemMap removeAllObjects];
 }
 
 @end
