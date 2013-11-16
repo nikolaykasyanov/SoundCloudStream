@@ -28,6 +28,9 @@
 
 @property (nonatomic, strong, readonly) CRTLoginViewModel *loginViewModel;
 
+/** RACSignal[CRTLoginViewModel] */
+@property (nonatomic, strong, readonly) RACSignal *authenticationRequests;
+
 @property (nonatomic, strong, readonly) RACCommand *loadNextPage;
 @property (nonatomic, strong, readonly) RACCommand *refresh;
 

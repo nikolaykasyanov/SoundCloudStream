@@ -45,13 +45,11 @@
         // will complete when view is on screen and ready to go
         RACSignal *firstAppearance = [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] ignoreValues];
 
-        RACSignal *loginViewModel = [firstAppearance concat:[RACObserve(_viewModel, loginViewModel) ignore:nil]];
+        RACSignal *loginViewModel = [firstAppearance concat:_viewModel.authenticationRequests];
 
         [self rac_liftSelector:@selector(loginRequested:) withSignals:loginViewModel, nil];
 
-        RACSignal *loggedIn = [[RACObserve(_viewModel, loginViewModel) distinctUntilChanged] map:^id(id value) {
-            return @(value == nil);
-        }];
+        RACSignal *loggedIn = RACObserve(_viewModel.loginViewModel, hasCredential);
 
         [_viewModel.loadNextPage rac_liftSelector:@selector(execute:) withSignals:[loggedIn ignore:@NO], nil];
     }

@@ -80,6 +80,12 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
             return [RACSignal empty];
         }];
 
+        RACSignal *hasCredential = [RACObserve(self, OAuthCredential) map:^id(id value) {
+            return @(value != nil);
+        }];
+
+        RAC(self, hasCredential) = hasCredential;
+
         RACSignal *notification = [[NSNotificationCenter defaultCenter] rac_addObserverForName:CRTOpenURLNotification
                                                                                         object:nil];
 
@@ -103,6 +109,8 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         [_obtainToken rac_liftSelector:@selector(execute:) withSignals:authCode, nil];
 
         RAC(self, OAuthCredential) = [_obtainToken.executionSignals switchToLatest];
+        [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:)
+                     withSignals:RACObserve(self, OAuthCredential), nil];
     }
 
     return self;

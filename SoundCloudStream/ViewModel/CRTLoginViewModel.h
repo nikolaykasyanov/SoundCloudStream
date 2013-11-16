@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @class GROAuth2SessionManager;
-@class AFOAuthCredential;
 @class RACCommand;
 
 
@@ -21,6 +20,6 @@
 
 
 @property (nonatomic, strong, readonly) RACCommand *startLogin;
-@property (nonatomic, strong, readonly) AFOAuthCredential *OAuthCredential;
+@property (nonatomic, readonly) BOOL hasCredential;
 
 @end

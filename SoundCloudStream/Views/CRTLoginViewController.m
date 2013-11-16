@@ -53,7 +53,7 @@
 
     [self.view addSubview:self.connectButton];
 
-    [[RACObserve(self.viewModel, OAuthCredential) ignore:nil] subscribeNext:^(id _) {
+    [[RACObserve(self.viewModel, hasCredential) ignore:@NO] subscribeNext:^(id _) {
         [self dismissSelf];
     }];
 }

@@ -72,18 +72,11 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
         return nil;
     }
 
-    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
-    if (credential == nil) {
-        _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
+    _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
 
-        RACSignal *futureCredential = [RACObserve(_loginViewModel, OAuthCredential) skip:1];
+    RACSignal *hasNoCredential = [[RACObserve(_loginViewModel, hasCredential) distinctUntilChanged] ignore:@YES];
 
-        RAC(self, loginViewModel) = [futureCredential mapReplace:nil];
-        [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:) withSignals:futureCredential, nil];
-    }
-    else {
-        [client setAuthorizationHeaderWithCredential:credential];
-    }
+    _authenticationRequests = [hasNoCredential mapReplace:_loginViewModel];
 
     _pageSize = pageSize;
     _minInvisibleItems = minInvisibleItems;
