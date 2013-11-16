@@ -11,6 +11,8 @@
 #import "CRTSoundcloudClient.h"
 #import "CRTActivitiesViewController.h"
 
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+
 
 #ifdef DEBUG
 /// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
@@ -40,6 +42,8 @@ static inline BOOL IsUnitTesting()
         return YES;
     }
 #endif
+
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
