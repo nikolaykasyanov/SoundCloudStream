@@ -86,6 +86,13 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
         RAC(self, hasCredential) = hasCredential;
 
+        _logout = [[RACCommand alloc] initWithEnabled:hasCredential
+                                          signalBlock:^RACSignal *(id input) {
+                                              return [[RACSignal empty] initially:^{
+                                                  [AFOAuthCredential deleteCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+                                              }];
+                                          }];
+
         RACSignal *notification = [[NSNotificationCenter defaultCenter] rac_addObserverForName:CRTOpenURLNotification
                                                                                         object:nil];
 
@@ -108,9 +115,13 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
         [_obtainToken rac_liftSelector:@selector(execute:) withSignals:authCode, nil];
 
-        RAC(self, OAuthCredential) = [_obtainToken.executionSignals switchToLatest];
         [client rac_liftSelector:@selector(setAuthorizationHeaderWithCredential:)
                      withSignals:RACObserve(self, OAuthCredential), nil];
+
+        RAC(self, OAuthCredential) = [[RACSignal merge:@[
+                [_obtainToken.executionSignals switchToLatest],
+                [_logout.executionSignals mapReplace:nil],
+        ]] startWith:[AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey]];
     }
 
     return self;

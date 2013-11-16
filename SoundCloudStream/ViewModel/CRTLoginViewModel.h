@@ -20,6 +20,7 @@
 
 
 @property (nonatomic, strong, readonly) RACCommand *startLogin;
+@property (nonatomic, strong, readonly) RACCommand *logout;
 @property (nonatomic, readonly) BOOL hasCredential;
 
 @end
