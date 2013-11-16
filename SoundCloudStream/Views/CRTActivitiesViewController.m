@@ -7,6 +7,7 @@
 //
 
 #import "CRTActivitiesViewController.h"
+#import "CRTLoginViewController.h"
 #import "CRTLoginViewModel.h"
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
@@ -124,7 +125,11 @@
 {
     NSCParameterAssert(loginViewModel != nil);
 
-    [loginViewModel.startLogin execute:nil];
+    CRTLoginViewController *controller = [[CRTLoginViewController alloc] initWithViewModel:loginViewModel];
+
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)pageLoadedWithActivities:(NSArray *)activities
