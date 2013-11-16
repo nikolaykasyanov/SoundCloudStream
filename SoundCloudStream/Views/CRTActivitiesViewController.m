@@ -61,6 +61,27 @@
 {
     [super viewDidLoad];
 
+    @weakify(self);
+    [self.viewModel.reloads subscribeNext:^(id _) {
+        @strongify(self);
+        [self.tableView reloadData];
+    }];
+
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                         style:UIBarButtonItemStylePlain
+                                                        target:nil
+                                                        action:NULL];
+    logoutButton.rac_command = self.viewModel.loginViewModel.logout;
+
+    UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(triggerLogin)];
+
+    RAC(self.navigationItem, rightBarButtonItem) = [RACSignal if:RACObserve(self.viewModel.loginViewModel, hasCredential)
+                                                    then:[RACSignal return:logoutButton]
+                                                    else:[RACSignal return:loginButton]];
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.rac_command = self.viewModel.refresh;
 
@@ -117,6 +138,11 @@
     }] distinctUntilChanged];
 
     [self.viewModel rac_liftSelector:@selector(updateVisibleRange:) withSignals:visibleRange, nil];
+}
+
+- (void)triggerLogin
+{
+    [self loginRequested:self.viewModel.loginViewModel];
 }
 
 - (void)loginRequested:(CRTLoginViewModel *)loginViewModel
