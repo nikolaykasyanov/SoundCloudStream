@@ -145,6 +145,8 @@
     [self loginRequested:self.viewModel.loginViewModel];
 }
 
+#pragma mark - View model signal handling
+
 - (void)loginRequested:(CRTLoginViewModel *)loginViewModel
 {
     NSCParameterAssert(loginViewModel != nil);
@@ -175,6 +177,8 @@
                               withRowAnimation:UITableViewRowAnimationNone];
     }
 }
+
+#pragma mark - Page loading view show/hide
 
 - (void)updatePageLoadingViewHeight:(CGFloat)newHeight
 {
