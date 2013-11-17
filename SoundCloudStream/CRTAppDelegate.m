@@ -43,12 +43,9 @@ static inline BOOL IsUnitTesting()
     }
 #endif
 
-    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    [self setupAppearance];
 
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
     NSURL *endpointURL = [NSURL URLWithString:CRTSoundcloudEndpointURLString];
 
@@ -60,7 +57,9 @@ static inline BOOL IsUnitTesting()
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -108,6 +107,22 @@ static inline BOOL IsUnitTesting()
                                                       userInfo:@{CRTOpenURLNotificationURLKey: url}];
 
     return YES;
+}
+
+- (void)setupAppearance
+{
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:216/255.0 green:62/255.0 blue:34/255.0 alpha:1.0]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                           NSFontAttributeName : [UIFont boldSystemFontOfSize:20],
+                                                           }];
+
+    NSDictionary *barItemsTitleAttributes = @{
+                                              NSForegroundColorAttributeName : [UIColor whiteColor],
+                                              };
+
+    [[UIBarButtonItem appearance] setTitleTextAttributes:barItemsTitleAttributes
+                                                forState:UIControlStateNormal];
 }
 
 @end
