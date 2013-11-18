@@ -1,0 +1,19 @@
+language: objective-c
+
+
+before_install:
+  - brew update
+  - brew install xctool
+
+before_script:
+  - xctool -workspace SoundCloudStream.xcworkspace -scheme SoundCloudStreamTests -sdk iphonesimulator clean
+
+script:
+  - xctool -workspace SoundCloudStream.xcworkspace -scheme SoundCloudStreamTests -sdk iphonesimulator -arch i386 build test
+
+notifications:
+  recipients:
+    - corrmage+travis-ci@gmail.com
+  email:
+    on_success: change
+    on_failure: always
