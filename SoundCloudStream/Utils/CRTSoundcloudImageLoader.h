@@ -13,6 +13,9 @@
 
 @interface CRTSoundcloudImageLoader : AFHTTPSessionManager
 
-- (RACSignal *)imageFromURL:(NSURL *)url;
+- (instancetype)initWithURLSessionConfiguration:(NSURLSessionConfiguration *)configuration
+                               maxWaveformWidth:(CGFloat)maxWaveformWidth;
+
+- (RACSignal *)waveformFromURL:(NSURL *)url;
 
 @end

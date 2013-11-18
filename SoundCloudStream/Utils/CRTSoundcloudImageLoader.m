@@ -21,18 +21,24 @@
  */
 @property (nonatomic, strong, readonly) NSMapTable *activeSignals;
 
+@property (nonatomic, readonly) CGFloat maxWaveformWidth;
+
 @end
 
 
 @implementation CRTSoundcloudImageLoader
 
-- (instancetype)initWithBaseURL:(NSURL *)url sessionConfiguration:(NSURLSessionConfiguration *)configuration
+- (instancetype)initWithURLSessionConfiguration:(NSURLSessionConfiguration *)configuration
+                               maxWaveformWidth:(CGFloat)maxWaveformWidth
 {
+    NSCParameterAssert(maxWaveformWidth > 0.0);
+
     self = [super initWithBaseURL:nil sessionConfiguration:configuration];
 
     if (self != nil) {
         _lockScheduler = [RACScheduler scheduler];
         _activeSignals = [NSMapTable strongToWeakObjectsMapTable];
+        _maxWaveformWidth = maxWaveformWidth;
 
         AFImageResponseSerializer *responseSerializer = [[AFImageResponseSerializer alloc] init];
         self.responseSerializer = responseSerializer;
@@ -41,14 +47,36 @@
     return self;
 }
 
-- (RACSignal *)imageFromURL:(NSURL *)url
+- (instancetype)initWithBaseURL:(NSURL *)url sessionConfiguration:(NSURLSessionConfiguration *)configuration
+{
+    return [self initWithURLSessionConfiguration:configuration maxWaveformWidth:320];
+}
+
+- (RACSignal *)waveformFromURL:(NSURL *)url
 {
     return [[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
 
         RACSignal *imageSignal = [self.activeSignals objectForKey:url];
         if (imageSignal == nil) {
-            imageSignal = [[self rac_GET:url.absoluteString parameters:nil] finally:^{
+            imageSignal = [[[[self rac_GET:url.absoluteString parameters:nil] finally:^{
                 [self.activeSignals removeObjectForKey:url];
+            }] deliverOn:[RACScheduler scheduler]] map:^id(UIImage *bigImage) {
+
+                CGFloat scaleFactor = self.maxWaveformWidth / bigImage.size.width;
+
+                size_t bigImageWidth = CGImageGetWidth(bigImage.CGImage);
+                size_t bigImageHeight = CGImageGetHeight(bigImage.CGImage);
+                CGRect croppedImageRect = CGRectMake(0, 0, bigImageWidth, bigImageHeight / 2);
+                CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
+                        croppedImageRect);
+
+                CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height / 2));
+
+                UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+                CGContextDrawImage(UIGraphicsGetCurrentContext(), croppedImageRect, croppedImageRef);
+                UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+                return scaledImage;
             }];
             [self.activeSignals setObject:imageSignal forKey:url];
         }

@@ -7,10 +7,12 @@
 //
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import "CRTSoundcloudImageLoader.h"
 
 
 static NSString *const MarkHeader = @"X-CRT-Test";
+static const CGFloat MaxWaveformWidth = 320;
 
 
 @interface CRTSoundcloudImageLoaderTests : XCTestCase
@@ -32,7 +34,8 @@ static NSString *const MarkHeader = @"X-CRT-Test";
     NSNumber *tag = @(arc4random());
     self.markHeaderValue = tag.stringValue;
 
-    self.imageLoader = [[CRTSoundcloudImageLoader alloc] initWithSessionConfiguration:sessionConfiguration];
+    self.imageLoader = [[CRTSoundcloudImageLoader alloc] initWithURLSessionConfiguration:sessionConfiguration
+                                                                        maxWaveformWidth:MaxWaveformWidth];
     [self.imageLoader.requestSerializer setValue:self.markHeaderValue forHTTPHeaderField:MarkHeader];
 }
 
@@ -45,11 +48,14 @@ static NSString *const MarkHeader = @"X-CRT-Test";
 
 - (void)testImageLoading
 {
+    // hardcode is bad, m'key
+    const size_t sourceImageWidth = 1800;
+    const size_t sourceImageHeight = 280;
+
     __block BOOL stubbed = NO;
 
     [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
-        BOOL flag = [request.allHTTPHeaderFields[MarkHeader] isEqual:self.markHeaderValue];
-        return flag;
+        return [request.allHTTPHeaderFields[MarkHeader] isEqual:self.markHeaderValue];
     }
     withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
         stubbed = YES;
@@ -62,7 +68,7 @@ static NSString *const MarkHeader = @"X-CRT-Test";
     }];
 
     NSURL *imageURL = [NSURL URLWithString:@"http://google.com/i/doodle.png"];
-    RACSignal *imageSignal1 = [self.imageLoader imageFromURL:imageURL];
+    RACSignal *imageSignal1 = [self.imageLoader waveformFromURL:imageURL];
 
     BOOL success = NO;
     UIImage *image = [imageSignal1 asynchronousFirstOrDefault:nil success:&success error:NULL];
@@ -71,11 +77,11 @@ static NSString *const MarkHeader = @"X-CRT-Test";
     XCTAssertTrue(success);
     XCTAssertNotNil(image);
 
-    size_t imageWidth = CGImageGetWidth(image.CGImage);
-    size_t imageHeight = CGImageGetHeight(image.CGImage);
+    size_t expectedImageWidth = (size_t) (image.scale * MaxWaveformWidth);
+    size_t expectedImageHeight = (size_t) ceil(0.5 * sourceImageHeight * (MaxWaveformWidth * image.scale) / sourceImageWidth);
 
-    XCTAssertEqual(imageWidth, (size_t) 1800);
-    XCTAssertEqual(imageHeight, (size_t) 280);
+    XCTAssertEqual(CGImageGetWidth(image.CGImage), (size_t) expectedImageWidth);
+    XCTAssertEqual(CGImageGetHeight(image.CGImage), (size_t) expectedImageHeight);
 }
 
 @end
