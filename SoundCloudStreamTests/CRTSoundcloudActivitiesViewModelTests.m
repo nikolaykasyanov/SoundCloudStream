@@ -255,4 +255,14 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     }
 }
 
+- (void)testReloadOnLogout
+{
+    [self.viewModel.loginViewModel.logout execute:nil];
+
+    BOOL reloadReceived = NO;
+    [self.viewModel.reloads asynchronousFirstOrDefault:nil success:&reloadReceived error:NULL];
+
+    XCTAssertTrue(reloadReceived);
+}
+
 @end
