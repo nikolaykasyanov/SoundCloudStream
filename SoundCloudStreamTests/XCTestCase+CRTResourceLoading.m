@@ -25,9 +25,12 @@
 
     XCTAssertNotNil(fixtureURL, @"No resource named '%@' in bundle '%@'", resource, testBundle);
 
-    NSData *jsonData = [NSData dataWithContentsOfURL:fixtureURL];
+    NSError *dataLoadError = nil;
+    NSData *jsonData = [NSData dataWithContentsOfURL:fixtureURL
+                                             options:NSDataReadingMappedIfSafe
+                                               error:&dataLoadError];
 
-    XCTAssertNotNil(jsonData, @"Cannot load fixture");
+    XCTAssertNotNil(jsonData, @"Cannot load fixture: %@", dataLoadError);
 
     return jsonData;
 }
