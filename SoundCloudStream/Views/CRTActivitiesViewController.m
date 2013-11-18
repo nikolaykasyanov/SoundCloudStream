@@ -27,18 +27,16 @@
 
 @implementation CRTActivitiesViewController
 
-- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
+- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel
 {
-    NSCParameterAssert(client);
+    NSCParameterAssert(viewModel != nil);
 
     self = [super initWithStyle:UITableViewStylePlain];
 
     if (self != nil) {
         self.title = @"Soundcloud";
 
-        _viewModel = [[CRTSoundcloudActivitiesViewModel alloc] initWithAPIClient:client
-                                                                        pageSize:10
-                                                               minInvisibleItems:5];
+        _viewModel = viewModel;
 
         [self rac_liftSelector:@selector(pageLoadedWithActivities:) withSignals:_viewModel.pages, nil];
 

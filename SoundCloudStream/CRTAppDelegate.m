@@ -10,6 +10,9 @@
 
 #import "CRTSoundcloudClient.h"
 #import "CRTActivitiesViewController.h"
+#import "CRTLoginViewModel.h"
+#import "CRTSoundcloudActivitiesViewModel.h"
+#import "CRTKeychainCredentialStorage.h"
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
@@ -53,7 +56,16 @@ static inline BOOL IsUnitTesting()
                                                  clientID:CRTSoundcloudClientID
                                                    secret:CRTSoundcloudSecret];
 
-    CRTActivitiesViewController *viewController = [[CRTActivitiesViewController alloc] initWithAPIClient:self.client];
+
+    id <CRTCredentialStorage> credentialStorage = [[CRTKeychainCredentialStorage alloc] init];
+    CRTLoginViewModel *loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client credentialStorage:credentialStorage];
+
+    CRTSoundcloudActivitiesViewModel *activitiesViewModel = [[CRTSoundcloudActivitiesViewModel alloc] initWithAPIClient:self.client
+                                                                                                         loginViewModel:loginViewModel
+                                                                                                               pageSize:10
+                                                                                                      minInvisibleItems:5];
+
+    CRTActivitiesViewController *viewController = [[CRTActivitiesViewController alloc] initWithViewModel:activitiesViewModel];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 

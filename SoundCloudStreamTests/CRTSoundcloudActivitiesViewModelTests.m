@@ -7,8 +7,12 @@
 //
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
+#import <GROAuth2SessionManager/AFOAuthCredential.h>
+
+#import "CRTLoginViewModel.h"
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
+#import "CRTDictionaryCredentialStorage.h"
 #import "constants.h"
 
 
@@ -100,7 +104,17 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
     [self.client.requestSerializer setValue:self.markHeaderValue forHTTPHeaderField:MarkHeader];
 
+    // let's setup activities view model with underlying authorized login view model
+    CRTDictionaryCredentialStorage *credentials = [[CRTDictionaryCredentialStorage alloc] init];
+
+    AFOAuthCredential *credential = [[AFOAuthCredential alloc] initWithOAuthToken:@"token" tokenType:@"OAuth"];
+    [credentials setCredential:credential forKey:CRTSoundcloudCredentialsKey];
+
+    CRTLoginViewModel *loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client
+                                                                credentialStorage:credentials];
+
     self.viewModel = [[CRTSoundcloudActivitiesViewModel alloc] initWithAPIClient:self.client
+                                                                  loginViewModel:loginViewModel
                                                                         pageSize:PageSize
                                                                minInvisibleItems:MinInvisibleItems];
 }

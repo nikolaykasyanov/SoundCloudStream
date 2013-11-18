@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class AFOAuthCredential;
+
+@protocol CRTCredentialStorage <NSObject>
+
+- (void)setCredential:(AFOAuthCredential *)credential forKey:(NSString *)key;
+- (AFOAuthCredential *)credentialForKey:(NSString *)key;
+- (void)deleteCredentialForKey:(NSString *)key;
+
+@end
+
+
 @class GROAuth2SessionManager;
 @class RACCommand;
 
@@ -16,7 +27,8 @@
 
 - (instancetype)init __attribute__((unavailable("Use -initWithClient: instead")));
 
-- (instancetype)initWithClient:(GROAuth2SessionManager *)client;
+- (instancetype)initWithClient:(GROAuth2SessionManager *)client
+             credentialStorage:(id <CRTCredentialStorage>)credentialStorage;
 
 
 @property (nonatomic, strong, readonly) RACCommand *startLogin;

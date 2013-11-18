@@ -59,10 +59,12 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 @implementation CRTSoundcloudActivitiesViewModel
 
 - (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
+                   loginViewModel:(CRTLoginViewModel *)loginViewModel
                          pageSize:(NSUInteger)pageSize
                 minInvisibleItems:(NSUInteger)minInvisibleItems
 {
     NSCParameterAssert(client != nil);
+    NSCParameterAssert(loginViewModel != nil);
     NSCParameterAssert(pageSize > 0);
     NSCParameterAssert(minInvisibleItems <= pageSize);
 
@@ -74,12 +76,12 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 
     _reloads = [[self rac_signalForSelector:@selector(resetContents)] mapReplace:[RACUnit defaultUnit]];
 
-    _loginViewModel = [[CRTLoginViewModel alloc] initWithClient:client];
+    _loginViewModel = loginViewModel;
 
     RACSignal *hasNoCredential = [[RACObserve(_loginViewModel, hasCredential) distinctUntilChanged] ignore:@YES];
 
     @weakify(self);
-    [[hasNoCredential skip:1] subscribeNext:^(id _) {
+    [hasNoCredential subscribeNext:^(id _) {
         @strongify(self);
         [self resetContents];
     }];

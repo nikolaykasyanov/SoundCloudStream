@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class CRTSoundcloudClient;
+
+@class CRTSoundcloudActivitiesViewModel;
+
 
 @interface CRTActivitiesViewController : UITableViewController
 
-- (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client;
+- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel;
 
 @end

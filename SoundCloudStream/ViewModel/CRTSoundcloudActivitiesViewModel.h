@@ -18,6 +18,7 @@
 @interface CRTSoundcloudActivitiesViewModel : NSObject
 
 - (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
+                   loginViewModel:(CRTLoginViewModel *)loginViewModel
                          pageSize:(NSUInteger)pageSize
                 minInvisibleItems:(NSUInteger)minInvisibleItems;
 

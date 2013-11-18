@@ -53,8 +53,10 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 @implementation CRTLoginViewModel
 
 - (instancetype)initWithClient:(GROAuth2SessionManager *)client
+             credentialStorage:(id <CRTCredentialStorage>)credentialStorage
 {
     NSCParameterAssert(client != nil);
+    NSCParameterAssert(credentialStorage != nil);
 
     self = [super init];
 
@@ -89,7 +91,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         _logout = [[RACCommand alloc] initWithEnabled:hasCredential
                                           signalBlock:^RACSignal *(id input) {
                                               return [[RACSignal empty] initially:^{
-                                                  [AFOAuthCredential deleteCredentialWithIdentifier:CRTSoundcloudCredentialsKey];
+                                                  [credentialStorage deleteCredentialForKey:CRTSoundcloudCredentialsKey];
                                               }];
                                           }];
 
@@ -109,7 +111,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         _obtainToken = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *code) {
             @strongify(self);
             return [[self authenticateUsingClient:client code:code] doNext:^(AFOAuthCredential *credential) {
-                [AFOAuthCredential storeCredential:credential withIdentifier:CRTSoundcloudCredentialsKey];
+                [credentialStorage setCredential:credential forKey:CRTSoundcloudCredentialsKey];
             }];
         }];
 
@@ -121,7 +123,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
         RAC(self, OAuthCredential) = [[RACSignal merge:@[
                 [_obtainToken.executionSignals switchToLatest],
                 [_logout.executionSignals mapReplace:nil],
-        ]] startWith:[AFOAuthCredential retrieveCredentialWithIdentifier:CRTSoundcloudCredentialsKey]];
+        ]] startWith:[credentialStorage credentialForKey:CRTSoundcloudCredentialsKey]];
     }
 
     return self;
