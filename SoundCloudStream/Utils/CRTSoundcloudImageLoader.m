@@ -66,14 +66,16 @@
 
                 size_t bigImageWidth = CGImageGetWidth(bigImage.CGImage);
                 size_t bigImageHeight = CGImageGetHeight(bigImage.CGImage);
-                CGRect croppedImageRect = CGRectMake(0, 0, bigImageWidth, bigImageHeight / 2);
+                CGRect croppedImageRect = CGRectMake(0, bigImageHeight / 2, bigImageWidth, bigImageHeight / 2);
                 CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
                         croppedImageRect);
 
                 CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height / 2));
 
+                CGRect finalImageRect = (CGRect) { .origin = CGPointZero, .size = newSize };
+
                 UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
-                CGContextDrawImage(UIGraphicsGetCurrentContext(), croppedImageRect, croppedImageRef);
+                CGContextDrawImage(UIGraphicsGetCurrentContext(), finalImageRect, croppedImageRef);
                 UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                 UIGraphicsEndImageContext();
                 return scaledImage;
