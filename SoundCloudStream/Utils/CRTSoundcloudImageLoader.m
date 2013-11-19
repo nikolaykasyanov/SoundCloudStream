@@ -58,9 +58,9 @@
 
         RACSignal *imageSignal = [self.activeSignals objectForKey:url];
         if (imageSignal == nil) {
-            imageSignal = [[[[self rac_GET:url.absoluteString parameters:nil] finally:^{
-                [self.activeSignals removeObjectForKey:url];
-            }] deliverOn:[RACScheduler scheduler]] map:^id(UIImage *bigImage) {
+            imageSignal = [[[self rac_GET:url.absoluteString parameters:nil]
+                            deliverOn:[RACScheduler scheduler]]
+            map:^id(UIImage *bigImage) {
 
                 CGFloat scaleFactor = self.maxWaveformWidth / bigImage.size.width;
 
