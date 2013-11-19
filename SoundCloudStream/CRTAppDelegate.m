@@ -128,7 +128,7 @@ static inline BOOL IsUnitTesting()
 
 - (void)setupAppearance
 {
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:216/255.0 green:62/255.0 blue:34/255.0 alpha:1.0]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:232/255.0 green:75/255.0 blue:37/255.0 alpha:1.0]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName : [UIColor whiteColor],
                                                            NSFontAttributeName : [UIFont boldSystemFontOfSize:20],
