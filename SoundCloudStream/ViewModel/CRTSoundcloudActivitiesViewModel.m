@@ -8,6 +8,8 @@
 
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
+#import "CRTSoundcloudImageLoader.h"
+#import "CRTSoundcloudTrack.h"
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudActivitiesResponse.h"
 #import "CRTLoginViewModel.h"
@@ -53,6 +55,9 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 
 @property (nonatomic) BOOL lastPageLoadingFailed;
 
+@property (nonatomic, strong, readonly) NSCache *imageCache;
+@property (nonatomic, strong, readonly) CRTSoundcloudImageLoader *imageLoader;
+
 @end
 
 
@@ -73,6 +78,9 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     if (self == nil) {
         return nil;
     }
+
+    _imageCache = [[NSCache alloc] init];
+    _imageLoader = [[CRTSoundcloudImageLoader alloc] initWithURLSessionConfiguration:nil maxWaveformWidth:320];
 
     _reloads = [[self rac_signalForSelector:@selector(resetContents)] mapReplace:[RACUnit defaultUnit]];
 
@@ -178,6 +186,25 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     [self didChangeValueForKey:@keypath(self.visibleRange)];
 
     return YES;
+}
+
+- (RACSignal *)waveformImageForActivity:(CRTSoundcloudActivity *)activity
+{
+    if (activity.activityType != CRTSoundcloudTrackActivity) {
+        return [RACSignal empty];
+    }
+
+    CRTSoundcloudTrack *track = activity.origin;
+    NSURL *waveformURL = track.waveformURL;
+
+    UIImage *cachedImage = [self.imageCache objectForKey:waveformURL];
+    if (cachedImage != nil) {
+        return [RACSignal return:cachedImage];
+    }
+
+    return [[self.imageLoader waveformFromURL:waveformURL] doNext:^(id image) {
+        [self.imageCache setObject:image forKey:waveformURL];
+    }];
 }
 
 #pragma mark - Private methods

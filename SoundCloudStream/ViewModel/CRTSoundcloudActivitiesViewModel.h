@@ -27,6 +27,15 @@
 
 - (BOOL)updateVisibleRange:(NSRange)newVisibleRange;
 
+/**
+ * Loads waveform image from network or returns existing one from in-memory cache.
+ * In the latter case returned signal is synchronous.
+ *
+ * @param activity Track activity. If activity has other type than track, empty signal is returned
+ * @return RACSignal[UIImage]
+ */
+- (RACSignal *)waveformImageForActivity:(CRTSoundcloudActivity *)activity;
+
 @property (nonatomic, strong, readonly) CRTLoginViewModel *loginViewModel;
 
 /** RACSignal[CRTLoginViewModel] */
