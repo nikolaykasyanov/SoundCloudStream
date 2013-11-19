@@ -243,14 +243,25 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     }
 }
 
-- (void)testReloadOnLogout
+- (void)testLogout
 {
+    [self stubFirstPageAndAssertCompletion];
+
+    XCTAssertNotNil(self.viewModel.nextCursor);
+    XCTAssertNotNil(self.viewModel.futureCursor);
+
     [self.viewModel.loginViewModel.logout execute:nil];
 
     BOOL reloadReceived = NO;
     [self.viewModel.reloads asynchronousFirstOrDefault:nil success:&reloadReceived error:NULL];
 
     XCTAssertTrue(reloadReceived);
+    XCTAssertNil(self.viewModel.nextCursor);
+    XCTAssertNil(self.viewModel.futureCursor);
+
+    NSNumber *refreshEnabled = [[self.viewModel.refresh.enabled ignore:@YES] asynchronousFirstOrDefault:nil success:NULL error:NULL];
+
+    XCTAssertFalse(refreshEnabled.boolValue);
 }
 
 @end

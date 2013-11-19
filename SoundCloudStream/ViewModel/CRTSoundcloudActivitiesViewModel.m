@@ -120,9 +120,14 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     _pages = [self rac_liftSelector:@selector(clientDidLoadPage:)
                         withSignals:[_loadNextPage.executionSignals flatten], nil];
 
-    RACSignal *canRefresh = [RACObserve(self, futureCursor) map:^NSNumber *(id value) {
+    RACSignal *hasFutureCursor = [RACObserve(self, futureCursor) map:^NSNumber *(id value) {
         return @(value != nil);
     }];
+
+    RACSignal *canRefresh = [[RACSignal combineLatest:@[
+            hasFutureCursor,
+            RACObserve(_loginViewModel, hasCredential),
+    ]] and];
 
     _refresh = [[RACCommand alloc] initWithEnabled:canRefresh
                                        signalBlock:^RACSignal *(id _) {
@@ -252,6 +257,8 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 
 - (void)resetContents
 {
+    self.nextCursor = self.futureCursor = nil;
+
     [self.items removeAllObjects];
     [self.itemIdToItemMap removeAllObjects];
 }
