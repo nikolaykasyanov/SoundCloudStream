@@ -35,7 +35,7 @@
     self = [super initWithStyle:UITableViewStylePlain];
 
     if (self != nil) {
-        self.title = @"Soundcloud";
+        self.title = @"SoundCloud";
 
         _viewModel = viewModel;
 
