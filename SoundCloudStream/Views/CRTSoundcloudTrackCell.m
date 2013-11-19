@@ -13,18 +13,16 @@
 @property (strong, nonatomic) IBOutlet UIImageView *waveformView;
 @property (strong, nonatomic) IBOutlet UILabel *trackTitleLabel;
 
-
 @end
 
 @implementation CRTSoundcloudTrackCell
-
-@dynamic waveformBackgroundColor;
 
 - (void)prepareForReuse
 {
     [super prepareForReuse];
 
     self.waveformView.image = nil;
+    self.waveformView.backgroundColor = self.backgroundColor;
 }
 
 - (void)setTrackTitle:(NSString *)trackTitle
@@ -34,17 +32,11 @@
 
 - (void)setWaveformImage:(UIImage *)waveformImage
 {
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    [self.waveformView.layer addAnimation:transition forKey:kCATransition];
+    self.waveformView.backgroundColor = self.waveformBackgroundColor;
     self.waveformView.image = waveformImage;
-}
-
-- (void)setWaveformBackgroundColor:(UIColor *)waveformBackgroundColor
-{
-    self.waveformView.backgroundColor = waveformBackgroundColor;
-}
-
-- (UIColor *)waveformBackgroundColor
-{
-    return self.waveformView.backgroundColor;
 }
 
 @end
