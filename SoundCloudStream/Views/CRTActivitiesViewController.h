@@ -10,10 +10,12 @@
 
 
 @class CRTSoundcloudActivitiesViewModel;
+@class CRTErrorPresenter;
 
 
 @interface CRTActivitiesViewController : UITableViewController
 
-- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel;
+- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel
+                   errorPresenter:(CRTErrorPresenter *)errorPresenter;
 
 @end

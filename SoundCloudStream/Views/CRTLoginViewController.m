@@ -8,6 +8,7 @@
 
 #import "CRTLoginViewController.h"
 #import "CRTLoginViewModel.h"
+#import "CRTErrorPresenter.h"
 
 
 @interface CRTLoginViewController ()
@@ -15,19 +16,23 @@
 @property (nonatomic, strong) UIButton *connectButton;
 @property (nonatomic, strong, readonly) CRTLoginViewModel *viewModel;
 
+@property (nonatomic, strong, readonly) CRTErrorPresenter *errorPresenter;
+
 @end
 
 
 @implementation CRTLoginViewController
 
-- (instancetype)initWithViewModel:(CRTLoginViewModel *)viewModel
+- (instancetype)initWithViewModel:(CRTLoginViewModel *)viewModel errorPresenter:(CRTErrorPresenter *)errorPresenter
 {
     NSCParameterAssert(viewModel != nil);
+    NSCParameterAssert(errorPresenter != nil);
 
     self = [super init];
 
     if (self != nil) {
         _viewModel = viewModel;
+        _errorPresenter = errorPresenter;
 
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.title = @"Connect";

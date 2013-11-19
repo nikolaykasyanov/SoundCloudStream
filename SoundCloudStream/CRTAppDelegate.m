@@ -14,6 +14,7 @@
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTKeychainCredentialStorage.h"
 #import "CRTSoundcloudTrackCell.h"
+#import "CRTErrorPresenter.h"
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
@@ -66,11 +67,14 @@ static inline BOOL IsUnitTesting()
                                                                                                                pageSize:10
                                                                                                       minInvisibleItems:5];
 
-    CRTActivitiesViewController *viewController = [[CRTActivitiesViewController alloc] initWithViewModel:activitiesViewModel];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    CRTErrorPresenter *errorPresenter = [[CRTErrorPresenter alloc] initWithApplicationWindow:self.window];
+
+    CRTActivitiesViewController *viewController = [[CRTActivitiesViewController alloc] initWithViewModel:activitiesViewModel
+                                                                                          errorPresenter:errorPresenter];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
 

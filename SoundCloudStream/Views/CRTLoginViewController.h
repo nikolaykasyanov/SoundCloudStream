@@ -10,10 +10,11 @@
 
 
 @class CRTLoginViewModel;
+@class CRTErrorPresenter;
 
 
 @interface CRTLoginViewController : UIViewController
 
-- (instancetype)initWithViewModel:(CRTLoginViewModel *)viewModel;
+- (instancetype)initWithViewModel:(CRTLoginViewModel *)viewModel errorPresenter:(CRTErrorPresenter *)errorPresenter;
 
 @end

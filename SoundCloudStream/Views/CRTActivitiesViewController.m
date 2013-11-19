@@ -14,6 +14,7 @@
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"
 #import "CRTSoundcloudTrackCell.h"
+#import "CRTErrorPresenter.h"
 #import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
 
@@ -22,14 +23,18 @@
 @property (nonatomic, strong, readonly) CRTSoundcloudActivitiesViewModel *viewModel;
 @property (nonatomic, strong) CRTPageLoadingView *pageLoadingView;
 
+@property (nonatomic, strong, readonly) CRTErrorPresenter *errorPresenter;
+
 @end
 
 
 @implementation CRTActivitiesViewController
 
 - (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel
+                   errorPresenter:(CRTErrorPresenter *)errorPresenter
 {
     NSCParameterAssert(viewModel != nil);
+    NSCParameterAssert(errorPresenter != nil);
 
     self = [super initWithStyle:UITableViewStylePlain];
 
@@ -37,6 +42,7 @@
         self.title = @"SoundCloud";
 
         _viewModel = viewModel;
+        _errorPresenter = errorPresenter;
 
         [self rac_liftSelector:@selector(pageLoadedWithActivities:) withSignals:_viewModel.pages, nil];
 
@@ -140,6 +146,8 @@
     }] distinctUntilChanged];
 
     [self.viewModel rac_liftSelector:@selector(updateVisibleRange:) withSignals:visibleRange, nil];
+
+    [self.errorPresenter rac_liftSelector:@selector(presentError:) withSignals:self.viewModel.errors, nil];
 }
 
 - (void)triggerLogin
@@ -153,7 +161,8 @@
 {
     NSCParameterAssert(loginViewModel != nil);
 
-    CRTLoginViewController *controller = [[CRTLoginViewController alloc] initWithViewModel:loginViewModel];
+    CRTLoginViewController *controller = [[CRTLoginViewController alloc] initWithViewModel:loginViewModel
+                                                                            errorPresenter:self.errorPresenter];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
 
