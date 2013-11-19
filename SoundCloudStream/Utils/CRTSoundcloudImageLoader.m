@@ -76,6 +76,7 @@
 
                 UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
                 CGContextDrawImage(UIGraphicsGetCurrentContext(), finalImageRect, croppedImageRef);
+                CGImageRelease(croppedImageRef);
                 UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
                 UIGraphicsEndImageContext();
                 return scaledImage;
