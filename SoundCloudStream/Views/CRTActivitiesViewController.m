@@ -165,6 +165,7 @@
                                                                             errorPresenter:self.errorPresenter];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    navigationController.navigationBar.translucent = NO;
 
     [self presentViewController:navigationController animated:YES completion:nil];
 }
