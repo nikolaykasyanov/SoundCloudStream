@@ -40,8 +40,7 @@
         _activeSignals = [NSMapTable strongToWeakObjectsMapTable];
         _maxWaveformWidth = maxWaveformWidth;
 
-        AFImageResponseSerializer *responseSerializer = [[AFImageResponseSerializer alloc] init];
-        self.responseSerializer = responseSerializer;
+        self.responseSerializer = [[AFImageResponseSerializer alloc] init];
     }
 
     return self;
