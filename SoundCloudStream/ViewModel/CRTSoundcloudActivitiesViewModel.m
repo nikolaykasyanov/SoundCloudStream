@@ -10,7 +10,6 @@
 #import "CRTSoundcloudClient.h"
 #import "CRTSoundcloudImageLoader.h"
 #import "CRTSoundcloudTrack.h"
-#import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudActivitiesResponse.h"
 #import "CRTLoginViewModel.h"
 

@@ -10,7 +10,6 @@
 #import "CRTLoginViewController.h"
 #import "CRTLoginViewModel.h"
 #import "CRTSoundcloudActivitiesViewModel.h"
-#import "CRTSoundcloudClient.h"
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"

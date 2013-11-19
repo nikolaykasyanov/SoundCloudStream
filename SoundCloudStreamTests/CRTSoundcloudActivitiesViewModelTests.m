@@ -13,7 +13,6 @@
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
 #import "CRTDictionaryCredentialStorage.h"
-#import "constants.h"
 
 
 static const NSUInteger PageSize = 5;
