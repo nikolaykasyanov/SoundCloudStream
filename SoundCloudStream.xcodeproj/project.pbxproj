@@ -21,6 +21,8 @@
 		1F13DB6F1839D38800762007 /* waveform.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F13DB6E1839D38800762007 /* waveform.png */; };
 		1F13DB72183A7A6900762007 /* CRTKeychainCredentialStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB71183A7A6900762007 /* CRTKeychainCredentialStorage.m */; };
 		1F13DB75183A7B4800762007 /* CRTDictionaryCredentialStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB74183A7B4800762007 /* CRTDictionaryCredentialStorage.m */; };
+		1F13DB7B183AB94D00762007 /* CRTSoundcloudTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */; };
+		1F13DB7D183AB96700762007 /* CRTSoundcloudTrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
 		1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029FC183146DF00B9A662 /* NSURL+CRTURLComparison.m */; };
@@ -85,6 +87,9 @@
 		1F13DB71183A7A6900762007 /* CRTKeychainCredentialStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTKeychainCredentialStorage.m; sourceTree = "<group>"; };
 		1F13DB73183A7B4800762007 /* CRTDictionaryCredentialStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTDictionaryCredentialStorage.h; sourceTree = "<group>"; };
 		1F13DB74183A7B4800762007 /* CRTDictionaryCredentialStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTDictionaryCredentialStorage.m; sourceTree = "<group>"; };
+		1F13DB79183AB94D00762007 /* CRTSoundcloudTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudTrackCell.h; sourceTree = "<group>"; };
+		1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrackCell.m; sourceTree = "<group>"; };
+		1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRTSoundcloudTrackCell.xib; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
 		1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesResponse.m; sourceTree = "<group>"; };
 		1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesResponseTests.m; sourceTree = "<group>"; };
@@ -263,6 +268,9 @@
 				E4E87A3EC8B6D115596A09F6 /* CRTPageLoadingView.m */,
 				1F13DB621837B2C500762007 /* CRTLoginViewController.h */,
 				1F13DB631837B2C500762007 /* CRTLoginViewController.m */,
+				1F13DB79183AB94D00762007 /* CRTSoundcloudTrackCell.h */,
+				1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */,
+				1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -398,7 +406,7 @@
 						};
 					};
 					1FE51DAE182BFEB900C920C5 = {
-						TestTargetID = 1FE51D93182BFEB900C920C5;
+						TestTargetID = 1FE51D93182BFEB900C920C5 /* SoundCloudStream */;
 					};
 				};
 			};
@@ -425,6 +433,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F13DB7D183AB96700762007 /* CRTSoundcloudTrackCell.xib in Resources */,
 				1FE51DA2182BFEB900C920C5 /* InfoPlist.strings in Resources */,
 				1FE51DAA182BFEB900C920C5 /* Images.xcassets in Resources */,
 			);
@@ -525,6 +534,7 @@
 				1F0D73D5182E2E5E001CEE0B /* CRTLoginViewModel.m in Sources */,
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
 				1F13DB6B1839C8B700762007 /* CRTSoundcloudImageLoader.m in Sources */,
+				1F13DB7B183AB94D00762007 /* CRTSoundcloudTrackCell.m in Sources */,
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 				E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */,

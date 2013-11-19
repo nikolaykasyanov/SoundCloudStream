@@ -14,6 +14,7 @@
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"
+#import "CRTSoundcloudTrackCell.h"
 #import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
 
@@ -58,6 +59,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([CRTSoundcloudTrackCell class]) bundle:nil];
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"Cell"];
+
+    self.tableView.rowHeight = CGRectGetHeight([[cellNib instantiateWithOwner:nil options:nil].firstObject frame]);
+
+    self.tableView.separatorInset = UIEdgeInsetsZero;
 
     @weakify(self);
     [self.viewModel.reloads subscribeNext:^(id _) {
@@ -110,11 +118,6 @@
             RACObserve(self.viewModel, lastPageLoadingFailed),
             [self.viewModel.loadNextPage.executing not]
     ]] and];
-
-
-    self.tableView.rowHeight = 100;
-
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 
     RACSignal *visibleCellChanges = [[RACSignal merge:@[
             [self rac_signalForSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)],
@@ -233,14 +236,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    CRTSoundcloudTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
     CRTSoundcloudActivity *activity = [self.viewModel activityAtIndex:indexPath.row];
 
     if (activity.activityType == CRTSoundcloudTrackActivity) {
         CRTSoundcloudTrack *track = (CRTSoundcloudTrack *) activity.origin;
 
-        cell.textLabel.text = track.title;
+        [cell setTrackTitle:track.title];
+
+        RACSignal *waveformImage = [[self.viewModel waveformImageForActivity:activity] takeUntil:cell.rac_prepareForReuseSignal];
+
+        [cell rac_liftSelector:@selector(setWaveformImage:) withSignals:waveformImage, nil];
     }
     else {
         cell.textLabel.text = @"Unsupported activity";
