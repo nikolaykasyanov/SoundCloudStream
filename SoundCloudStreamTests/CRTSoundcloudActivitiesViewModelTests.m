@@ -87,6 +87,15 @@ static OHHTTPStubsResponse *JSONResponseWithError()
         }];
 }
 
+- (void)stubFirstPageAndAssertCompletion
+{
+    id firstStub = [self stubFirstPage];
+    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
+    [OHHTTPStubs removeStub:firstStub];
+
+    XCTAssertTrue(completed);
+}
+
 - (void)setUp
 {
     [super setUp];
@@ -127,19 +136,15 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
 - (void)testFirstAndSecondPageFetch
 {
-    id firstStub = [self stubFirstPage];
-
     __block NSArray *itemsFromPages = nil;
     [self.viewModel.pages subscribeNext:^(NSArray *items) {
         itemsFromPages = items;
     }];
 
-    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
-    [OHHTTPStubs removeStub:firstStub];
+    [self stubFirstPageAndAssertCompletion];
 
     NSUInteger numberOfItemsOn1StPage = itemsFromPages.count;
 
-    XCTAssertTrue(completed);
     XCTAssertEqual(itemsFromPages.count, (NSUInteger) 5);
     XCTAssertEqual(self.viewModel.numberOfActivities, itemsFromPages.count);
     XCTAssertTrue(self.viewModel.loadNextPage.enabled.first, @"Next page cannot be loaded");
@@ -154,7 +159,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
         return JSONResponseFromResource(self.crt_testBundle, @"second.json");
     }];
 
-    completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
+    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
 
     NSArray *itemsFromSecondPage = itemsFromPages;
 
@@ -176,13 +181,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
 - (void)testVisibleRangeTriggeredLoading
 {
-    id firstStub = [self stubFirstPage];
-
-    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
-    [OHHTTPStubs removeStub:firstStub];
-
-    XCTAssertTrue(completed);
-
+    [self stubFirstPageAndAssertCompletion];
 
     [self stubNextPageFromURL:self.viewModel.nextCursor resource:@"second.json"];
 
@@ -196,12 +195,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
 - (void)testVisibleRangeTriggeredLoadingAfterError
 {
-    id firstStub = [self stubFirstPage];
-
-    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
-    [OHHTTPStubs removeStub:firstStub];
-
-    XCTAssertTrue(completed);
+    [self stubFirstPageAndAssertCompletion];
 
     [self stubNextPageWithErrorFromURL:self.viewModel.nextCursor];
 
@@ -227,12 +221,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     NSNumber *canRefreshWhenEmpty = self.viewModel.refresh.enabled.first;
     XCTAssertFalse(canRefreshWhenEmpty.boolValue);
 
-    id firstStub = [self stubFirstPage];
-
-    BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
-    [OHHTTPStubs removeStub:firstStub];
-
-    XCTAssertTrue(completed);
+    [self stubFirstPageAndAssertCompletion];
 
     NSNumber *canRefresh = self.viewModel.refresh.enabled.first;
     XCTAssertTrue(canRefresh.boolValue);
@@ -244,7 +233,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
         newItems = items;
     }];
 
-    completed = [[self.viewModel.refresh execute:nil] asynchronouslyWaitUntilCompleted:NULL];
+    BOOL completed = [[self.viewModel.refresh execute:nil] asynchronouslyWaitUntilCompleted:NULL];
 
     XCTAssertTrue(completed);
     XCTAssertNotNil(newItems);
