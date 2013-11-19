@@ -62,7 +62,9 @@
     UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([CRTSoundcloudTrackCell class]) bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"Cell"];
 
-    self.tableView.rowHeight = CGRectGetHeight([[cellNib instantiateWithOwner:nil options:nil].firstObject frame]);
+    UITableViewCell *testCell = [cellNib instantiateWithOwner:nil options:nil].firstObject;
+    self.tableView.rowHeight = CGRectGetHeight(testCell.frame);
+    self.tableView.backgroundColor = testCell.backgroundColor;
 
     self.tableView.separatorInset = UIEdgeInsetsZero;
 
