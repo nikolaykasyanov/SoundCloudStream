@@ -142,10 +142,11 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 
     _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
 
+    RACSignal *resetSignal = [self rac_signalForSelector:@selector(resetContents)];
 
-    RAC(self, endOfFeedReached) = [[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
+    RAC(self, endOfFeedReached) = [[[[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
         return @(cursor == nil);
-    }] startWith:@NO];
+    }] startWith:@NO] takeUntil:resetSignal] repeat];
 
     RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
             [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
