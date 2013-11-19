@@ -194,7 +194,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
         return [RACSignal empty];
     }
 
-    CRTSoundcloudTrack *track = activity.origin;
+    CRTSoundcloudTrack *track = (CRTSoundcloudTrack *) activity.origin;
     NSURL *waveformURL = track.waveformURL;
 
     UIImage *cachedImage = [self.imageCache objectForKey:waveformURL];
