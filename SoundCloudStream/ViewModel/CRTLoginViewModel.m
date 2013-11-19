@@ -63,26 +63,36 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
     self = [super init];
 
     if (self != nil) {
-        _startLogin = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id _) {
 
-            AFHTTPRequestSerializer *serializer = [[AFHTTPRequestSerializer alloc] init];
-
-            NSURLRequest *request = [serializer requestWithMethod:@"GET"
-                                                        URLString:CRTSoundcloudConnectURLString
-                                                       parameters:@{
-                                                               @"redirect_uri" : CRTSoundcloudBackURLString,
-                                                               @"client_id" : CRTSoundcloudClientID,
-                                                               @"consumer_Key" : CRTSoundcloudSecret,
-                                                               @"response_type" : @"code",
-                                                               @"scope" : @"non-expiring",
-                                                       }];
-
-            NSURL *url = request.URL;
-
-            [[UIApplication sharedApplication] openURL:url];
-
-            return [RACSignal empty];
+        @weakify(self);
+        _obtainToken = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *code) {
+            @strongify(self);
+            return [[self authenticateUsingClient:client code:code] doNext:^(AFOAuthCredential *credential) {
+                [credentialStorage setCredential:credential forKey:CRTSoundcloudCredentialsKey];
+            }];
         }];
+
+        _startLogin = [[RACCommand alloc] initWithEnabled:[_obtainToken.executing not]
+                                              signalBlock:^RACSignal *(id _) {
+
+                                                  AFHTTPRequestSerializer *serializer = [[AFHTTPRequestSerializer alloc] init];
+
+                                                  NSURLRequest *request = [serializer requestWithMethod:@"GET"
+                                                                                              URLString:CRTSoundcloudConnectURLString
+                                                                                             parameters:@{
+                                                                                                     @"redirect_uri" : CRTSoundcloudBackURLString,
+                                                                                                     @"client_id" : CRTSoundcloudClientID,
+                                                                                                     @"consumer_Key" : CRTSoundcloudSecret,
+                                                                                                     @"response_type" : @"code",
+                                                                                                     @"scope" : @"non-expiring",
+                                                                                             }];
+
+                                                  NSURL *url = request.URL;
+
+                                                  [[UIApplication sharedApplication] openURL:url];
+
+                                                  return [RACSignal empty];
+                                              }];
 
         RACSignal *hasCredential = [RACObserve(self, OAuthCredential) map:^id(id value) {
             return @(value != nil);
@@ -107,14 +117,6 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
             return parameters[@"code"];
         }] filter:^BOOL(NSString *code) {
             return code != nil;
-        }];
-
-        @weakify(self);
-        _obtainToken = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *code) {
-            @strongify(self);
-            return [[self authenticateUsingClient:client code:code] doNext:^(AFOAuthCredential *credential) {
-                [credentialStorage setCredential:credential forKey:CRTSoundcloudCredentialsKey];
-            }];
         }];
 
         [_obtainToken rac_liftSelector:@selector(execute:) withSignals:authCode, nil];
