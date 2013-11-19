@@ -54,40 +54,39 @@
 
 - (RACSignal *)waveformFromURL:(NSURL *)url
 {
-    return [[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    return [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
 
         RACSignal *imageSignal = [self.activeSignals objectForKey:url];
         if (imageSignal == nil) {
-            imageSignal = [[[self rac_GET:url.absoluteString parameters:nil]
-                            deliverOn:[RACScheduler scheduler]]
-            map:^id(UIImage *bigImage) {
+            imageSignal = [[[[self rac_GET:url.absoluteString parameters:nil]
+                    deliverOn:[RACScheduler scheduler]]
+                    map:^id(UIImage *bigImage) {
 
-                CGFloat scaleFactor = self.maxWaveformWidth / bigImage.size.width;
+                        CGFloat scaleFactor = self.maxWaveformWidth / bigImage.size.width;
 
-                size_t bigImageWidth = CGImageGetWidth(bigImage.CGImage);
-                size_t bigImageHeight = CGImageGetHeight(bigImage.CGImage);
-                CGRect croppedImageRect = CGRectMake(0, bigImageHeight / 2, bigImageWidth, bigImageHeight / 2);
-                CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
-                        croppedImageRect);
+                        size_t bigImageWidth = CGImageGetWidth(bigImage.CGImage);
+                        size_t bigImageHeight = CGImageGetHeight(bigImage.CGImage);
+                        CGRect croppedImageRect = CGRectMake(0, bigImageHeight / 2, bigImageWidth, bigImageHeight / 2);
+                        CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
+                                croppedImageRect);
 
-                CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height / 2));
+                        CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height / 2));
 
-                CGRect finalImageRect = (CGRect) { .origin = CGPointZero, .size = newSize };
+                        CGRect finalImageRect = (CGRect) {.origin = CGPointZero, .size = newSize};
 
-                UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
-                CGContextDrawImage(UIGraphicsGetCurrentContext(), finalImageRect, croppedImageRef);
-                CGImageRelease(croppedImageRef);
-                UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                return scaledImage;
-            }];
+                        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+                        CGContextDrawImage(UIGraphicsGetCurrentContext(), finalImageRect, croppedImageRef);
+                        CGImageRelease(croppedImageRef);
+                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+                        UIGraphicsEndImageContext();
+                        return scaledImage;
+                    }] replayLazily];
             [self.activeSignals setObject:imageSignal forKey:url];
         }
 
         return [imageSignal subscribe:subscriber];
     }] subscribeOn:self.lockScheduler]
-         deliverOn:[RACScheduler currentScheduler]]
-            replayLazily];
+         deliverOn:[RACScheduler currentScheduler]];
 }
 
 #pragma mark - Private methods
