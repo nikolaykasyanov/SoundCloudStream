@@ -35,4 +35,6 @@
 @property (nonatomic, strong, readonly) RACCommand *logout;
 @property (nonatomic, readonly) BOOL hasCredential;
 
+@property  (nonatomic, strong, readonly) RACSignal *loading;
+
 @end

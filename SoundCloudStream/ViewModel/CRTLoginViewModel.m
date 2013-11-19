@@ -52,6 +52,8 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
 @implementation CRTLoginViewModel
 
+@dynamic loading;
+
 - (instancetype)initWithClient:(GROAuth2SessionManager *)client
              credentialStorage:(id <CRTCredentialStorage>)credentialStorage
 {
@@ -149,6 +151,11 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
         return nil;
     }] replayLazily];
+}
+
+- (RACSignal *)loading
+{
+    return self.obtainToken.executing;
 }
 
 @end

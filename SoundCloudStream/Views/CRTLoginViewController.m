@@ -45,6 +45,19 @@
 {
     [super viewDidLoad];
 
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    activityIndicator.hidesWhenStopped = YES;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+
+    [self.viewModel.loading subscribeNext:^(NSNumber *flag) {
+        if (flag.boolValue) {
+            [activityIndicator startAnimating];
+        }
+        else {
+            [activityIndicator stopAnimating];
+        }
+    }];
+
     self.view.backgroundColor = [UIColor whiteColor];
 
 	// Do any additional setup after loading the view.
