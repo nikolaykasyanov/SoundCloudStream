@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F02C9941833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */; };
+		1F02C9941833E44F001B728D /* CRTActivitiesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9931833E44F001B728D /* CRTActivitiesViewModel.m */; };
 		1F02C9961833FBE8001B728D /* CRTSoundcloudActivityIDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */; };
 		1F02C99818340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */; };
 		1F02C99B18341011001B728D /* second.json in Resources */ = {isa = PBXBuildFile; fileRef = 1F02C99918341011001B728D /* second.json */; };
@@ -67,8 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F02C9921833E44F001B728D /* CRTSoundcloudActivitiesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesViewModel.h; sourceTree = "<group>"; };
-		1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesViewModel.m; sourceTree = "<group>"; };
+		1F02C9921833E44F001B728D /* CRTActivitiesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTActivitiesViewModel.h; sourceTree = "<group>"; };
+		1F02C9931833E44F001B728D /* CRTActivitiesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTActivitiesViewModel.m; sourceTree = "<group>"; };
 		1F02C9951833FBE8001B728D /* CRTSoundcloudActivityIDTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivityIDTests.m; sourceTree = "<group>"; };
 		1F02C99718340376001B728D /* CRTSoundcloudActivitiesViewModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudActivitiesViewModelTests.m; sourceTree = "<group>"; };
 		1F02C99918341011001B728D /* second.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = second.json; sourceTree = "<group>"; };
@@ -283,8 +283,8 @@
 			children = (
 				1F0D73D3182E2E5E001CEE0B /* CRTLoginViewModel.h */,
 				1F0D73D4182E2E5E001CEE0B /* CRTLoginViewModel.m */,
-				1F02C9921833E44F001B728D /* CRTSoundcloudActivitiesViewModel.h */,
-				1F02C9931833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m */,
+				1F02C9921833E44F001B728D /* CRTActivitiesViewModel.h */,
+				1F02C9931833E44F001B728D /* CRTActivitiesViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -545,7 +545,7 @@
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 				E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */,
-				1F02C9941833E44F001B728D /* CRTSoundcloudActivitiesViewModel.m in Sources */,
+				1F02C9941833E44F001B728D /* CRTActivitiesViewModel.m in Sources */,
 				1F13DB641837B2C500762007 /* CRTLoginViewController.m in Sources */,
 				1F13DB72183A7A6900762007 /* CRTKeychainCredentialStorage.m in Sources */,
 				E4E87100FCC44D6FAB43C32C /* CRTPageLoadingView.m in Sources */,

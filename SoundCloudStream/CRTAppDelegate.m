@@ -11,7 +11,7 @@
 #import "CRTSoundcloudClient.h"
 #import "CRTActivitiesViewController.h"
 #import "CRTLoginViewModel.h"
-#import "CRTSoundcloudActivitiesViewModel.h"
+#import "CRTActivitiesViewModel.h"
 #import "CRTKeychainCredentialStorage.h"
 #import "CRTTrackCell.h"
 #import "CRTErrorPresenter.h"
@@ -62,7 +62,7 @@ static inline BOOL IsUnitTesting()
     id <CRTCredentialStorage> credentialStorage = [[CRTKeychainCredentialStorage alloc] init];
     CRTLoginViewModel *loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client credentialStorage:credentialStorage];
 
-    CRTSoundcloudActivitiesViewModel *activitiesViewModel = [[CRTSoundcloudActivitiesViewModel alloc] initWithAPIClient:self.client
+    CRTActivitiesViewModel *activitiesViewModel = [[CRTActivitiesViewModel alloc] initWithAPIClient:self.client
                                                                                                          loginViewModel:loginViewModel
                                                                                                                pageSize:10
                                                                                                       minInvisibleItems:5];

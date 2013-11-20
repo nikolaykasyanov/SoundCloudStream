@@ -9,7 +9,7 @@
 #import "CRTActivitiesViewController.h"
 #import "CRTLoginViewController.h"
 #import "CRTLoginViewModel.h"
-#import "CRTSoundcloudActivitiesViewModel.h"
+#import "CRTActivitiesViewModel.h"
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"
@@ -20,7 +20,7 @@
 
 @interface CRTActivitiesViewController ()
 
-@property (nonatomic, strong, readonly) CRTSoundcloudActivitiesViewModel *viewModel;
+@property (nonatomic, strong, readonly) CRTActivitiesViewModel *viewModel;
 @property (nonatomic, strong) CRTPageLoadingView *pageLoadingView;
 
 @property (nonatomic, strong, readonly) CRTErrorPresenter *errorPresenter;
@@ -30,7 +30,7 @@
 
 @implementation CRTActivitiesViewController
 
-- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel
+- (instancetype)initWithViewModel:(CRTActivitiesViewModel *)viewModel
                    errorPresenter:(CRTErrorPresenter *)errorPresenter
 {
     NSCParameterAssert(viewModel != nil);

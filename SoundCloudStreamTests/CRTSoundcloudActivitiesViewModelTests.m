@@ -10,7 +10,7 @@
 #import <GROAuth2SessionManager/AFOAuthCredential.h>
 
 #import "CRTLoginViewModel.h"
-#import "CRTSoundcloudActivitiesViewModel.h"
+#import "CRTActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
 #import "CRTDictionaryCredentialStorage.h"
 
@@ -22,7 +22,7 @@ static NSString *const MarkHeader = @"X-CRT-Test";
 @interface CRTSoundcloudActivitiesViewModelTests : XCTestCase
 
 @property (nonatomic, strong) CRTSoundcloudClient *client;
-@property (nonatomic, strong) CRTSoundcloudActivitiesViewModel *viewModel;
+@property (nonatomic, strong) CRTActivitiesViewModel *viewModel;
 
 @property (nonatomic, copy) NSString *markHeaderValue;
 
@@ -121,7 +121,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     CRTLoginViewModel *loginViewModel = [[CRTLoginViewModel alloc] initWithClient:self.client
                                                                 credentialStorage:credentials];
 
-    self.viewModel = [[CRTSoundcloudActivitiesViewModel alloc] initWithAPIClient:self.client
+    self.viewModel = [[CRTActivitiesViewModel alloc] initWithAPIClient:self.client
                                                                   loginViewModel:loginViewModel
                                                                         pageSize:PageSize
                                                                minInvisibleItems:MinInvisibleItems];

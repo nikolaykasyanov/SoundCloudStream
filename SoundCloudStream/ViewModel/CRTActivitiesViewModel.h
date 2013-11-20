@@ -1,5 +1,5 @@
 //
-//  CRTSoundcloudActivitiesViewModel.h
+//  CRTActivitiesViewModel.h
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 13.11.13.
@@ -15,7 +15,7 @@
 @class CRTLoginViewModel;
 
 
-@interface CRTSoundcloudActivitiesViewModel : NSObject
+@interface CRTActivitiesViewModel : NSObject
 
 - (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
                    loginViewModel:(CRTLoginViewModel *)loginViewModel

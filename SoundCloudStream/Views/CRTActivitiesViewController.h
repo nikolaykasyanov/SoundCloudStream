@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 
-@class CRTSoundcloudActivitiesViewModel;
+@class CRTActivitiesViewModel;
 @class CRTErrorPresenter;
 
 
 @interface CRTActivitiesViewController : UITableViewController
 
-- (instancetype)initWithViewModel:(CRTSoundcloudActivitiesViewModel *)viewModel
+- (instancetype)initWithViewModel:(CRTActivitiesViewModel *)viewModel
                    errorPresenter:(CRTErrorPresenter *)errorPresenter;
 
 @end

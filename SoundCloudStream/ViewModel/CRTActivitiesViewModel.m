@@ -1,12 +1,12 @@
 //
-//  CRTSoundcloudActivitiesViewModel.m
+//  CRTActivitiesViewModel.m
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 13.11.13.
 //  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
 //
 
-#import "CRTSoundcloudActivitiesViewModel.h"
+#import "CRTActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
 #import "CRTImageLoader.h"
 #import "CRTSoundcloudTrack.h"
@@ -36,7 +36,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 }
 
 
-@interface CRTSoundcloudActivitiesViewModel ()
+@interface CRTActivitiesViewModel ()
 
 /** NSArray[CRTSoundcloudActivity] */
 @property (nonatomic, strong, readonly) NSMutableArray *items;
@@ -60,7 +60,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 @end
 
 
-@implementation CRTSoundcloudActivitiesViewModel
+@implementation CRTActivitiesViewModel
 
 - (instancetype)initWithAPIClient:(CRTSoundcloudClient *)client
                    loginViewModel:(CRTLoginViewModel *)loginViewModel
