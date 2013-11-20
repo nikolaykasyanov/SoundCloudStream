@@ -20,9 +20,13 @@ static const NSTimeInterval NotificationLifetime = 2.0;
 
 @property (nonatomic) NSUInteger numberOfNotifications;
 
+@property (nonatomic, weak, readonly) UIWindow *mainWindow;
+
 @end
 
 @implementation CRTErrorPresenter
+@synthesize presentingWindow = _presentingWindow;
+@synthesize dynamicAnimator = _dynamicAnimator;
 
 - (instancetype)initWithApplicationWindow:(UIWindow *)mainWindow
 {
@@ -31,25 +35,41 @@ static const NSTimeInterval NotificationLifetime = 2.0;
     self = [super init];
 
     if (self != nil) {
-        _presentingWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainWindow.frame), 64)];
+        _mainWindow = mainWindow;
+    }
+
+    return self;
+}
+
+- (UIWindow *)presentingWindow
+{
+    if (_presentingWindow == nil) {
+        _presentingWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.mainWindow.frame), 64)];
         _presentingWindow.windowLevel = UIWindowLevelAlert;
         _presentingWindow.userInteractionEnabled = NO;
         _presentingWindow.hidden = NO;
-
-        _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:_presentingWindow];
 
         RAC(_presentingWindow, userInteractionEnabled) = [RACObserve(self, numberOfNotifications) map:^(NSNumber *value) {
             return @(value.unsignedIntegerValue > 0);
         }];
     }
 
-    return self;
+    return _presentingWindow;
+}
+
+- (UIDynamicAnimator *)dynamicAnimator
+{
+    if (_dynamicAnimator == nil) {
+        _dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.presentingWindow];
+    }
+
+    return _dynamicAnimator;
 }
 
 - (void)presentError:(NSError *)error
 {
-    CGRect notificationInitialRect = { .origin = CGPointMake(0, -CGRectGetHeight(_presentingWindow.bounds)),
-                                       .size = _presentingWindow.bounds.size };
+    CGRect notificationInitialRect = { .origin = CGPointMake(0, -CGRectGetHeight(self.presentingWindow.bounds)),
+                                       .size = self.presentingWindow.bounds.size };
 
     UIView *notificationView = [[UIView alloc] initWithFrame:notificationInitialRect];
     notificationView.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1.0];
@@ -66,16 +86,16 @@ static const NSTimeInterval NotificationLifetime = 2.0;
 
     [notificationView addGestureRecognizer:tapRecognizer];
 
-    [_presentingWindow addSubview:notificationView];
+    [self.presentingWindow addSubview:notificationView];
 
     textLabel.text = error.localizedDescription;
 
-    CGPoint snapPoint = CGPointMake(CGRectGetMidX(_presentingWindow.bounds), CGRectGetMidY(_presentingWindow.bounds));
+    CGPoint snapPoint = CGPointMake(CGRectGetMidX(self.presentingWindow.bounds), CGRectGetMidY(self.presentingWindow.bounds));
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:notificationView
                                                     snapToPoint:snapPoint];
     snap.damping = 0.5;
 
-    [_dynamicAnimator addBehavior:snap];
+    [self.dynamicAnimator addBehavior:snap];
 
     self.numberOfNotifications++;
 
