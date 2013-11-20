@@ -44,7 +44,7 @@
         _viewModel = viewModel;
         _errorPresenter = errorPresenter;
 
-        [self rac_liftSelector:@selector(pageLoadedWithActivities:) withSignals:_viewModel.pages, nil];
+        [self rac_liftSelector:@selector(pageDidLoadWithActivities:) withSignals:_viewModel.pages, nil];
 
         // will complete when view is on screen and ready to go
         RACSignal *firstAppearance = [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] ignoreValues];
@@ -170,7 +170,7 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (void)pageLoadedWithActivities:(NSArray *)activities
+- (void)pageDidLoadWithActivities:(NSArray *)activities
 {
     if (activities.count == self.viewModel.numberOfActivities) { // first page
         [self.tableView reloadData];
