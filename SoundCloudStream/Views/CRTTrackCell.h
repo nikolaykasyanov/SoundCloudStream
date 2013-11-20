@@ -1,5 +1,5 @@
 //
-//  CRTSoundcloudTrackCell.h
+//  CRTTrackCell.h
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 19.11.13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CRTSoundcloudTrackCell : UITableViewCell
+@interface CRTTrackCell : UITableViewCell
 
 - (void)setTrackTitle:(NSString *)trackTitle;
 - (void)setWaveformImage:(UIImage *)waveformImage;

@@ -13,7 +13,7 @@
 #import "CRTLoginViewModel.h"
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTKeychainCredentialStorage.h"
-#import "CRTSoundcloudTrackCell.h"
+#import "CRTTrackCell.h"
 #import "CRTErrorPresenter.h"
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
@@ -141,7 +141,7 @@ static inline BOOL IsUnitTesting()
     [[UIBarButtonItem appearance] setTitleTextAttributes:barItemsTitleAttributes
                                                 forState:UIControlStateNormal];
 
-    [[CRTSoundcloudTrackCell appearance] setWaveformBackgroundColor:[UIColor colorWithRed:58 /255.0
+    [[CRTTrackCell appearance] setWaveformBackgroundColor:[UIColor colorWithRed:58 /255.0
                                                                                     green:165/255.0
                                                                                      blue:226/255.0
                                                                                     alpha:1.0]];

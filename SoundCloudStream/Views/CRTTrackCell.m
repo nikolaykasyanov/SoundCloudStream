@@ -1,21 +1,21 @@
 //
-//  CRTSoundcloudTrackCell.m
+//  CRTTrackCell.m
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 19.11.13.
 //  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
 //
 
-#import "CRTSoundcloudTrackCell.h"
+#import "CRTTrackCell.h"
 
-@interface CRTSoundcloudTrackCell ()
+@interface CRTTrackCell ()
 
 @property (strong, nonatomic) IBOutlet UIImageView *waveformView;
 @property (strong, nonatomic) IBOutlet UILabel *trackTitleLabel;
 
 @end
 
-@implementation CRTSoundcloudTrackCell
+@implementation CRTTrackCell
 
 - (void)prepareForReuse
 {

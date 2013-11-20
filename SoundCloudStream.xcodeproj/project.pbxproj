@@ -21,8 +21,8 @@
 		1F13DB6F1839D38800762007 /* waveform.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F13DB6E1839D38800762007 /* waveform.png */; };
 		1F13DB72183A7A6900762007 /* CRTKeychainCredentialStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB71183A7A6900762007 /* CRTKeychainCredentialStorage.m */; };
 		1F13DB75183A7B4800762007 /* CRTDictionaryCredentialStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB74183A7B4800762007 /* CRTDictionaryCredentialStorage.m */; };
-		1F13DB7B183AB94D00762007 /* CRTSoundcloudTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */; };
-		1F13DB7D183AB96700762007 /* CRTSoundcloudTrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */; };
+		1F13DB7B183AB94D00762007 /* CRTTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB7A183AB94D00762007 /* CRTTrackCell.m */; };
+		1F13DB7D183AB96700762007 /* CRTTrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F13DB7C183AB96700762007 /* CRTTrackCell.xib */; };
 		1F13DB80183BCCCE00762007 /* CRTErrorPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F13DB7F183BCCCE00762007 /* CRTErrorPresenter.m */; };
 		1F8029F818313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F718313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.m */; };
 		1F8029FA1831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8029F91831403D00B9A662 /* CRTSoundcloudActivitiesResponseTests.m */; };
@@ -88,9 +88,9 @@
 		1F13DB71183A7A6900762007 /* CRTKeychainCredentialStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTKeychainCredentialStorage.m; sourceTree = "<group>"; };
 		1F13DB73183A7B4800762007 /* CRTDictionaryCredentialStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTDictionaryCredentialStorage.h; sourceTree = "<group>"; };
 		1F13DB74183A7B4800762007 /* CRTDictionaryCredentialStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTDictionaryCredentialStorage.m; sourceTree = "<group>"; };
-		1F13DB79183AB94D00762007 /* CRTSoundcloudTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudTrackCell.h; sourceTree = "<group>"; };
-		1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrackCell.m; sourceTree = "<group>"; };
-		1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRTSoundcloudTrackCell.xib; sourceTree = "<group>"; };
+		1F13DB79183AB94D00762007 /* CRTTrackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTTrackCell.h; sourceTree = "<group>"; };
+		1F13DB7A183AB94D00762007 /* CRTTrackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTTrackCell.m; sourceTree = "<group>"; };
+		1F13DB7C183AB96700762007 /* CRTTrackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CRTTrackCell.xib; sourceTree = "<group>"; };
 		1F13DB7E183BCCCE00762007 /* CRTErrorPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTErrorPresenter.h; sourceTree = "<group>"; };
 		1F13DB7F183BCCCE00762007 /* CRTErrorPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTErrorPresenter.m; sourceTree = "<group>"; };
 		1F8029F618313B5D00B9A662 /* CRTSoundcloudActivitiesResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudActivitiesResponse.h; sourceTree = "<group>"; };
@@ -271,9 +271,9 @@
 				E4E87A3EC8B6D115596A09F6 /* CRTPageLoadingView.m */,
 				1F13DB621837B2C500762007 /* CRTLoginViewController.h */,
 				1F13DB631837B2C500762007 /* CRTLoginViewController.m */,
-				1F13DB79183AB94D00762007 /* CRTSoundcloudTrackCell.h */,
-				1F13DB7A183AB94D00762007 /* CRTSoundcloudTrackCell.m */,
-				1F13DB7C183AB96700762007 /* CRTSoundcloudTrackCell.xib */,
+				1F13DB79183AB94D00762007 /* CRTTrackCell.h */,
+				1F13DB7A183AB94D00762007 /* CRTTrackCell.m */,
+				1F13DB7C183AB96700762007 /* CRTTrackCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -404,6 +404,7 @@
 				ORGANIZATIONNAME = "Nikolay Kasyanov";
 				TargetAttributes = {
 					1FE51D93182BFEB900C920C5 = {
+						DevelopmentTeam = U8629HVZ59;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -438,7 +439,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F13DB7D183AB96700762007 /* CRTSoundcloudTrackCell.xib in Resources */,
+				1F13DB7D183AB96700762007 /* CRTTrackCell.xib in Resources */,
 				1FE51DA2182BFEB900C920C5 /* InfoPlist.strings in Resources */,
 				1FE51DAA182BFEB900C920C5 /* Images.xcassets in Resources */,
 			);
@@ -540,7 +541,7 @@
 				1FD6CD1C182E315800CDA7DD /* constants.m in Sources */,
 				1F13DB6B1839C8B700762007 /* CRTSoundcloudImageLoader.m in Sources */,
 				1F13DB80183BCCCE00762007 /* CRTErrorPresenter.m in Sources */,
-				1F13DB7B183AB94D00762007 /* CRTSoundcloudTrackCell.m in Sources */,
+				1F13DB7B183AB94D00762007 /* CRTTrackCell.m in Sources */,
 				1F8029FD183146DF00B9A662 /* NSURL+CRTURLComparison.m in Sources */,
 				E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */,
 				E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */,
@@ -676,12 +677,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "SoundCloudStream/SoundCloudStream-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -694,11 +698,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SoundCloudStream/SoundCloudStream.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SoundCloudStream/SoundCloudStream-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "SoundCloudStream/SoundCloudStream-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -724,6 +731,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "SoundCloudStreamTests/SoundCloudStreamTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -744,6 +752,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "SoundCloudStreamTests/SoundCloudStreamTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = NO;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

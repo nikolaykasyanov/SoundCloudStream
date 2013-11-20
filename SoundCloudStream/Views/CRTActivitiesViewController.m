@@ -13,7 +13,7 @@
 #import "CRTSoundcloudActivity.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTPageLoadingView.h"
-#import "CRTSoundcloudTrackCell.h"
+#import "CRTTrackCell.h"
 #import "CRTErrorPresenter.h"
 #import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
@@ -65,7 +65,7 @@
 {
     [super viewDidLoad];
 
-    UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([CRTSoundcloudTrackCell class]) bundle:nil];
+    UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([CRTTrackCell class]) bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"Cell"];
 
     UITableViewCell *testCell = [cellNib instantiateWithOwner:nil options:nil].firstObject;
@@ -247,7 +247,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    CRTSoundcloudTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    CRTTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
     CRTSoundcloudActivity *activity = [self.viewModel activityAtIndex:indexPath.row];
 
