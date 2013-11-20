@@ -1,23 +1,21 @@
 PODS:
-  - AFNetworking (2.0.2):
+  - AFNetworking (2.0.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.0.2):
+  - AFNetworking/NSURLConnection (2.0.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.0.2):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.0.2)
-  - AFNetworking/Security (2.0.2)
-  - AFNetworking/Serialization (2.0.2)
-  - AFNetworking/UIKit (2.0.2):
+  - AFNetworking/NSURLSession (2.0.3):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.0.3)
+  - AFNetworking/Security (2.0.3)
+  - AFNetworking/Serialization (2.0.3)
+  - AFNetworking/UIKit (2.0.3):
     - AFNetworking/NSURLConnection
   - GROAuth2SessionManager (0.1.4):
     - AFNetworking/NSURLConnection (~> 2.0.0)
@@ -45,7 +43,7 @@ EXTERNAL SOURCES:
     :podspec: GROAuth2SessionManager.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: 22de50ae71ab1c4859773f61068d6fcd1d8f9a4d
+  AFNetworking: e499052cbf3d743e9bb727bb37adb9dc2547ba15
   GROAuth2SessionManager: a4493b87d8d5e1a91b80529d5f1ba31ff7648795
   Mantle: abc3b0c81bc66eb624cf9cebb8640e377d5a44ae
   OHHTTPStubs: 7be864a1c40c6a5007fe3e8679c109ca45590803
