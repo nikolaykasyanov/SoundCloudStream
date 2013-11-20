@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
 //
 
+#import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
+
 #import "CRTActivitiesViewController.h"
 #import "CRTLoginViewController.h"
 #import "CRTLoginViewModel.h"
@@ -15,7 +17,6 @@
 #import "CRTPageLoadingView.h"
 #import "CRTTrackCell.h"
 #import "CRTErrorPresenter.h"
-#import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
 
 static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, NSInteger section)
