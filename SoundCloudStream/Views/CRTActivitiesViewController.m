@@ -18,6 +18,19 @@
 #import <ReactiveCocoa/UIRefreshControl+RACCommandSupport.h>
 
 
+static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, NSInteger section)
+{
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:count];
+
+    for (NSUInteger index = 0; index < count; index++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:baseIndex + index inSection:section]];
+    }
+
+    return indexPaths;
+}
+
+
+
 @interface CRTActivitiesViewController ()
 
 @property (nonatomic, strong, readonly) CRTActivitiesViewModel *viewModel;
@@ -173,18 +186,16 @@
 
 - (void)pageDidLoadWithActivities:(NSArray *)activities
 {
+    if (activities.count == 0) {
+        return;
+    }
+
     if (activities.count == self.viewModel.numberOfActivities) { // first page
         [self.tableView reloadData];
     }
     else {
-        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:activities.count];
-
         NSUInteger baseIndex = self.viewModel.numberOfActivities - activities.count;
-
-        for (NSUInteger index = baseIndex; index < self.viewModel.numberOfActivities; index++) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-            [indexPaths addObject:indexPath];
-        }
+        NSArray *indexPaths = IndexPathsWithFromIndex(baseIndex, activities.count, 0);
 
         [self.tableView insertRowsAtIndexPaths:indexPaths
                               withRowAnimation:UITableViewRowAnimationNone];
