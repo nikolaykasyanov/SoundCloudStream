@@ -1,5 +1,5 @@
 //
-//  CRTSoundcloudImageLoaderTests.m
+//  CRTImageLoaderTests.m
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 18.11.13.
@@ -15,14 +15,14 @@ static NSString *const MarkHeader = @"X-CRT-Test";
 static const CGFloat MaxWaveformWidth = 320;
 
 
-@interface CRTSoundcloudImageLoaderTests : XCTestCase
+@interface CRTImageLoaderTests : XCTestCase
 
 @property (nonatomic, strong) CRTImageLoader *imageLoader;
 @property (nonatomic, copy) NSString *markHeaderValue;
 
 @end
 
-@implementation CRTSoundcloudImageLoaderTests
+@implementation CRTImageLoaderTests
 
 - (void)setUp
 {

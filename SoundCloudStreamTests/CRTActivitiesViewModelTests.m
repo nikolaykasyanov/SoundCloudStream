@@ -1,5 +1,5 @@
 //
-//  CRTSoundcloudActivitiesViewModelTests.m
+//  CRTActivitiesViewModelTests.m
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 13.11.13.
@@ -19,7 +19,7 @@ static const NSUInteger PageSize = 5;
 static const NSUInteger MinInvisibleItems = 2;
 static NSString *const MarkHeader = @"X-CRT-Test";
 
-@interface CRTSoundcloudActivitiesViewModelTests : XCTestCase
+@interface CRTActivitiesViewModelTests : XCTestCase
 
 @property (nonatomic, strong) CRTSoundcloudClient *client;
 @property (nonatomic, strong) CRTActivitiesViewModel *viewModel;
@@ -50,7 +50,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 }
 
 
-@implementation CRTSoundcloudActivitiesViewModelTests
+@implementation CRTActivitiesViewModelTests
 
 - (id <OHHTTPStubsDescriptor>)stubFirstPage
 {
