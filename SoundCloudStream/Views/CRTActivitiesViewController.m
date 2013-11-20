@@ -45,6 +45,7 @@
         _errorPresenter = errorPresenter;
 
         [self rac_liftSelector:@selector(pageDidLoadWithActivities:) withSignals:_viewModel.pages, nil];
+        [self rac_liftSelector:@selector(freshActivitiesDidLoad:) withSignals:_viewModel.freshBatches, nil];
 
         // will complete when view is on screen and ready to go
         RACSignal *firstAppearance = [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] ignoreValues];
@@ -188,6 +189,21 @@
         [self.tableView insertRowsAtIndexPaths:indexPaths
                               withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+- (void)freshActivitiesDidLoad:(NSArray *)activities
+{
+    NSCAssert(self.viewModel.numberOfActivities > 0, @"Refresh should never occurr while activity list is empty");
+
+    if (activities.count == 0) {
+        return;
+    }
+
+    CGFloat futureContentOffsetY = self.tableView.contentOffset.y + activities.count * self.tableView.rowHeight;
+
+    [self.tableView reloadData];
+
+    [self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, futureContentOffsetY) animated:NO];
 }
 
 #pragma mark - Page loading view show/hide
