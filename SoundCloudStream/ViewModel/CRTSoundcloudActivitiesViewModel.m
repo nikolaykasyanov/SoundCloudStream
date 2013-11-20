@@ -8,7 +8,7 @@
 
 #import "CRTSoundcloudActivitiesViewModel.h"
 #import "CRTSoundcloudClient.h"
-#import "CRTSoundcloudImageLoader.h"
+#import "CRTImageLoader.h"
 #import "CRTSoundcloudTrack.h"
 #import "CRTSoundcloudActivitiesResponse.h"
 #import "CRTLoginViewModel.h"
@@ -55,7 +55,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 @property (nonatomic) BOOL lastPageLoadingFailed;
 
 @property (nonatomic, strong, readonly) NSCache *imageCache;
-@property (nonatomic, strong, readonly) CRTSoundcloudImageLoader *imageLoader;
+@property (nonatomic, strong, readonly) CRTImageLoader *imageLoader;
 
 @end
 
@@ -79,7 +79,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     }
 
     _imageCache = [[NSCache alloc] init];
-    _imageLoader = [[CRTSoundcloudImageLoader alloc] initWithURLSessionConfiguration:nil maxWaveformWidth:320];
+    _imageLoader = [[CRTImageLoader alloc] initWithURLSessionConfiguration:nil maxWaveformWidth:320];
 
     _reloads = [[self rac_signalForSelector:@selector(resetContents)] mapReplace:[RACUnit defaultUnit]];
 

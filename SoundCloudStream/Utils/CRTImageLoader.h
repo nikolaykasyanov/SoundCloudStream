@@ -1,5 +1,5 @@
 //
-//  CRTSoundcloudImageLoader.h
+//  CRTImageLoader.h
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 18.11.13.
@@ -11,7 +11,7 @@
 #import <AFNetworking/AFHTTPSessionManager.h>
 
 
-@interface CRTSoundcloudImageLoader : AFHTTPSessionManager
+@interface CRTImageLoader : AFHTTPSessionManager
 
 - (instancetype)initWithURLSessionConfiguration:(NSURLSessionConfiguration *)configuration
                                maxWaveformWidth:(CGFloat)maxWaveformWidth;

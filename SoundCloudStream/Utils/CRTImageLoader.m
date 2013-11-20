@@ -1,15 +1,15 @@
 //
-//  CRTSoundcloudImageLoader.m
+//  CRTImageLoader.m
 //  SoundCloudStream
 //
 //  Created by Nikolay Kasyanov on 18.11.13.
 //  Copyright (c) 2013 Nikolay Kasyanov. All rights reserved.
 //
 
-#import "CRTSoundcloudImageLoader.h"
+#import "CRTImageLoader.h"
 
 
-@interface CRTSoundcloudImageLoader ()
+@interface CRTImageLoader ()
 
 @property (nonatomic, strong, readonly) RACScheduler *lockScheduler;
 
@@ -26,7 +26,7 @@
 @end
 
 
-@implementation CRTSoundcloudImageLoader
+@implementation CRTImageLoader
 
 - (instancetype)initWithURLSessionConfiguration:(NSURLSessionConfiguration *)configuration
                                maxWaveformWidth:(CGFloat)maxWaveformWidth

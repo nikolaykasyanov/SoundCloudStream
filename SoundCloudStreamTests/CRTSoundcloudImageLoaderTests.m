@@ -8,7 +8,7 @@
 
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import <CoreGraphics/CoreGraphics.h>
-#import "CRTSoundcloudImageLoader.h"
+#import "CRTImageLoader.h"
 
 
 static NSString *const MarkHeader = @"X-CRT-Test";
@@ -17,7 +17,7 @@ static const CGFloat MaxWaveformWidth = 320;
 
 @interface CRTSoundcloudImageLoaderTests : XCTestCase
 
-@property (nonatomic, strong) CRTSoundcloudImageLoader *imageLoader;
+@property (nonatomic, strong) CRTImageLoader *imageLoader;
 @property (nonatomic, copy) NSString *markHeaderValue;
 
 @end
@@ -34,7 +34,7 @@ static const CGFloat MaxWaveformWidth = 320;
     NSNumber *tag = @(arc4random());
     self.markHeaderValue = tag.stringValue;
 
-    self.imageLoader = [[CRTSoundcloudImageLoader alloc] initWithURLSessionConfiguration:sessionConfiguration
+    self.imageLoader = [[CRTImageLoader alloc] initWithURLSessionConfiguration:sessionConfiguration
                                                                         maxWaveformWidth:MaxWaveformWidth];
     [self.imageLoader.requestSerializer setValue:self.markHeaderValue forHTTPHeaderField:MarkHeader];
 }
