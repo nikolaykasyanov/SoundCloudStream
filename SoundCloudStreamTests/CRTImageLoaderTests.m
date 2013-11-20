@@ -78,7 +78,7 @@ static const CGFloat MaxWaveformWidth = 320;
     XCTAssertNotNil(image);
 
     size_t expectedImageWidth = (size_t) (image.scale * MaxWaveformWidth);
-    size_t expectedImageHeight = (size_t) ceil(0.5 * sourceImageHeight * (MaxWaveformWidth * image.scale) / sourceImageWidth);
+    size_t expectedImageHeight = (size_t) ceil(sourceImageHeight * (MaxWaveformWidth * image.scale) / sourceImageWidth);
 
     XCTAssertEqual(CGImageGetWidth(image.CGImage), (size_t) expectedImageWidth);
     XCTAssertEqual(CGImageGetHeight(image.CGImage), (size_t) expectedImageHeight);

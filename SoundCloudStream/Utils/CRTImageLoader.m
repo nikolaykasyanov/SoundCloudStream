@@ -69,7 +69,7 @@
                         CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
                                 croppedImageRect);
 
-                        CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height / 2));
+                        CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height));
 
                         CGRect finalImageRect = (CGRect) {.origin = CGPointZero, .size = newSize};
 
