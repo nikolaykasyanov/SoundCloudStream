@@ -57,10 +57,9 @@
     }] replayLazily];
 }
 
-- (RACSignal *)collectionFromURL:(NSURL *)cursorURL itemsOfClass:(Class)itemClass
+- (RACSignal *)collectionFromURL:(NSURL *)cursorURL
 {
     NSCParameterAssert(cursorURL != nil && [self.baseURL crt_areSchemeAndHostMatchWithURL:cursorURL]);
-    NSCParameterAssert(itemClass != Nil);
 
     return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
 

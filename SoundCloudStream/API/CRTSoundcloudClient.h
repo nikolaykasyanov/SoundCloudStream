@@ -13,6 +13,6 @@
 
 - (RACSignal *)affiliatedTracksWithLimit:(NSUInteger)limit;
 
-- (RACSignal *)collectionFromURL:(NSURL *)cursorURL itemsOfClass:(Class)itemClass;
+- (RACSignal *)collectionFromURL:(NSURL *)cursorURL;
 
 @end

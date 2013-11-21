@@ -110,8 +110,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
                                                     signal = [client affiliatedTracksWithLimit:pageSize];
                                                 }
                                                 else {
-                                                    signal = [client collectionFromURL:self.nextCursor
-                                                                        itemsOfClass:[CRTSoundcloudActivity class]];
+                                                    signal = [client collectionFromURL:self.nextCursor];
                                                 }
 
                                                 return [signal takeUntil:hasNoCredential];
@@ -133,8 +132,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
                                        signalBlock:^RACSignal *(id _) {
                                            @strongify(self);
 
-                                           return [[client collectionFromURL:self.futureCursor
-                                                                itemsOfClass:[CRTSoundcloudActivity class]] takeUntil:hasNoCredential];
+                                           return [[client collectionFromURL:self.futureCursor] takeUntil:hasNoCredential];
                                        }];
 
     _freshBatches = [self rac_liftSelector:@selector(clientDidLoadNewItems:)
