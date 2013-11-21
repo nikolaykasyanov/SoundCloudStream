@@ -49,6 +49,7 @@
 		ADB2153B21494A3A86C5A24A /* libPods-SoundCloudStreamTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8F017BADEE43DA89A6662E /* libPods-SoundCloudStreamTests.a */; };
 		E4E87100FCC44D6FAB43C32C /* CRTPageLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E87A3EC8B6D115596A09F6 /* CRTPageLoadingView.m */; };
 		E4E871021D0C61DD0FE55980 /* track.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87E6634287EBE92154247 /* track.json */; };
+		E4E871029A989BAD11AB17D4 /* CRTWaveformResizeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E87A855940597FE838CC0A /* CRTWaveformResizeOperation.m */; };
 		E4E8724FB37801B976DBA209 /* playlist_activity.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87457DFFE700E426EBA5C /* playlist_activity.json */; };
 		E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */; };
 		E4E87979E6087E9EB01E9D96 /* track_activity.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87330BB58E8E1159898B7 /* track_activity.json */; };
@@ -135,7 +136,9 @@
 		E4E87330BB58E8E1159898B7 /* track_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track_activity.json; sourceTree = "<group>"; };
 		E4E87457DFFE700E426EBA5C /* playlist_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = playlist_activity.json; sourceTree = "<group>"; };
 		E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
+		E4E879DC4A610284CEF518CE /* CRTWaveformResizeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTWaveformResizeOperation.h; sourceTree = "<group>"; };
 		E4E87A3EC8B6D115596A09F6 /* CRTPageLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTPageLoadingView.m; sourceTree = "<group>"; };
+		E4E87A855940597FE838CC0A /* CRTWaveformResizeOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTWaveformResizeOperation.m; sourceTree = "<group>"; };
 		E4E87AF89317ABFB81762A6C /* SoundCloudStream.entitlements */ = {isa = PBXFileReference; lastKnownFileType = file.entitlements; path = SoundCloudStream.entitlements; sourceTree = "<group>"; };
 		E4E87E218913BD510F9736FA /* CRTPageLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTPageLoadingView.h; sourceTree = "<group>"; };
 		E4E87E6634287EBE92154247 /* track.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track.json; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				1F13DB71183A7A6900762007 /* CRTKeychainCredentialStorage.m */,
 				1F13DB7E183BCCCE00762007 /* CRTErrorPresenter.h */,
 				1F13DB7F183BCCCE00762007 /* CRTErrorPresenter.m */,
+				E4E879DC4A610284CEF518CE /* CRTWaveformResizeOperation.h */,
+				E4E87A855940597FE838CC0A /* CRTWaveformResizeOperation.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				1F13DB641837B2C500762007 /* CRTLoginViewController.m in Sources */,
 				1F13DB72183A7A6900762007 /* CRTKeychainCredentialStorage.m in Sources */,
 				E4E87100FCC44D6FAB43C32C /* CRTPageLoadingView.m in Sources */,
+				E4E871029A989BAD11AB17D4 /* CRTWaveformResizeOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

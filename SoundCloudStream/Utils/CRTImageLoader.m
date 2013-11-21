@@ -7,6 +7,7 @@
 //
 
 #import "CRTImageLoader.h"
+#import "CRTWaveformResizeOperation.h"
 
 
 @interface CRTImageLoader ()
@@ -22,6 +23,8 @@
 @property (nonatomic, strong, readonly) NSMapTable *activeSignals;
 
 @property (nonatomic, readonly) CGFloat maxWaveformWidth;
+
+@property (nonatomic, strong, readonly) NSOperationQueue *resizeQueue;
 
 @end
 
@@ -39,6 +42,9 @@
         _lockScheduler = [RACScheduler scheduler];
         _activeSignals = [NSMapTable strongToWeakObjectsMapTable];
         _maxWaveformWidth = maxWaveformWidth;
+        _resizeQueue = [[NSOperationQueue alloc] init];
+        _resizeQueue.maxConcurrentOperationCount = 2;
+        _resizeQueue.name = [NSString stringWithFormat:@"%@@%p operation queue", NSStringFromClass(self.class), (__bridge void *)self];
 
         self.responseSerializer = [[AFImageResponseSerializer alloc] init];
     }
@@ -59,26 +65,16 @@
         if (imageSignal == nil) {
             imageSignal = [[[[self rac_GET:url.absoluteString parameters:nil]
                     deliverOn:[RACScheduler scheduler]]
-                    map:^id(UIImage *bigImage) {
+                    flattenMap:^RACStream *(UIImage *originalImage) {
 
-                        CGFloat scaleFactor = self.maxWaveformWidth / bigImage.size.width;
+                        CRTWaveformResizeOperation *resizeOperation =
+                                [[CRTWaveformResizeOperation alloc] initWithImage:originalImage
+                                                                            width:self.maxWaveformWidth
+                                                                            scale:[UIScreen mainScreen].scale];
 
-                        size_t bigImageWidth = CGImageGetWidth(bigImage.CGImage);
-                        size_t bigImageHeight = CGImageGetHeight(bigImage.CGImage);
-                        CGRect croppedImageRect = CGRectMake(0, bigImageHeight / 2, bigImageWidth, bigImageHeight / 2);
-                        CGImageRef croppedImageRef = CGImageCreateWithImageInRect(bigImage.CGImage,
-                                croppedImageRect);
+                        [self.resizeQueue addOperation:resizeOperation];
 
-                        CGSize newSize = CGSizeMake(self.maxWaveformWidth, ceil(scaleFactor * bigImage.size.height));
-
-                        CGRect finalImageRect = (CGRect) {.origin = CGPointZero, .size = newSize};
-
-                        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
-                        CGContextDrawImage(UIGraphicsGetCurrentContext(), finalImageRect, croppedImageRef);
-                        CGImageRelease(croppedImageRef);
-                        UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-                        UIGraphicsEndImageContext();
-                        return scaledImage;
+                        return resizeOperation.result;
                     }] replayLazily];
             [self.activeSignals setObject:imageSignal forKey:url];
         }
