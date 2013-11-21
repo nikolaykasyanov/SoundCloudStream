@@ -59,12 +59,12 @@
 
 - (void)testUnknownPathDeserialization
 {
-    NSDictionary *testData = @{
+    NSDictionary *testJSONObject = @{
             @"someKey" : @"Some value"
     };
 
     NSError *jsonError = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:testData options:0 error:&jsonError];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:testJSONObject options:0 error:&jsonError];
 
     NSURL *url = [NSURL URLWithString:@"http://api.soundcloud.com/unknown/path.json"];
     NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:url
@@ -79,9 +79,15 @@
                                                               data:jsonData
                                                              error:&responseError];
 
-    XCTAssertNotNil(responseObject, @"Cannot deserialize response: %@", responseError);
+    XCTAssertNil(responseObject, @"Response should be nil");
+    XCTAssertNotNil(responseError, @"Response deserialization should fail with error");
 
-    XCTAssertEqualObjects(responseObject, testData, @"Unexpected response object");
+    XCTAssertEqualObjects(responseError.domain, CRTSoundcloudResponseErrorDomain);
+    XCTAssertEqual(responseError.code, CRTSoundcloudResponseErrorUnknownPath);
+
+    NSDictionary *userInfo = responseError.userInfo;
+
+    XCTAssertEqualObjects(userInfo[CRTSoundcloudResponseErrorRawObjectKey], testJSONObject);
 }
 
 @end

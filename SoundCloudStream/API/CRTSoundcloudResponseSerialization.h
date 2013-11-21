@@ -8,6 +8,14 @@
 
 #import "AFURLResponseSerialization.h"
 
+
+extern NSString *const CRTSoundcloudResponseErrorDomain;
+extern const NSInteger CRTSoundcloudResponseErrorUnknownPath;
+
+extern NSString *const CRTSoundcloudResponseErrorResponseKey;
+extern NSString *const CRTSoundcloudResponseErrorRawObjectKey;
+
+
 @interface CRTSoundcloudResponseSerialization : AFJSONResponseSerializer
 
 - (instancetype)initWithPathMapping:(NSDictionary *)mapping;

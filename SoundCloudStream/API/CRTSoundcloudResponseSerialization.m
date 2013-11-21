@@ -10,6 +10,13 @@
 #import <Mantle/MTLJSONAdapter.h>
 
 
+NSString *const CRTSoundcloudResponseErrorDomain = @"CRTSoundcloudResponseErrorDomain";
+const NSInteger CRTSoundcloudResponseErrorUnknownPath = -1;
+
+NSString *const CRTSoundcloudResponseErrorResponseKey = @"CRTSoundcloudResponseErrorResponseKey";
+NSString *const CRTSoundcloudResponseErrorRawObjectKey = @"CRTSoundcloudResponseErrorRawObjectKey";
+
+
 @interface CRTSoundcloudResponseSerialization ()
 
 @property (nonatomic, copy, readonly) NSDictionary *mapping;
@@ -50,8 +57,14 @@
     }];
 
     if (modelClass == Nil) {
-        NSLog(@"No matching model class for URL path %@", response.URL.path);
-        return jsonDictionary;
+        *error = [NSError errorWithDomain:CRTSoundcloudResponseErrorDomain
+                                     code:CRTSoundcloudResponseErrorUnknownPath
+                                 userInfo:@{
+                                         CRTSoundcloudResponseErrorResponseKey : response,
+                                         CRTSoundcloudResponseErrorRawObjectKey : jsonDictionary,
+                                         NSLocalizedDescriptionKey : NSLocalizedString(@"Cannot deserialize response", @"Message about failed response deserialization"),
+                                 }];
+        return nil;
     }
     else {
         return [MTLJSONAdapter modelOfClass:modelClass
