@@ -39,6 +39,8 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
 
 @property (nonatomic, strong, readonly) CRTErrorPresenter *errorPresenter;
 
+@property (nonatomic, copy) NSString *activityCellReuseIdentifier;
+
 @end
 
 
@@ -81,9 +83,10 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
     [super viewDidLoad];
 
     UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([CRTTrackCell class]) bundle:nil];
-    [self.tableView registerNib:cellNib forCellReuseIdentifier:@"Cell"];
-
     UITableViewCell *testCell = [cellNib instantiateWithOwner:nil options:nil].firstObject;
+    self.activityCellReuseIdentifier = testCell.reuseIdentifier;
+    [self.tableView registerNib:cellNib forCellReuseIdentifier:self.activityCellReuseIdentifier];
+
     self.tableView.rowHeight = CGRectGetHeight(testCell.frame);
     self.tableView.backgroundColor = testCell.backgroundColor;
 
@@ -274,8 +277,7 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    CRTTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    CRTTrackCell *cell = [tableView dequeueReusableCellWithIdentifier:self.activityCellReuseIdentifier forIndexPath:indexPath];
 
     CRTSoundcloudActivity *activity = [self.viewModel activityAtIndex:indexPath.row];
 
