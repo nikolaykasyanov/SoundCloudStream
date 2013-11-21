@@ -14,28 +14,6 @@
 #import "CRTLoginViewModel.h"
 
 
-static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary *existingItemsMap)
-{
-    NSMutableArray *actuallyNewItems = [newItems mutableCopy];
-
-    NSUInteger currentIndex = 0;
-
-    for (CRTSoundcloudActivity *activity in newItems) {
-
-        id <NSCopying> key = activity.uniqueIdentifier;
-
-        if (key == nil || existingItemsMap[key] != nil) {
-            [actuallyNewItems removeObjectAtIndex:currentIndex];
-        }
-        else {
-            currentIndex++;
-        }
-    }
-
-    return actuallyNewItems;
-}
-
-
 @interface CRTActivitiesViewModel ()
 
 /** NSArray[CRTSoundcloudActivity] */
@@ -220,7 +198,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     self.futureCursor = response.futureURL;
 
     NSArray *items = response.collection;
-    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
+    NSArray *actuallyNewItems = [self actuallyNewItemsFromArray:items];
 
     [self.items addObjectsFromArray:actuallyNewItems];
 
@@ -240,7 +218,7 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
     self.futureCursor = response.futureURL;
 
     NSArray *items = response.collection;
-    NSArray *actuallyNewItems = FilterActuallyNewSupportedItems(items, self.itemIdToItemMap);
+    NSArray *actuallyNewItems = [self actuallyNewItemsFromArray:items];
 
     [self.items insertObjects:actuallyNewItems
                     atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, actuallyNewItems.count)]];
@@ -260,6 +238,27 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
 
     [self.items removeAllObjects];
     [self.itemIdToItemMap removeAllObjects];
+}
+
+- (NSArray *)actuallyNewItemsFromArray:(NSArray *)newItems
+{
+    NSMutableArray *actuallyNewItems = [newItems mutableCopy];
+
+    NSUInteger currentIndex = 0;
+
+    for (CRTSoundcloudActivity *activity in newItems) {
+
+        id <NSCopying> key = activity.uniqueIdentifier;
+
+        if (key == nil || self.itemIdToItemMap[key] != nil) {
+            [actuallyNewItems removeObjectAtIndex:currentIndex];
+        }
+        else {
+            currentIndex++;
+        }
+    }
+
+    return actuallyNewItems;
 }
 
 @end
