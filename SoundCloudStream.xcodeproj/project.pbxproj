@@ -52,6 +52,7 @@
 		E4E871029A989BAD11AB17D4 /* CRTWaveformResizeOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E87A855940597FE838CC0A /* CRTWaveformResizeOperation.m */; };
 		E4E8724FB37801B976DBA209 /* playlist_activity.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87457DFFE700E426EBA5C /* playlist_activity.json */; };
 		E4E872F68D41DCD25683C4A0 /* CRTSoundcloudTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */; };
+		E4E8779999E72195155AB904 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4E8734D9976DE7595F95BB8 /* Localizable.strings */; };
 		E4E87979E6087E9EB01E9D96 /* track_activity.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87330BB58E8E1159898B7 /* track_activity.json */; };
 		E4E87D2E6BD05A13B07FAEEA /* activities.json in Resources */ = {isa = PBXBuildFile; fileRef = E4E87299ED027FD33F456C97 /* activities.json */; };
 		E4E87E404F25095DE56CCF84 /* CRTSoundcloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E4E87F44B5BC659E41CA7F7E /* CRTSoundcloudClient.m */; };
@@ -134,6 +135,7 @@
 		E4E87299ED027FD33F456C97 /* activities.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = activities.json; sourceTree = "<group>"; };
 		E4E872D391E444CCC6D413A4 /* CRTSoundcloudTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRTSoundcloudTrack.m; sourceTree = "<group>"; };
 		E4E87330BB58E8E1159898B7 /* track_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = track_activity.json; sourceTree = "<group>"; };
+		E4E8734D9976DE7595F95BB8 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = SoundCloudStream/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		E4E87457DFFE700E426EBA5C /* playlist_activity.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = playlist_activity.json; sourceTree = "<group>"; };
 		E4E876FF22EAEB280AD8F0D9 /* CRTSoundcloudClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTSoundcloudClient.h; sourceTree = "<group>"; };
 		E4E879DC4A610284CEF518CE /* CRTWaveformResizeOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRTWaveformResizeOperation.h; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 				1F13DB79183AB94D00762007 /* CRTTrackCell.h */,
 				1F13DB7A183AB94D00762007 /* CRTTrackCell.m */,
 				1F13DB7C183AB96700762007 /* CRTTrackCell.xib */,
+				E4E8734D9976DE7595F95BB8 /* Localizable.strings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				1F13DB7D183AB96700762007 /* CRTTrackCell.xib in Resources */,
 				1FE51DA2182BFEB900C920C5 /* InfoPlist.strings in Resources */,
 				1FE51DAA182BFEB900C920C5 /* Images.xcassets in Resources */,
+				E4E8779999E72195155AB904 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

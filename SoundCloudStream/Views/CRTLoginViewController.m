@@ -35,7 +35,7 @@
         _errorPresenter = errorPresenter;
 
         self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.title = @"Connect";
+        self.title = NSLocalizedString(@"Connect", @"Connect button title");
     }
 
     return self;
@@ -69,7 +69,8 @@
     self.navigationItem.leftBarButtonItem = cancelItem;
 
     self.connectButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.connectButton setTitle:@"Connect with SoundCloud" forState:UIControlStateNormal];
+    [self.connectButton setTitle:NSLocalizedString(@"Connect with SoundCloud", @"Connect button title")
+                        forState:UIControlStateNormal];
     self.connectButton.rac_command = self.viewModel.startLogin;
 
     [self.view addSubview:self.connectButton];

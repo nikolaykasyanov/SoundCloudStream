@@ -95,13 +95,13 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
         [self.tableView reloadData];
     }];
 
-    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", @"Logout button title")
                                                          style:UIBarButtonItemStylePlain
                                                         target:nil
                                                         action:NULL];
     logoutButton.rac_command = self.viewModel.loginViewModel.logout;
 
-    UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login"
+    UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"Login button title")
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(triggerLogin)];
@@ -114,7 +114,7 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
     self.refreshControl.rac_command = self.viewModel.refresh;
 
     self.pageLoadingView = [[CRTPageLoadingView alloc] init];
-    [self.pageLoadingView.button setTitle:@"Try again" forState:UIControlStateNormal];
+    [self.pageLoadingView.button setTitle:NSLocalizedString(@"Try again", @"Retry button title") forState:UIControlStateNormal];
     self.pageLoadingView.button.rac_command = self.viewModel.loadNextPage;
     self.tableView.tableFooterView = self.pageLoadingView;
 
@@ -243,10 +243,10 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
         }
         else {
             if (![application openURL:track.permalinkURL]) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                message:@"Cannot open this track :("
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error alert title")
+                                                                message:NSLocalizedString(@"Cannot open this track :(", @"Track opening error text")
                                                                delegate:nil
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:NSLocalizedString(@"OK", @"OK button title")
                                                       otherButtonTitles:nil];
 
                 [alert show];
@@ -289,7 +289,7 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
         [cell rac_liftSelector:@selector(setWaveformImage:) withSignals:waveformImage, nil];
     }
     else {
-        cell.textLabel.text = @"Unsupported activity";
+        cell.textLabel.text = NSLocalizedString(@"Unsupported activity", @"Unsupported activity cell text");
     }
 
     cell.inUse = YES;

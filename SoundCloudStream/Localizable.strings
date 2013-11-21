@@ -1,0 +1,15 @@
+/****************************************************************************/
+/* Localization file */
+
+
+"Connect with SoundCloud" = "Connect with SoundCloud";
+
+"Connect" = "Connect";
+"Logout" = "Logout";
+"Login" = "Login";
+"Try again" = "Try again";
+"Cannot open this track :(" = "Cannot open this track :(";
+"Error" = "Error";
+"OK" = "OK";
+"Unsupported activity" = "Unsupported activity";
+"Cannot deserialize response" = "Cannot deserialize response";
