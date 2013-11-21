@@ -37,4 +37,6 @@
 
 @property  (nonatomic, strong, readonly) RACSignal *loading;
 
+@property (nonatomic, strong, readonly) RACSignal *errors;
+
 @end

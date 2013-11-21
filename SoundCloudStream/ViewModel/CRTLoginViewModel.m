@@ -72,6 +72,8 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
             }];
         }];
 
+        _errors = _obtainToken.errors;
+
         _startLogin = [[RACCommand alloc] initWithEnabled:[_obtainToken.executing not]
                                               signalBlock:^RACSignal *(id _) {
 

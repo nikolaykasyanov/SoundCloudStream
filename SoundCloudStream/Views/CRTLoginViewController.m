@@ -77,6 +77,8 @@
     [[RACObserve(self.viewModel, hasCredential) ignore:@NO] subscribeNext:^(id _) {
         [self dismissSelf];
     }];
+
+    [self.errorPresenter rac_liftSelector:@selector(presentError:) withSignals:self.viewModel.errors, nil];
 }
 
 - (void)didReceiveMemoryWarning
