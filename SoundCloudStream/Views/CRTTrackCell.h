@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) UIColor *waveformBackgroundColor UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, getter = isInUse) BOOL inUse;
+
 @end

@@ -23,6 +23,8 @@
 
     self.waveformView.image = nil;
     self.waveformView.backgroundColor = self.backgroundColor;
+
+    self.inUse = NO;
 }
 
 - (void)setTrackTitle:(NSString *)trackTitle
@@ -32,9 +34,11 @@
 
 - (void)setWaveformImage:(UIImage *)waveformImage
 {
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.3;
-    [self.waveformView.layer addAnimation:transition forKey:kCATransition];
+    if (self.inUse) {
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.3;
+        [self.waveformView.layer addAnimation:transition forKey:kCATransition];
+    }
     self.waveformView.backgroundColor = self.waveformBackgroundColor;
     self.waveformView.image = waveformImage;
 }

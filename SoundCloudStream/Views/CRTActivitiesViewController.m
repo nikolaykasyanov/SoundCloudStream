@@ -292,6 +292,8 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
         cell.textLabel.text = @"Unsupported activity";
     }
 
+    cell.inUse = YES;
+
     return cell;
 }
 
