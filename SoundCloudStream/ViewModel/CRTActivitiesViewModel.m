@@ -133,8 +133,8 @@ static NSArray *FilterActuallyNewSupportedItems(NSArray *newItems, NSDictionary 
                                        signalBlock:^RACSignal *(id _) {
                                            @strongify(self);
 
-                                           return [client collectionFromURL:self.futureCursor
-                                                               itemsOfClass:[CRTSoundcloudActivity class]];
+                                           return [[client collectionFromURL:self.futureCursor
+                                                                itemsOfClass:[CRTSoundcloudActivity class]] takeUntil:hasNoCredential];
                                        }];
 
     _freshBatches = [self rac_liftSelector:@selector(clientDidLoadNewItems:)

@@ -264,4 +264,63 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertFalse(refreshEnabled.boolValue);
 }
 
+- (void)testPageLoadingTerminationAfterLogout
+{
+    [self stubFirstPage];
+
+    __block NSArray *pageItems = nil;
+    [self.viewModel.pages subscribeNext:^(NSArray *items) {
+        pageItems = items;
+    }];
+
+    // start loading
+    RACSignal *executionSignal = [self.viewModel.loadNextPage execute:nil];
+
+    // wait until execution actually starts
+    NSNumber *executionStarted = [[self.viewModel.loadNextPage.executing ignore:@NO] asynchronousFirstOrDefault:nil
+                                                                                                       success:NULL
+                                                                                                         error:NULL];
+
+    XCTAssertTrue(executionStarted.boolValue);
+
+    // let's logout
+    [self.viewModel.loginViewModel.logout execute:nil];
+
+    BOOL loadingCompleted = [executionSignal asynchronouslyWaitUntilCompleted:NULL];
+
+    XCTAssertTrue(loadingCompleted, @"Signal must successfuly complete");
+    XCTAssertNil(pageItems, @"No items should be loaded");
+}
+
+- (void)testRefreshTerminationAfterLogout
+{
+    [self stubFirstPageAndAssertCompletion];
+
+    __block NSArray *newItems = nil;
+    [self.viewModel.freshBatches subscribeNext:^(NSArray *items) {
+        newItems = items;
+    }];
+
+    [self stubNextPageFromURL:self.viewModel.futureCursor resource:@"new.json"];
+
+    // start loading
+    RACSignal *executionSignal = [self.viewModel.refresh execute:nil];
+
+    // wait until execution actually starts
+    NSNumber *executionStarted = [[self.viewModel.refresh.executing ignore:@NO] asynchronousFirstOrDefault:nil
+                                                                                                        success:NULL
+                                                                                                          error:NULL];
+
+    XCTAssertTrue(executionStarted.boolValue);
+
+    // let's logout
+    [self.viewModel.loginViewModel.logout execute:nil];
+
+    NSError *anError = nil;
+    BOOL loadingCompleted = [executionSignal asynchronouslyWaitUntilCompleted:&anError];
+
+    XCTAssertTrue(loadingCompleted, @"Signal must successfuly complete");
+    XCTAssertNil(newItems, @"No items should be loaded");
+}
+
 @end
