@@ -23,6 +23,10 @@
 @class RACCommand;
 
 
+/**
+ This view model allows to initiate OAuth authentication sequence and manages OAuth credentials using provided
+ CRTCredentialStorage instance
+ */
 @interface CRTLoginViewModel : NSObject
 
 - (instancetype)init __attribute__((unavailable("Use -initWithClient: instead")));
@@ -31,12 +35,16 @@
              credentialStorage:(id <CRTCredentialStorage>)credentialStorage;
 
 
+/// After executing this command user will be redirected to SoundCloud Connect page
 @property (nonatomic, strong, readonly) RACCommand *startLogin;
 @property (nonatomic, strong, readonly) RACCommand *logout;
+
+/// This property is KVO-compatible
 @property (nonatomic, readonly) BOOL hasCredential;
 
 @property  (nonatomic, strong, readonly) RACSignal *loading;
 
+/// Sends an error every time OAuth token fetching fails
 @property (nonatomic, strong, readonly) RACSignal *errors;
 
 @end

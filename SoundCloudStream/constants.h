@@ -24,5 +24,6 @@ extern NSString *const CRTSoundcloudCredentialsKey;
 
 #pragma mark - Notifications
 
+/// This notification should be posted from application delegate's URL handling methods
 extern NSString *const CRTOpenURLNotification;
 extern NSString *const CRTOpenURLNotificationURLKey;
