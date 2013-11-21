@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/gabrielrinaldi/GROAuth2SessionManager'
   s.author   = { 'Gabriel Rinaldi' => 'gabriel@gabrielrinaldi.me', 'Mattt Thompson' => 'm@mattt.me' }
   s.source   = { :git => 'https://github.com/corristo/GROAuth2SessionManager.git',
-                 :commit => '480772510308b302dc718a58693edb8503b1343a' }
+                 :commit => '650a13cce39059a83a9d23fbd9760cd3330a8254' }
   s.source_files = 'GROAuth2SessionManager'
   s.requires_arc = true
 
