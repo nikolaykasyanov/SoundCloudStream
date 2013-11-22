@@ -57,6 +57,9 @@ NSString *const CRTSoundcloudResponseErrorRawObjectKey = @"CRTSoundcloudResponse
     }];
 
     if (modelClass == Nil) {
+        if (error == NULL) {
+            return nil;
+        }
         *error = [NSError errorWithDomain:CRTSoundcloudResponseErrorDomain
                                      code:CRTSoundcloudResponseErrorUnknownPath
                                  userInfo:@{
