@@ -71,6 +71,7 @@
     self.connectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.connectButton setTitle:NSLocalizedString(@"Connect with SoundCloud", @"Connect button title")
                         forState:UIControlStateNormal];
+    self.connectButton.titleLabel.font = [UIFont systemFontOfSize:20];
     self.connectButton.rac_command = self.viewModel.startLogin;
 
     [self.view addSubview:self.connectButton];
