@@ -78,8 +78,12 @@
     _items = [NSMutableArray array];
     _itemIdToItemMap = [NSMutableDictionary dictionary];
 
+    RACSignal *canLoadNextPage = [[RACSignal combineLatest:@[
+        [RACObserve(self, endOfFeedReached) not],
+        RACObserve(_loginViewModel, hasCredential)
+        ]] and];
 
-    _loadNextPage = [[RACCommand alloc] initWithEnabled:[RACObserve(self, endOfFeedReached) not]
+    _loadNextPage = [[RACCommand alloc] initWithEnabled:canLoadNextPage
                                             signalBlock:^RACSignal *(id _) {
                                                 @strongify(self);
 
