@@ -70,9 +70,17 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
 
         [self rac_liftSelector:@selector(loginRequested:) withSignals:loginViewModel, nil];
 
-        RACSignal *loggedIn = RACObserve(_viewModel.loginViewModel, hasCredential);
+        RACSignal *loggedOut = [RACObserve(_viewModel.loginViewModel, hasCredential) ignore:@YES];
 
-        [_viewModel.loadNextPage rac_liftSelector:@selector(execute:) withSignals:[loggedIn ignore:@NO], nil];
+        // it's like simple finite state machine:
+        // (idle) -> (logged in) -> (logged out) -> (idle) -> ...
+        RACSignal *pageLoadBecomesEnabled = [[[[_viewModel.loadNextPage.enabled ignore:@NO] // wait until page loading enabled
+                                               take:1] // only take first value
+                                               concat:[[loggedOut take:1] ignoreValues]] // do not complete signal until logout
+                                               repeat]; // resubscribe to signal AFTER logout
+
+        [_viewModel.loadNextPage rac_liftSelector:@selector(execute:)
+                                      withSignals:pageLoadBecomesEnabled, nil];
     }
 
     return self;
