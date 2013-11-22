@@ -100,9 +100,8 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
 
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Logout", @"Logout button title")
                                                          style:UIBarButtonItemStylePlain
-                                                        target:nil
-                                                        action:NULL];
-    logoutButton.rac_command = self.viewModel.loginViewModel.logout;
+                                                        target:self.viewModel.loginViewModel
+                                                        action:@selector(doLogout)];
 
     UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Login", @"Login button title")
                                                                   style:UIBarButtonItemStylePlain

@@ -102,13 +102,6 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
         RAC(self, hasCredential) = hasCredential;
 
-        _logout = [[RACCommand alloc] initWithEnabled:hasCredential
-                                          signalBlock:^RACSignal *(id input) {
-                                              return [[RACSignal empty] initially:^{
-                                                  [credentialStorage deleteCredentialForKey:CRTSoundcloudCredentialsKey];
-                                              }];
-                                          }];
-
         RACSignal *notification = [[NSNotificationCenter defaultCenter] rac_addObserverForName:CRTOpenURLNotification
                                                                                         object:nil];
 
@@ -128,7 +121,9 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 
         RAC(self, OAuthCredential) = [[RACSignal merge:@[
                 [_obtainToken.executionSignals switchToLatest],
-                [_logout.executionSignals mapReplace:nil],
+                [[[self rac_signalForSelector:@selector(doLogout)] mapReplace:nil] doNext:^(id x) {
+                    [credentialStorage deleteCredentialForKey:CRTSoundcloudCredentialsKey];
+                }],
         ]] startWith:[credentialStorage credentialForKey:CRTSoundcloudCredentialsKey]];
     }
 
@@ -160,6 +155,10 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
 - (RACSignal *)loading
 {
     return self.obtainToken.executing;
+}
+
+- (void)doLogout
+{
 }
 
 @end

@@ -35,9 +35,10 @@
              credentialStorage:(id <CRTCredentialStorage>)credentialStorage;
 
 
+- (void)doLogout;
+
 /// After executing this command user will be redirected to SoundCloud Connect page
 @property (nonatomic, strong, readonly) RACCommand *startLogin;
-@property (nonatomic, strong, readonly) RACCommand *logout;
 
 /// This property is KVO-compatible
 @property (nonatomic, readonly) BOOL hasCredential;

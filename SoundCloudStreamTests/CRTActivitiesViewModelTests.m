@@ -250,10 +250,13 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertNotNil(self.viewModel.nextCursor);
     XCTAssertNotNil(self.viewModel.futureCursor);
 
-    [self.viewModel.loginViewModel.logout execute:nil];
+    __block BOOL reloadReceived = NO;
 
-    BOOL reloadReceived = NO;
-    [self.viewModel.reloads asynchronousFirstOrDefault:nil success:&reloadReceived error:NULL];
+    [self.viewModel.reloads subscribeNext:^(id _) {
+        reloadReceived = YES;
+    }];
+
+    [self.viewModel.loginViewModel doLogout];
 
     XCTAssertTrue(reloadReceived);
     XCTAssertNil(self.viewModel.nextCursor);
@@ -270,6 +273,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
     __block NSArray *pageItems = nil;
     [self.viewModel.pages subscribeNext:^(NSArray *items) {
+        NSLog(@"Items received");
         pageItems = items;
     }];
 
@@ -284,7 +288,11 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertTrue(executionStarted.boolValue);
 
     // let's logout
-    [self.viewModel.loginViewModel.logout execute:nil];
+    [self.viewModel.loginViewModel doLogout];
+
+    [RACObserve(self.viewModel.loginViewModel, hasCredential) subscribeNext:^(id x) {
+        NSLog(@"Has credential: %@", x);
+    }];
 
     BOOL loadingCompleted = [executionSignal asynchronouslyWaitUntilCompleted:NULL];
 
@@ -298,6 +306,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
     __block NSArray *newItems = nil;
     [self.viewModel.freshBatches subscribeNext:^(NSArray *items) {
+        NSLog(@"Items received");
         newItems = items;
     }];
 
@@ -314,7 +323,11 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     XCTAssertTrue(executionStarted.boolValue);
 
     // let's logout
-    [self.viewModel.loginViewModel.logout execute:nil];
+    [self.viewModel.loginViewModel doLogout];
+
+    [RACObserve(self.viewModel.loginViewModel, hasCredential) subscribeNext:^(id x) {
+        NSLog(@"Has credential: %@", x);
+    }];
 
     NSError *anError = nil;
     BOOL loadingCompleted = [executionSignal asynchronouslyWaitUntilCompleted:&anError];
