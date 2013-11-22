@@ -123,6 +123,7 @@ static NSDictionary *ParametersFromQueryString(NSString *queryString)
                 [_obtainToken.executionSignals switchToLatest],
                 [[[self rac_signalForSelector:@selector(doLogout)] mapReplace:nil] doNext:^(id x) {
                     [credentialStorage deleteCredentialForKey:CRTSoundcloudCredentialsKey];
+                    [client.requestSerializer clearAuthorizationHeader];
                 }],
         ]] startWith:[credentialStorage credentialForKey:CRTSoundcloudCredentialsKey]];
     }
