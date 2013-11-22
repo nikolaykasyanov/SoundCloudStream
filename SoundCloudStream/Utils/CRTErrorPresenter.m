@@ -107,6 +107,7 @@ static const NSTimeInterval NotificationLifetime = 2.0;
             notificationView.alpha = 0;
         } completion:^(BOOL finished) {
             [notificationView removeFromSuperview];
+            [self.dynamicAnimator removeBehavior:snap];
 
             NSCAssert(self.numberOfNotifications > 0, @"Unexpected number of notifications");
             self.numberOfNotifications--;
