@@ -25,12 +25,13 @@
 @property (nonatomic, strong) NSURL *nextCursor;
 @property (nonatomic, strong) NSURL *futureCursor;
 
-@property (nonatomic, readonly) BOOL endOfFeedReached;
+@property (nonatomic) BOOL endOfFeedReached;
 
 @property (nonatomic, readonly) NSUInteger pageSize;
 @property (nonatomic, readonly) NSUInteger minInvisibleItems;
 
 @property (nonatomic) BOOL lastPageLoadingFailed;
+@property (nonatomic) BOOL hasNoActivities;
 
 @property (nonatomic, strong, readonly) NSCache *imageCache;
 @property (nonatomic, strong, readonly) CRTImageLoader *imageLoader;
@@ -63,7 +64,7 @@
 
     _loginViewModel = loginViewModel;
 
-    RACSignal *hasNoCredential = [[RACObserve(_loginViewModel, hasCredential) distinctUntilChanged] ignore:@YES];
+    RACSignal *hasNoCredential = [[[RACObserve(_loginViewModel, hasCredential) skip:1] distinctUntilChanged] ignore:@YES];
 
     @weakify(self);
     [hasNoCredential subscribeNext:^(id _) {
@@ -105,8 +106,11 @@
         return @(value != nil);
     }];
 
+    RACSignal *notEmpty = [RACObserve(self, hasNoActivities) not];
+
     RACSignal *canRefresh = [[RACSignal combineLatest:@[
             hasFutureCursor,
+            notEmpty,
             RACObserve(_loginViewModel, hasCredential),
     ]] and];
 
@@ -122,16 +126,12 @@
 
     _errors = [RACSignal merge:@[ _loadNextPage.errors, _refresh.errors ]];
 
-    RACSignal *resetSignal = [self rac_signalForSelector:@selector(resetContents)];
-
-    RAC(self, endOfFeedReached) = [[[[[RACObserve(self, nextCursor) skip:1] map:^NSNumber *(id cursor) {
-        return @(cursor == nil);
-    }] startWith:@NO] takeUntil:resetSignal] repeat];
-
     RAC(self, lastPageLoadingFailed) = [RACSignal merge:@[
             [[_loadNextPage.executionSignals switchToLatest] mapReplace:@NO],
             [_loadNextPage.errors mapReplace:@YES],
     ]];
+
+    [self resetContents];
 
     return self;
 }
@@ -212,6 +212,9 @@
         self.itemIdToItemMap[key] = activity;
     }
 
+    self.hasNoActivities = actuallyNewItems.count == 0;
+    self.endOfFeedReached = !self.hasNoActivities && (self.nextCursor == nil);
+
     return actuallyNewItems;
 }
 
@@ -239,6 +242,8 @@
 - (void)resetContents
 {
     self.nextCursor = self.futureCursor = nil;
+    self.hasNoActivities = YES;
+    self.endOfFeedReached = NO;
 
     [self.items removeAllObjects];
     [self.itemIdToItemMap removeAllObjects];

@@ -129,6 +129,7 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
     self.tableView.tableFooterView = self.pageLoadingView;
 
     RACSignal *showLoadingView = [[[RACSignal combineLatest:@[
+            RACObserve(self.viewModel, hasNoActivities),
             self.viewModel.loadNextPage.executing,
             RACObserve(self.viewModel, lastPageLoadingFailed),
     ]] or] distinctUntilChanged];
@@ -147,7 +148,10 @@ static NSArray *IndexPathsWithFromIndex(NSUInteger baseIndex, NSUInteger count, 
 
     RAC(self.pageLoadingView, animating) = self.viewModel.loadNextPage.executing;
     RAC(self.pageLoadingView, displayButton) = [[RACSignal combineLatest:@[
-            RACObserve(self.viewModel, lastPageLoadingFailed),
+            [[RACSignal combineLatest:@[
+                RACObserve(self.viewModel, hasNoActivities),
+                RACObserve(self.viewModel, lastPageLoadingFailed)
+            ]] or],
             [self.viewModel.loadNextPage.executing not]
     ]] and];
 

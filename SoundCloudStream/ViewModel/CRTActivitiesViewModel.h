@@ -76,6 +76,7 @@
 @property (nonatomic, strong, readonly) RACSignal *errors;
 
 @property (nonatomic, readonly) BOOL lastPageLoadingFailed;
+@property (nonatomic, readonly) BOOL hasNoActivities;
 
 @property (nonatomic, readonly) NSRange visibleRange;
 

@@ -52,14 +52,14 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
 @implementation CRTActivitiesViewModelTests
 
-- (id <OHHTTPStubsDescriptor>)stubFirstPage
+- (id <OHHTTPStubsDescriptor>)stubFirstPageFromResource:(NSString *)resource
 {
     return
         [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
             return [request.allHTTPHeaderFields[MarkHeader] isEqualToString:self.markHeaderValue];
         }
         withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
-            return JSONResponseFromResource(self.crt_testBundle, @"first.json");
+            return JSONResponseFromResource(self.crt_testBundle, resource);
         }];
 }
 
@@ -89,7 +89,7 @@ static OHHTTPStubsResponse *JSONResponseWithError()
 
 - (void)stubFirstPageAndAssertCompletion
 {
-    id firstStub = [self stubFirstPage];
+    id firstStub = [self stubFirstPageFromResource:@"first.json"];
     BOOL completed = [[self.viewModel.loadNextPage execute:nil] asynchronouslyWaitUntilCompleted:NULL];
     [OHHTTPStubs removeStub:firstStub];
 
@@ -132,6 +132,34 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     [OHHTTPStubs removeAllStubs];
 
     [super tearDown];
+}
+
+- (void)testInitialState
+{
+    XCTAssertTrue(self.viewModel.hasNoActivities);
+
+    NSNumber *canLoadPage = self.viewModel.loadNextPage.enabled.first;
+    XCTAssertTrue(canLoadPage.boolValue);
+
+    NSNumber *canRefresh = self.viewModel.refresh.enabled.first;
+    XCTAssertFalse(canRefresh.boolValue);
+}
+
+- (void)testEmptyFirstPage
+{
+    [self stubFirstPageFromResource:@"empty.json"];
+
+    [self.viewModel.loadNextPage execute:nil];
+
+    BOOL success = NO;
+    [self.viewModel.pages asynchronousFirstOrDefault:nil success:&success error:NULL];
+
+    XCTAssertTrue(success);
+
+    XCTAssertTrue(self.viewModel.hasNoActivities);
+
+    NSNumber *canLoadPage = self.viewModel.loadNextPage.enabled.first;
+    XCTAssertTrue(canLoadPage.boolValue);
 }
 
 - (void)testFirstAndSecondPageFetch
@@ -265,11 +293,13 @@ static OHHTTPStubsResponse *JSONResponseWithError()
     NSNumber *refreshEnabled = [[self.viewModel.refresh.enabled ignore:@YES] asynchronousFirstOrDefault:nil success:NULL error:NULL];
 
     XCTAssertFalse(refreshEnabled.boolValue);
+
+    XCTAssertTrue(self.viewModel.hasNoActivities);
 }
 
 - (void)testPageLoadingTerminationAfterLogout
 {
-    [self stubFirstPage];
+    [self stubFirstPageFromResource:@"first.json"];
 
     __block NSArray *pageItems = nil;
     [self.viewModel.pages subscribeNext:^(NSArray *items) {
