@@ -1,4 +1,4 @@
-**Copyright (c) 2013, Nikolay Kasyanov.**
+**Copyright (c) 2013-2014, Nikolay Kasyanov.**
 **All rights reserved.**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
