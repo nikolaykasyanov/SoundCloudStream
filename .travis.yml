@@ -1,4 +1,5 @@
 language: objective-c
+rvm: 1.9.3
 
 script:
   - xctool -workspace SoundCloudStream.xcworkspace -scheme SoundCloudStream -sdk iphonesimulator -arch i386 RUN_CLANG_STATIC_ANALYZER=YES build test
