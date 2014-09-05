@@ -2,7 +2,7 @@ This is a simple app that uses [SoundCloud][soundcloud] API to authenticate and 
 
 Acknowledgements:
 
-* [ReactiveCocoa][rac] — FRP stuff and bindings;
+* [ReactiveCocoa][rac] — reactive stuff and bindings;
 * [AFNetworking][afn] — best iOS/Mac networking framework ever;
 * [GROAuth2SessionManager][afn_oauth2] — OAuth 2 implementation for AFNetworking 2, slightly [modified][afn_oauth2_mod] to be more compatible;
 * [Mantle][mantle] — models & JSON mapping;
